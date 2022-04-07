@@ -43,7 +43,7 @@ export const getAuthThunk = () => (dispatch) => {
 }
 
 export const loginThunk = (loginData) => (dispatch) => {
-    authAPI.login(loginData).then(data => {
+    return authAPI.login(loginData).then(data => {
         if (data.resultCode === 0) {
             return dispatch(setAuthUserData())
         } else if (data.resultCode === 10) {
@@ -59,7 +59,7 @@ export const loginThunk = (loginData) => (dispatch) => {
 }
 
 export const logoutThunk = () => (dispatch) => {
-    authAPI.logout().then(data => {
+    return authAPI.logout().then(data => {
         data.resultCode === 0 && dispatch(setAuthUserData(null, null, null, false))
     })
 }

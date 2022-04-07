@@ -23,12 +23,8 @@ const Login = (props) => {
                 }}
                 validateOnChange
                 validationSchema={schema}
-                onSubmit={async (values) => {
-                    props.login(values)
-                    setTimeout(() => {
-                        props.getAuth()
-                        if (props.isLogged) window.location.reload()
-                    }, 500);
+                onSubmit={(values) => {
+                    props.login(values).then(() => props.getAuth())
                 }}
             >
                 {({ errors, touched, dirty, isValid, handleBlur }) => (

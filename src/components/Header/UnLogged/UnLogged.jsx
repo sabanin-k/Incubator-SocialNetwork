@@ -8,7 +8,7 @@ const UnLogged = () => {
         <header className={styles.header}>
             <img className={styles.logo} src={logo} alt='logo'></img>
             <div className={styles.linkDiv}>
-                <Link to='#' className={styles.link + ' ' + styles.login}>Вход</Link>
+                <Link to='/login' className={styles.link + ' ' + styles.login}>Вход</Link>
             </div>
         </header>
     )

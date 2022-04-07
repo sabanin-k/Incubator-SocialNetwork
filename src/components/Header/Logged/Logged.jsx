@@ -9,12 +9,7 @@ const Logged = (props) => {
             <img className={styles.logo} src={logo} alt='logo'/>
             <div className={styles.linkDiv}>
                 <Link to={'profile/'} className={`${styles.link} ${styles.userName}`}>{props.login}</Link>
-                <button onClick={() => {
-                    props.logoutThunk()()
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 500);
-                }} className={styles.exits}>Выйти</button>
+                <button onClick={() => props.logoutThunk()} className={styles.exits}>Выйти</button>
             </div>
         </header>
     )
