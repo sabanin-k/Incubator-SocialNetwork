@@ -37,6 +37,9 @@ export const getUserProfileThunk = (match) => {
         profileAPI.getProfile(userId).then(data => {
             dispatch(getUserProfile(data))
         })
+        profileAPI.getStatus(userId).then(response => {
+            dispatch(getStatus(response.data))
+        })
     }
 }
 
