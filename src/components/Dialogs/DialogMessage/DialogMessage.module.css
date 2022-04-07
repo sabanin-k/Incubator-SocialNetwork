@@ -1,0 +1,24 @@
+.message {
+    width: 60%;
+}
+
+.message:hover .delete {
+    display: inline;
+}
+
+.delete {
+    display: none;
+
+    margin-left: 20px;
+
+    color: var(--red-likes);
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

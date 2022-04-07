@@ -1,0 +1,39 @@
+.form {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: var(--bg-content);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px
+}
+
+.input {
+    width: 200px;
+    display: inline;
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.label {
+    color: var(--font-grey-disactive);
+    font-size: 13px;
+}
+
+.errorText {
+    color: rgb(124, 39, 39);
+}
+
+.captchaWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

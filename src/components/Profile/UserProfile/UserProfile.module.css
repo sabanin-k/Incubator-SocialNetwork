@@ -1,0 +1,30 @@
+.wrapper {
+    color: var(--font-grey);
+    display: flex;
+    padding-bottom: 50px;
+}
+
+.photoWrapper {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.about {
+    margin-left: 100px;
+}
+
+.idDiv {
+    width: 200px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.idSpan {
+    color: var(--font-grey-disactive);
+}
+
+.status {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
