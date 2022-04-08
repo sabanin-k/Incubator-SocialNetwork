@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import DialogMessage from "./DialogMessage";
-import { deleteMessage } from "../../State/dialogsReducer";
+import { deleteMessage } from "../../../store/reducers/dialogsReducer";
 
 const mapStateToProps = (state) => {
     return {

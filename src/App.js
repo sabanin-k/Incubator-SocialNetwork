@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import Dialogs from './components/Dialogs/Dialogs';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Music from './components/MusicSection/Music';
@@ -9,10 +11,8 @@ import Profile from './components/Profile/Profile';
 import UsersContainer from './components/Users/UsersContainer';
 import Settings from './components/SettingsSection/Settings';
 import LoginContainer from './components/Login/LoginContainer';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { initialApp } from './components/State/appReducer';
 import Preloader from './components/common/Preloader/Preloader';
+import { initialApp } from './store/reducers/appReducer';
 import './App.css';
 
 function App({ initialized, initialApp }) {

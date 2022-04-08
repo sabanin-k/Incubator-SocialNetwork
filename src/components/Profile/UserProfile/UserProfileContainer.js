@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
 import { Component } from "react";
-import { getUserProfileThunk } from "../../State/userProfileReducer";
+import { getUserProfileThunk } from "../../../store/reducers/userProfileReducer";
 import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { compose } from "redux";
 import withMatchToProps from "../../../hoc/withMatchToProps";
-import { getIsLogged } from "../../State/Selectors/authSelector";
-import { getUserProfile } from "../../State/Selectors/userProfileSelector";
+import { getIsLogged } from "../../../store/selectors/authSelector";
+import { getUserProfile } from "../../../store/selectors/userProfileSelector";
 
 class UserProfileContainer extends Component {
     componentDidMount() {

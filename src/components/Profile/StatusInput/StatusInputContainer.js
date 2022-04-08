@@ -1,8 +1,8 @@
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { getAuthUserId } from "../../State/Selectors/authSelector"
-import { getStatus, getUserId } from "../../State/Selectors/userProfileSelector"
-import { updateStatusThunk } from "../../State/userProfileReducer"
+import { getAuthUserId } from "../../../store/selectors/authSelector"
+import { getStatus, getUserId } from "../../../store/selectors/userProfileSelector"
+import { updateStatusThunk } from "../../../store/reducers/userProfileReducer"
 import StatusInput from "./StatusInput"
 
 const StatusInputContainer = (props) => {

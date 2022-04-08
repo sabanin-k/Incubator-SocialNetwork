@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { pressLike } from "../../../State/profileReducer";
+import { pressLike } from "../../../../store/reducers/profileReducer";
 import Post from "./Post";
 
 const mapStateToProps = (state) => {

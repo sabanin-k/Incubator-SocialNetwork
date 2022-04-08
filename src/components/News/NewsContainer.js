@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getNewsThunk, getContent } from './../State/newsReducer';
+import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
 import News from './News';
 import Preloader from "../common/Preloader/Preloader";
-import { getHasContent, getIsFetching, getNews } from "../State/Selectors/newsSelector";
+import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
 
 class NewsContainer extends Component {
     componentDidMount() {

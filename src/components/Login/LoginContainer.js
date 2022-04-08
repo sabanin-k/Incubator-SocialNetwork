@@ -1,8 +1,8 @@
 import { connect } from "react-redux"
 // import { Navigate } from "react-router-dom"
 import Login from "./Login"
-import { loginThunk, getAuthThunk } from '../State/authReducer';
-import { getCaptchaURL, getErrorMessage, getIsLogged } from "../State/Selectors/authSelector";
+import { loginThunk, getAuthThunk } from '../../store/reducers/authReducer';
+import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selectors/authSelector";
 
 const LoginContainer = (props) => {
     // if (props.isLogged) return <Navigate to={'/profile'}/>
