@@ -32,7 +32,7 @@ const StatusInput = ({ status, updateStatus, userId, authUserId }) => {
                     onBlur={handleOnBlur}
                     onChange={handleOnChange}
                     autoFocus={true} />
-                : <p className={styles.p} onDoubleClick={handleDoubleClick}>{status || 'тут мог быть статус'}</p>}
+                : <p className={styles.p} onDoubleClick={handleDoubleClick}>{status || 'статус зажопил'}</p>}
         </div>
     )
 }

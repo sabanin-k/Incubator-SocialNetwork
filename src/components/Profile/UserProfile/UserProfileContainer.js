@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Component } from "react";
-import { getUserProfileThunk } from "../../../store/reducers/userProfileReducer";
+import { getUserProfileThunk, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { compose } from "redux";
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, { getUserProfileThunk }),
+    connect(mapStateToProps, { getUserProfileThunk, setProfileDataThunk }),
     withNavigateToLogin,
     withMatchToProps
     )(UserProfileContainer)

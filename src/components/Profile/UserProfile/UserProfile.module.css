@@ -1,3 +1,7 @@
+h2 {
+    margin: 0;
+}
+
 .wrapper {
     color: var(--font-grey);
     display: flex;
@@ -10,21 +14,51 @@
 }
 
 .about {
+    width: 300px;
+    margin-top: 20px;
     margin-left: 100px;
 }
 
 .idDiv {
-    width: 200px;
+    width: 120%;
 
+    display: flex;
+    justify-content: space-between;
+}
+
+.jobDiv {
+    width: 120%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutDiv {
+    width: 120%;
     display: flex;
     justify-content: space-between;
 }
 
 .idSpan {
     color: var(--font-grey-disactive);
+    margin-right: 10px;
+}
+
+.div {
+    margin-top: 10px;
 }
 
 .status {
-    margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.socialDiv {
+    width: 120%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.contactsSpan {
+    color: var(--font-grey-disactive);
 }

@@ -7,7 +7,7 @@ const Navigation = () => {
     return <nav className={style.nav}>
         <ul className={style.ul}>
             <li className={style.li}>
-                <NavLink className={navData => navData.isActive ? style.active : style.link} to='/profile'>Профиль</NavLink>
+                <NavLink className={navData => navData.isActive ? style.active : style.link} to='/profile'>Мой профиль</NavLink>
             </li>
             <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/dialogs'>Сообщения</NavLink>
@@ -15,15 +15,15 @@ const Navigation = () => {
             <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/news'>Новости</NavLink>
             </li>
-            <li className={style.li}>
+            {/* <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/music'>Музыка</NavLink>
-            </li>
+            </li> */}
             <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/users'>Люди</NavLink>
             </li>
-            <li className={style.li}>
+            {/* <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/settings'>Настройки</NavLink>
-            </li>
+            </li> */}
         </ul>
 
         <FriendsOnlineContainer />

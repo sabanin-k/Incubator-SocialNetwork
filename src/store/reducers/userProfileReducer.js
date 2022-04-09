@@ -22,12 +22,17 @@ const UserProfileReducer = (state = inititalState, action) => {
                 ...state,
                 status: action.statusMessage
             }
+        case 'SET-PROFILE-DATA':
+            return {
+                ...state
+            }
         default:
             return state;
     }
 }
 
 const getUserProfile = (userProfile) => ({ type: 'GET-USER-PROFILE', userProfile })
+const setProfileData = () => ({ type: 'SET-PROFILE-DATA' })
 const setStatus = (statusMessage) => ({ type: 'SET-STATUS', statusMessage })
 const getStatus = (statusMessage) => ({ type: 'GET-STATUS', statusMessage })
 
@@ -57,6 +62,12 @@ export const getStatusThunk = (userId) => {
             dispatch(getStatus(response.data))
         })
     }
+}
+
+export const setProfileDataThunk = (profileData) => (dispatch) => {
+    return profileAPI.setProfile(profileData).then(data => {
+        data.resultCode === 0 && dispatch(setProfileData())
+    })
 }
 
 export default UserProfileReducer;
