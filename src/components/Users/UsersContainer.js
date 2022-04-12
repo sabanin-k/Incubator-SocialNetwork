@@ -3,7 +3,6 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
 import { getCurrentPage, getInProgressFollow, getIsFetching, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
 
@@ -19,8 +18,6 @@ class UsersContainer extends Component {
 
     render() {
         return (
-        <>
-            {this.props.isFetching && <Preloader />}
             <Users
                 totalCount={this.props.totalCount}
                 pageSize={this.props.pageSize}
@@ -31,7 +28,7 @@ class UsersContainer extends Component {
                 followThunk={this.props.followThunk}
                 unfollowThunk={this.props.unfollowThunk}
                 isFetching={this.props.isFetching} />
-        </>)
+        )
     }
 }
 

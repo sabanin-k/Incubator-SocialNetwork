@@ -36,9 +36,8 @@ const setProfileData = () => ({ type: 'SET-PROFILE-DATA' })
 const setStatus = (statusMessage) => ({ type: 'SET-STATUS', statusMessage })
 const getStatus = (statusMessage) => ({ type: 'GET-STATUS', statusMessage })
 
-export const getUserProfileThunk = (match) => {
+export const getUserProfileThunk = (userId) => {
     return (dispatch) => {
-        let userId = match != null ? match.params.userId : 23081
         profileAPI.getProfile(userId).then(data => {
             dispatch(getUserProfile(data))
         })

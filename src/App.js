@@ -1,19 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import Dialogs from './components/Dialogs/Dialogs';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Music from './components/MusicSection/Music';
 import Navigation from './components/Navigation/Navigation';
-import NewsContainer from './components/News/NewsContainer';
 import Profile from './components/Profile/Profile';
 import UsersContainer from './components/Users/UsersContainer';
-import Settings from './components/SettingsSection/Settings';
 import LoginContainer from './components/Login/LoginContainer';
 import Preloader from './components/common/Preloader/Preloader';
+import FriendsContainer from './components/Friends/FriendsContainer';
 import { initialApp } from './store/reducers/appReducer';
 import './App.css';
+const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
+const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
 
 function App({ initialized, initialApp }) {
 
@@ -32,13 +31,12 @@ function App({ initialized, initialApp }) {
           <Routes>
             <Route path='/' element={<Profile />} />
             <Route path='/profile/' element={<Profile key='me' />} />
-            <Route path='/dialogs' element={<Dialogs />} />
-            <Route path='/news' element={<NewsContainer />} />
-            <Route path='/music' element={<Music />} />
+            <Route path='/dialogs' element={<Suspense fallback={<Preloader />}> <Dialogs /> </Suspense>} />
+            <Route path='/news' element={ <Suspense fallback={<Preloader />}> <NewsContainer /> </Suspense>} />
             <Route path='/users' element={<UsersContainer />} />
-            <Route path='/users/*' element={<Profile key='user' />} />
-            <Route path='/settings' element={<Settings />} />
+            <Route path='/users/*' element={<Profile />} />
             <Route path='/login' element={<LoginContainer />} />
+            <Route path='/friends' element={<FriendsContainer />}/>
           </Routes>
         </div>
       </div>

@@ -46,7 +46,7 @@ const Login = (props) => {
                             <Field type='checkbox' name='rememberMe' id='rememberMe' className={styles.checkbox} />
                             <label htmlFor="rememberMe" className={styles.label}>Запомнить меня</label>
                         </div>
-                        <button type='submit' disabled={!isValid || !dirty} >Поїхали!</button>
+                        <button type='submit' disabled={!isValid || !dirty} >Погнали!</button>
                     </Form>
                 )}
             </Formik>

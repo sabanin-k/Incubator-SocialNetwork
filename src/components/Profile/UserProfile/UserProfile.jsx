@@ -3,7 +3,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import userImage from "../../../assets/images/user.png";
 import StatusInputContainer from "../StatusInput/StatusInputContainer";
 import SocialLinks from "../../common/SocialsLinks/SocialLinks";
-import s from "./UserProfile.module.css";
+import styles from "./UserProfile.module.css";
 
 const UserProfile = ({ userProfile }) => {
 
@@ -23,41 +23,41 @@ const UserProfile = ({ userProfile }) => {
 
     if (!userProfile) { return <Preloader /> }
     return (
-        <div className={s.wrapper}>
-            <div className={s.photoWrapper}>
+        <div className={styles.wrapper}>
+            <div className={styles.photoWrapper}>
                 <img src={userProfile.photos.large || userImage} alt={userProfile.fullName} width='200px' />
             </div>
-            <div className={s.about}>
+            <div className={styles.about}>
                 <h2>{userProfile.fullName}</h2>
-                <div className={s.status}>
+                <div className={styles.status}>
                     <StatusInputContainer />
                 </div>
-                <div className={s.idDiv}>
-                    <span className={s.idSpan}>ID:</span>
+                <div className={styles.idDiv}>
+                    <span className={styles.idSpan}>ID:</span>
                     <span>{userProfile.userId}</span>
                 </div>
-                <div className={s.div}>
+                <div className={styles.div}>
                     {!userProfile.lookingForAJob
-                        ? <span className={s.idSpan}>Работу не ищет</span>
-                        : <div className={s.jobDiv}>
-                            <span className={s.idSpan}>Работа:</span>
+                        ? <span className={styles.idSpan}>Работу не ищет</span>
+                        : <div className={styles.jobDiv}>
+                            <span className={styles.idSpan}>Работа:</span>
                             <span>
                                 {userProfile.lookingForAJobDescription}
                             </span>
                         </div>}
                 </div>
-                <div className={s.div}>
+                <div className={styles.div}>
                     {!userProfile.aboutMe
-                        ? <span className={s.idSpan}>О себе ничего не рассказывает</span>
-                        : <div className={s.aboutDiv}>
-                            <span className={s.idSpan}>О себе:</span>
+                        ? <span className={styles.idSpan}>О себе ничего не рассказывает</span>
+                        : <div className={styles.aboutDiv}>
+                            <span className={styles.idSpan}>О себе:</span>
                             <span>
                                 {userProfile.aboutMe}
                             </span>
                         </div>}
 
                 </div>
-                <div className={s.socialDiv}>
+                <div className={styles.socialDiv}>
                     <div>
                         <SocialLinks fb={userProfile.contacts.facebook}
                             web={userProfile.contacts.website}

@@ -5,6 +5,7 @@ h2 {
 .wrapper {
     color: var(--font-grey);
     display: flex;
+    justify-content: space-around;
     padding-bottom: 50px;
 }
 
@@ -14,26 +15,23 @@ h2 {
 }
 
 .about {
-    width: 300px;
     margin-top: 20px;
-    margin-left: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .idDiv {
-    width: 120%;
 
     display: flex;
     justify-content: space-between;
 }
 
 .jobDiv {
-    width: 120%;
     display: flex;
     justify-content: space-between;
 }
 
 .aboutDiv {
-    width: 120%;
     display: flex;
     justify-content: space-between;
 }

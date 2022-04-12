@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import FriendsOnlineContainer from './FriendsOnline/FriendsOnlineContainer';
+import FriendsFieldContainer from '../common/FriendsField/FriendsFieldContainer';
 import style from './Navigation.module.css';
 
 const Navigation = () => {
@@ -15,18 +15,12 @@ const Navigation = () => {
             <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/news'>Новости</NavLink>
             </li>
-            {/* <li className={style.li}>
-                <NavLink className={navData => navData.isActive ? style.active : style.link} to='/music'>Музыка</NavLink>
-            </li> */}
             <li className={style.li}>
                 <NavLink className={navData => navData.isActive ? style.active : style.link} to='/users'>Люди</NavLink>
             </li>
-            {/* <li className={style.li}>
-                <NavLink className={navData => navData.isActive ? style.active : style.link} to='/settings'>Настройки</NavLink>
-            </li> */}
         </ul>
 
-        <FriendsOnlineContainer />
+        <FriendsFieldContainer />
     </nav>
 }
 

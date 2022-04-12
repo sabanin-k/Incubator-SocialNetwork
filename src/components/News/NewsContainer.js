@@ -1,25 +1,24 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
 import News from './News';
 import Preloader from "../common/Preloader/Preloader";
 import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
 
-class NewsContainer extends Component {
-    componentDidMount() {
-        this.props.getNewsThunk()
-    }
+const NewsContainer = (props) => {
+    useEffect(() => {
+        props.getNewsThunk()
+    }, [])
 
-    render() {
-        return (
-            <>
-                {this.props.isFetching && <Preloader />}
-                <News
-                    news={this.props.news}
-                    hasContent={this.props.hasContent}
-                    getContent={this.props.getContent} />
-            </>)
-    }
+    return (
+        <>
+            {props.isFetching && <Preloader />}
+            <News
+                news={props.news}
+                hasContent={props.hasContent}
+                getContent={props.getContent} />
+        </>
+    )
 }
 
 const mapStateToProps = (state) => ({
