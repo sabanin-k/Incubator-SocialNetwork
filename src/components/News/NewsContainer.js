@@ -5,18 +5,19 @@ import News from './News';
 import Preloader from "../common/Preloader/Preloader";
 import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
 
-const NewsContainer = (props) => {
+const NewsContainer = ({getNewsThunk, isFetching, news, hasContent, getContent}) => {
     useEffect(() => {
-        props.getNewsThunk()
-    }, [])
+        getNewsThunk()
+    }, [getNewsThunk])
 
     return (
         <>
-            {props.isFetching && <Preloader />}
+            {isFetching && <Preloader />}
+            {console.log('return')}
             <News
-                news={props.news}
-                hasContent={props.hasContent}
-                getContent={props.getContent} />
+                news={news}
+                hasContent={hasContent}
+                getContent={getContent} />
         </>
     )
 }

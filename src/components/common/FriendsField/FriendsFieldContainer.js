@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
+import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
+import { useEffect } from "react";
 import FriendsField from "./FriendsField";
 import { getFollowedFriends } from "../../../store/reducers/friendsReducer";
-import { useEffect } from "react";
 
 const FriendsFieldContainer = ({friends, getFollowedFriends, totalFriends}) => {
-    console.log( totalFriends )
     useEffect(() => {
         getFollowedFriends()
     }, [getFollowedFriends])
@@ -19,4 +20,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getFollowedFriends })(FriendsFieldContainer)
+export default compose(
+    connect(mapStateToProps, { getFollowedFriends }),
+    withNavigateToLogin
+)(FriendsFieldContainer)

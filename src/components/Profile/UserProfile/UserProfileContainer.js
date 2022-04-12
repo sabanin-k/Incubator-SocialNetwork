@@ -9,17 +9,19 @@ import { getIsLogged } from "../../../store/selectors/authSelector";
 import { getUserProfile } from "../../../store/selectors/userProfileSelector";
 
 const UserProfileContainer = (props) => {
-    const userId = props.match != null ? props.match.params.userId : 23081
+    const userId = props.match != null ? props.match.params.userId : props.authId
     useEffect(() => {
         props.getUserProfileThunk(userId)
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userId])
 
     return <UserProfile {...props} />
 }
 
 const mapStateToProps = (state) => ({
     userProfile: getUserProfile(state),
-    isLogged: getIsLogged(state)
+    isLogged: getIsLogged(state),
+    authId: state.auth.id
 })
 
 export default compose(
@@ -27,5 +29,3 @@ export default compose(
     withNavigateToLogin,
     withMatchToProps
 )(UserProfileContainer)
-
-// export default connect(mapStateToProps, { getUserProfileThunk })( withNavigateToLogin(MatchToProps) )
