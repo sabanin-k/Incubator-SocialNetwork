@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer";
+import { getFollowedFriends } from "../../store/reducers/friendsReducer";
 import Users from "./Users";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
 import { getCurrentPage, getInProgressFollow, getIsFetching, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
@@ -27,7 +28,8 @@ class UsersContainer extends Component {
                 hadlerSetCurrentPage={this.hadlerSetCurrentPage}
                 followThunk={this.props.followThunk}
                 unfollowThunk={this.props.unfollowThunk}
-                isFetching={this.props.isFetching} />
+                isFetching={this.props.isFetching} 
+                getFollowedFriends={this.props.getFollowedFriends} />
         )
     }
 }
@@ -44,6 +46,6 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk }),
+    connect(mapStateToProps, { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk, getFollowedFriends }),
     withNavigateToLogin
 )(UsersContainer)

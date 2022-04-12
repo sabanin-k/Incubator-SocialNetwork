@@ -8,14 +8,17 @@
     margin: 0;
     padding: 0;
     margin-left: 10px;
+    margin-right: 10px;
 
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;    
+
 }
 
 .link {
+    width: 100px;
     margin-left: 5px;
     margin-right: 5px;
 
@@ -36,6 +39,8 @@
 .p {
     margin: 0;
     margin-top: 5px;
+    font-size: 12px;
+    text-align: center;
 }
 
 .friendsHeader {
@@ -45,11 +50,24 @@
     color: var(--font-grey-disactive);
     padding: 5px 20px 5px 20px;
     font-size: 13px;
+    text-decoration: none;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
+}
+.friendsHeader:hover {
+    opacity: 0.5;
 }
 
-.friendsHeaderWrap {
+.active {
+    background-color: var(--bg-content);
+    margin-bottom: 10px;
+    border-radius: 2px;
+    color: var(--font-grey);
+    padding: 5px 20px 5px 20px;
+    font-size: 13px;
     text-decoration: none;
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    opacity: 1;
 }

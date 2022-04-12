@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import userImage from '../../assets/images/user.png';
 import styles from './Users.module.css';
 
-const User = ({ user, inProgressFollow, followThunk, unfollowThunk }) => {
+const User = ({ user, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
+    useEffect(() => {
+        getFollowedFriends()
+    }, [inProgressFollow, getFollowedFriends])
+
     const followButtons = (user) => {
         return user.followed
             ? <button disabled={inProgressFollow.includes(user.id)} className={styles.button} onClick={(event) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import userImage from '../../../assets/images/user.png';
 import styles from './FriendsField.module.css';
 
@@ -16,12 +16,12 @@ const FriendsField = ({ friends, totalFriends }) => {
 
     return (
         <section className={styles.friends}>
-            <Link to='/friends' className={styles.friendsHeaderWrap}>
-                    <p className={styles.friendsHeader}>
+            <div  className={ styles.friendsHeaderWrap}>
+                    <NavLink to='/friends' className={navData => navData.isActive ? styles.active : styles.friendsHeader}>
                         <span>то шо друзья</span>
                         <span>{totalFriends}</span>
-                    </p>
-            </Link>
+                    </NavLink>
+            </div>
             <div className={styles.friendsWrapper}>
                 {friendRender}
             </div>

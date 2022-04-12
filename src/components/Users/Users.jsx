@@ -11,7 +11,8 @@ const Users = (props) => {
                 return <User user={user}
                     inProgressFollow={props.inProgressFollow}
                     followThunk={props.followThunk}
-                    unfollowThunk={props.unfollowThunk} />
+                    unfollowThunk={props.unfollowThunk}
+                    getFollowedFriends={props.getFollowedFriends} />
             })}
         </section>
             <UpButton />

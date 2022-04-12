@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import UpButton from '../common/UpButton/UpButton';
 import User from '../Users/User';
 import styles from './Friends.module.css';
 
 const Friends = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
-    useEffect(() => {
-        // getFollowedFriends()
-    }, [])
-
     return (
         <div className={styles.friendsWrapper}>
             {friends.map(friend => {
@@ -15,6 +11,7 @@ const Friends = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFol
                     inProgressFollow={inProgressFollow}
                     followThunk={followThunk}
                     unfollowThunk={unfollowThunk}
+                    getFollowedFriends={getFollowedFriends}
                     key={friend.id} />
             })}
             <UpButton />
