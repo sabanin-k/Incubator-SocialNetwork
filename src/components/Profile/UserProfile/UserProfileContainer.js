@@ -5,22 +5,20 @@ import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { compose } from "redux";
 import withMatchToProps from "../../../hoc/withMatchToProps";
-import { getIsLogged } from "../../../store/selectors/authSelector";
 import { getUserProfile } from "../../../store/selectors/userProfileSelector";
 
-const UserProfileContainer = (props) => {
-    const userId = props.match != null ? props.match.params.userId : props.authId
+const UserProfileContainer = ({userProfile, match, authId, getUserProfileThunk, setProfileDataThunk }) => {
+    const userId = match != null ? match.params.userId : authId
     useEffect(() => {
-        props.getUserProfileThunk(userId)
+        getUserProfileThunk(userId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId])
 
-    return <UserProfile {...props} />
+    return <UserProfile userProfile={userProfile} />
 }
 
 const mapStateToProps = (state) => ({
     userProfile: getUserProfile(state),
-    isLogged: getIsLogged(state),
     authId: state.auth.id
 })
 

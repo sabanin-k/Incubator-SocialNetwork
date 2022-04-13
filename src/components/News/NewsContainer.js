@@ -8,12 +8,12 @@ import { getHasContent, getIsFetching, getNews } from "../../store/selectors/new
 const NewsContainer = ({getNewsThunk, isFetching, news, hasContent, getContent}) => {
     useEffect(() => {
         getNewsThunk()
-    }, [getNewsThunk])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
             {isFetching && <Preloader />}
-            {console.log('return')}
             <News
                 news={news}
                 hasContent={hasContent}

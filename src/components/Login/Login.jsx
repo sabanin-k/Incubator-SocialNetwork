@@ -1,19 +1,24 @@
 import React from "react";
 import { Formik, Form, Field } from 'formik';
-import { Navigate } from "react-router-dom";
 import * as yup from "yup";
 import styles from "./Login.module.css";
 
-const Login = (props) => {
-    if (props.isLogged) return <Navigate to='/profile' />
-
+const Login = ({login, getAuth, errorMessage, captchaURL}) => {
     const schema = yup.object().shape({
         email: yup.string().required('Обязательно').email('Неправильно, ебанные волки!'),
         password: yup.string().required('Обязательно')
     });
 
+    const handleClick = () => {
+        login({
+            email: 'free@samuraijs.com',
+            password: 'free',
+            rememberMe: false
+        }).then(() => getAuth())
+    }
+
     return (
-        <>
+        <div className={styles.wrapper}>
             <Formik
                 initialValues={{
                     email: '',
@@ -24,33 +29,48 @@ const Login = (props) => {
                 validateOnChange
                 validationSchema={schema}
                 onSubmit={(values) => {
-                    props.login(values).then(() => props.getAuth())
+                    login(values).then(() => getAuth())
                 }}
             >
                 {({ errors, touched, dirty, isValid, handleBlur }) => (
-                    <Form className={styles.form}>
-                        <Field type='email' name='email' placeholder='e-mail' className={styles.input} onBlur={handleBlur} />
-                        {touched.email && errors.email && <span>{errors.email}</span>}
+                    <>
+                        <Form className={styles.form}>
+                            <Field type='email' name='email' placeholder='e-mail' className={styles.input} onBlur={handleBlur} />
+                            {touched.email && errors.email && <span>{errors.email}</span>}
 
-                        <Field type='password' name='password' placeholder='пароль' className={styles.input} />
-                        {touched.password && errors.password && <span>{errors.password}</span>}
+                            <Field type='password' name='password' placeholder='пароль' className={styles.input} />
+                            {touched.password && errors.password && <span>{errors.password}</span>}
 
-                        {!!props.errorMessage && <div>{props.errorMessage}</div>}
-                        {!!props.captchaURL
-                            && <div className={styles.captchaWrapper}>
-                                <Field type='input' name='captcha' onBlur={handleBlur}/>
-                                <img src={props.captchaURL} alt=''/>
-                            </div> }
+                            {!!errorMessage && <div>{errorMessage}</div>}
+                            {!!captchaURL
+                                && <div className={styles.captchaWrapper}>
+                                    <Field type='input' name='captcha' onBlur={handleBlur} />
+                                    <img src={captchaURL} alt='' />
+                                </div>}
 
-                        <div className={styles.checkboxWrapper}>
-                            <Field type='checkbox' name='rememberMe' id='rememberMe' className={styles.checkbox} />
-                            <label htmlFor="rememberMe" className={styles.label}>Запомнить меня</label>
-                        </div>
-                        <button type='submit' disabled={!isValid || !dirty} >Погнали!</button>
-                    </Form>
+                            <div className={styles.checkboxWrapper}>
+                                <Field type='checkbox' name='rememberMe' id='rememberMe' className={styles.checkbox} />
+                                <label htmlFor="rememberMe" className={styles.label}>Запомнить меня</label>
+                            </div>
+                            <button type='submit' disabled={!isValid || !dirty} >Погнали!</button>
+                        </Form>
+                    </>
                 )}
             </Formik>
-        </>
+            <div className={styles.descr}>
+                <p className={styles.phrase}>
+                    <span className={styles.descrText}>Для входа без регистрации:</span>
+                    <span >Email: </span>
+                    <span className={styles.descData}>free@samuraijs.com</span>
+                    <span >Password: </span>
+                    <span className={styles.descData}>free</span>
+                    <span className={styles.phrase}>Либо воспользоваться кнопкой <button onClick={handleClick}>Войти как гость</button></span>
+                </p>
+            </div>
+            <div className={styles.descr}>
+                
+            </div>
+        </div>
     )
 }
 

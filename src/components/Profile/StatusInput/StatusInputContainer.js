@@ -5,15 +5,6 @@ import { getStatus, getUserId } from "../../../store/selectors/userProfileSelect
 import { updateStatusThunk } from "../../../store/reducers/userProfileReducer"
 import StatusInput from "./StatusInput"
 
-const StatusInputContainer = (props) => {
-    return <StatusInput
-        status={props.status}
-        userId={props.userId}
-        authUserId={props.authUserId}
-        updateStatus={props.updateStatusThunk}
-    />
-}
-
 const mapStateToProps = (state) => ({
     status: getStatus(state),
     userId: getUserId(state),
@@ -22,4 +13,4 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, { updateStatusThunk })
-)(StatusInputContainer)
+)(StatusInput)

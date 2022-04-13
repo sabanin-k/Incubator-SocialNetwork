@@ -1,14 +1,14 @@
 import { connect } from "react-redux"
-// import { Navigate } from "react-router-dom"
-import Login from "./Login"
+import { Navigate } from "react-router-dom"
 import { loginThunk, getAuthThunk } from '../../store/reducers/authReducer';
 import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selectors/authSelector";
+import Login from "./Login"
 
 const LoginContainer = (props) => {
-    // if (props.isLogged) return <Navigate to={'/profile'}/>
+    if (props.isLogged) return <Navigate to={'/profile'}/>
+
     return (
-        <Login 
-            isLogged={props.isLogged}
+        <Login
             login={props.loginThunk}
             getAuth={props.getAuthThunk}
             errorMessage={props.errorMessage}

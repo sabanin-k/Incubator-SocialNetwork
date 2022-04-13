@@ -4,17 +4,22 @@ import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { useEffect } from "react";
 import FriendsField from "./FriendsField";
 import { getFollowedFriends } from "../../../store/reducers/friendsReducer";
+import { getIsLogged } from "../../../store/selectors/authSelector";
 
-const FriendsFieldContainer = ({friends, getFollowedFriends, totalFriends}) => {
+const FriendsFieldContainer = ({ friends, getFollowedFriends, totalFriends, isLogged }) => {
     useEffect(() => {
         getFollowedFriends()
-    }, [getFollowedFriends])
-    return <FriendsField friends={friends}
-        totalFriends={totalFriends}/>
+    })
+
+    if (isLogged) {
+        return <FriendsField friends={friends}
+            totalFriends={totalFriends} />
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
+        isLogged: getIsLogged(state),
         friends: state.friendsSection.friends,
         totalFriends: state.friendsSection.totalFriends
     }

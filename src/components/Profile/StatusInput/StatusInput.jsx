@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./StatusInput.module.css";
 
-const StatusInput = ({ status, updateStatus, userId, authUserId }) => {
+const StatusInput = ({ status, updateStatusThunk, userId, authUserId }) => {
     useEffect(() => setStatusValue(status), [status])
 
     const [editMode, setEditMode] = useState(false)
@@ -15,7 +15,7 @@ const StatusInput = ({ status, updateStatus, userId, authUserId }) => {
     }
 
     const handleOnBlur = () => {
-        updateStatus(statusValue)
+        updateStatusThunk(statusValue)
         setEditMode(false)
     }
 

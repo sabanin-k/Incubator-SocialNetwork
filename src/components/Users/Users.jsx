@@ -8,7 +8,8 @@ const Users = (props) => {
     return (<>
         <section className={styles.usersSection}>
             {props.users.map(user => {
-                return <User user={user}
+                return <User key={user.id}
+                    user={user}
                     inProgressFollow={props.inProgressFollow}
                     followThunk={props.followThunk}
                     unfollowThunk={props.unfollowThunk}

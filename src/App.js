@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Navigation from './components/Navigation/Navigation';
+import NavigationContainer from './components/Navigation/NavigationContainer';
 import Profile from './components/Profile/Profile';
 import UsersContainer from './components/Users/UsersContainer';
 import LoginContainer from './components/Login/LoginContainer';
@@ -11,6 +11,7 @@ import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
 import { initialApp } from './store/reducers/appReducer';
 import './App.css';
+
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
 const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
 
@@ -23,10 +24,10 @@ function App({ initialized, initialApp }) {
   if (!initialized) return <Preloader />
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <HeaderContainer />
-        <Navigation />
+        <NavigationContainer />
         <div className='App__main'>
           <Routes>
             <Route path='/' element={<Profile />} />
@@ -40,7 +41,7 @@ function App({ initialized, initialApp }) {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

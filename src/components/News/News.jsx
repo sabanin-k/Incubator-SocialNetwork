@@ -3,40 +3,29 @@ import newspaper from "../../assets/images/newspaper.png";
 import UpButton from "../common/UpButton/UpButton";
 import styles from "./News.module.css";
 
-const News = (props) => {
-    const getContent = (content) => {
+const News = ({news, hasContent, getContent}) => {
+    const showContent = (content) => {
         return (
             <p>{content}</p>
         )
     }
 
-    const hideContent = (id, content) => {
+    const toggleContent = (id, content, text) => {
         return (
             <>
                 <span className={styles.contentSpan} onClick={(event) => {
                     event.preventDefault();
-                    props.getContent(id)
-                }}>Показать</span>
-                {getContent(content)}
+                    getContent(id)
+                }}>{text}</span>
+                {showContent(content)}
             </>
         )
     }
 
-    const showContent = (id, content) => {
-        return (
-            <>
-                <span className={styles.contentSpan} onClick={(event) => {
-                    event.preventDefault();
-                    props.getContent(id)
-                }}>Убрать</span>
-                {getContent(content)}
-            </>
-        )
-    }
     return (
         <>
             <section className={styles.newsSection}>
-                {props.news.map(item => {
+                {news.map(item => {
                     return (
                         <a key={Math.random()} href={item.url} className={styles.link} target='_blank' rel='noreferrer'>
                             {/* <div className={styles.imgDiv}> */}
@@ -46,7 +35,10 @@ const News = (props) => {
                                 <p className={styles.phrase}>{item.title}</p>
                                 <span className={styles.calendarData}>{item.publishedAt}</span>
                                 <div className={styles.content}>
-                                    {item.description !== null && (!props.hasContent.includes(item.url) ? hideContent(item.url, '') : showContent(item.url, item.description))}
+                                    {item.description !== null && (!hasContent.includes(item.url)
+                                        ? toggleContent(item.url, '', 'Показать')
+                                        : toggleContent(item.url, item.description, 'Убрать'))}
+                                        
                                 </div>
                             </div>
                         </a>

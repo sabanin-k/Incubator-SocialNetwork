@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import FriendsFieldContainer from '../common/FriendsField/FriendsFieldContainer';
 import style from './Navigation.module.css';
 
-const Navigation = () => {
+const Navigation = ({isLogged}) => {
     return <nav className={style.nav}>
         <ul className={style.ul}>
             <li className={style.li}>
@@ -20,7 +20,7 @@ const Navigation = () => {
             </li>
         </ul>
 
-        <FriendsFieldContainer />
+        {isLogged && <FriendsFieldContainer />}
     </nav>
 }
 
