@@ -1,5 +1,11 @@
 import { profileAPI } from "../../api/api";
 
+const GET_USER_PROFILE = 'GET-USER-PROFILE',
+    SET_STATUS = 'SET-STATUS',
+    GET_STATUS = 'GET-STATUS',
+    SET_PROFILE_DATA = 'SET-PROFILE-DATA',
+    SET_PHOTO = 'SET-PHOTO';
+
 const inititalState = {
     userProfile: null,
     status: ''
@@ -7,34 +13,43 @@ const inititalState = {
 
 const UserProfileReducer = (state = inititalState, action) => {
     switch (action.type) {
-        case 'GET-USER-PROFILE':
+        case GET_USER_PROFILE:
             return {
                 ...state,
                 userProfile: action.userProfile
             }
-        case 'SET-STATUS':
+        case SET_STATUS:
             return {
                 ...state,
                 status: action.statusMessage
             }
-        case 'GET-STATUS':
+        case GET_STATUS:
             return {
                 ...state,
                 status: action.statusMessage
             }
-        case 'SET-PROFILE-DATA':
+        case SET_PROFILE_DATA:
             return {
                 ...state
+            }
+        case SET_PHOTO:
+            return {
+                ...state,
+                userProfile: {
+                    ...state.userProfile,
+                    photos: action.photoFiles
+                }
             }
         default:
             return state;
     }
 }
 
-const getUserProfile = (userProfile) => ({ type: 'GET-USER-PROFILE', userProfile })
-const setProfileData = () => ({ type: 'SET-PROFILE-DATA' })
-const setStatus = (statusMessage) => ({ type: 'SET-STATUS', statusMessage })
-const getStatus = (statusMessage) => ({ type: 'GET-STATUS', statusMessage })
+const getUserProfile = (userProfile) => ({ type: GET_USER_PROFILE, userProfile })
+const setStatus = (statusMessage) => ({ type: SET_STATUS, statusMessage })
+const getStatus = (statusMessage) => ({ type: GET_STATUS, statusMessage })
+const setProfileDataSucces = () => ({ type: SET_PROFILE_DATA })
+const setPhotoSucces = (photoFiles) => ({ type: SET_PHOTO, photoFiles })
 
 export const getUserProfileThunk = (userId) => {
     return (dispatch) => {
@@ -65,7 +80,13 @@ export const getStatusThunk = (userId) => {
 
 export const setProfileDataThunk = (profileData) => (dispatch) => {
     return profileAPI.setProfile(profileData).then(data => {
-        data.resultCode === 0 && dispatch(setProfileData())
+        data.resultCode === 0 && dispatch(setProfileDataSucces())
+    })
+}
+
+export const setPhoto = (photoFile) => (dispatch) => {
+    return profileAPI.setPhoto(photoFile).then(data => {
+        data.resultCode === 0 && dispatch(setPhotoSucces(data.data.photos))
     })
 }
 

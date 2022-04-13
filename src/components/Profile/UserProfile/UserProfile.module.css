@@ -12,9 +12,42 @@ h2 {
 .photoWrapper {
     margin-top: 20px;
     margin-left: 20px;
+    position: relative;
+}
+.photoWrapper:hover .labelInput {
+    opacity: 0.7;
+}
+
+.avaPhoto {
+    max-width: 300px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(20, 20, 20, 0.5);
+    cursor: pointer;
+}
+
+.avaImage {
+    max-width: 300px;
+    border-radius: 50%;
+    box-shadow: 5px 5px 5px rgba(20, 20, 20, 0.5);
+}
+
+.labelInput {
+    opacity: 0;
+    padding: 5px;
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+    background-color: rgb(31, 31, 31);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fileInput {
+    display: none;
 }
 
 .about {
+    width: 300px;
     margin-top: 20px;
     padding-left: 20px;
     padding-right: 20px;

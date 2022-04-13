@@ -18,7 +18,7 @@ export const userAPI = {
     getFriends() {
         return (
             instance.get(`users?count=100&friend=true`)
-            .then(response => response.data)
+                .then(response => response.data)
         )
     },
     getCurrentPage(pageNumber, pageSize) {
@@ -31,29 +31,49 @@ export const userAPI = {
 
 export const followAPI = {
     setFollow(id) {
-        return instance.post(`follow/${id}`).then(response => response.data)},
+        return instance.post(`follow/${id}`).then(response => response.data)
+    },
     setUnfollow(id) {
-        return instance.delete(`follow/${id}`).then(response => response.data)}
+        return instance.delete(`follow/${id}`).then(response => response.data)
+    }
 }
 
 export const profileAPI = {
     getProfile(userId) {
-        return instance.get(`profile/${userId}`).then(response => response.data)},
+        return instance.get(`profile/${userId}`).then(response => response.data)
+    },
     setProfile(profileData) {
-        return instance.put(`profile`, profileData).then(response => response.data)},
+        return instance.put(`profile`, profileData).then(response => response.data)
+    },
     setStatus(status) {
-        return instance.put(`profile/status`, {status: status}).then(response => response.data)},
+        return instance.put(`profile/status`, { status: status }).then(response => response.data)
+    },
     getStatus(userId) {
-        return instance.get(`profile/status/${userId}`)}
+        return instance.get(`profile/status/${userId}`)
+    },
+    setPhoto(photoFile) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => response.data)
+    }
 }
 
 export const authAPI = {
     getAuth() {
-        return instance.get('auth/me').then(response => response.data)},
+        return instance.get('auth/me').then(response => response.data)
+    },
     login(values) {
-        return instance.post('auth/login', values).then(response => response.data)},
+        return instance.post('auth/login', values).then(response => response.data)
+    },
     logout() {
-        return instance.delete('auth/login').then(response => response.data)},
+        return instance.delete('auth/login').then(response => response.data)
+    },
     getCaptcha() {
-        return instance.get('security/get-captcha-url')}
+        return instance.get('security/get-captcha-url')
+    }
 }

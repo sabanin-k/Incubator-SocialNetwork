@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./StatusInput.module.css";
 
 const StatusInput = ({ status, updateStatusThunk, userId, authUserId }) => {
-    useEffect(() => setStatusValue(status), [status])
-
     const [editMode, setEditMode] = useState(false)
     const [statusValue, setStatusValue] = useState(status)
+    
+    useEffect(() => setStatusValue(status), [status])
 
-
-    const handleDoubleClick = () => {
+    const handleClick = () => {
         if (userId === authUserId) {
             setEditMode(true)
         }
@@ -32,7 +31,9 @@ const StatusInput = ({ status, updateStatusThunk, userId, authUserId }) => {
                     onBlur={handleOnBlur}
                     onChange={handleOnChange}
                     autoFocus={true} />
-                : <p className={styles.p} onDoubleClick={handleDoubleClick}>{status || 'статус зажопил'}</p>}
+                : userId === authUserId
+                    ? <p className={styles.pForAuthUser} onClick={handleClick}>{ status || 'жмяк ми'}</p>
+                    : <p className={styles.p}>{ status || ''}</p> }
         </div>
     )
 }

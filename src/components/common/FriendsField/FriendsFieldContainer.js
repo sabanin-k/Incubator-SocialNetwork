@@ -9,7 +9,7 @@ import { getIsLogged } from "../../../store/selectors/authSelector";
 const FriendsFieldContainer = ({ friends, getFollowedFriends, totalFriends, isLogged }) => {
     useEffect(() => {
         getFollowedFriends()
-    })
+    }, [getFollowedFriends])
 
     if (isLogged) {
         return <FriendsField friends={friends}
