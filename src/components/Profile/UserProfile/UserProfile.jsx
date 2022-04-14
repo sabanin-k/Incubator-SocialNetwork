@@ -4,25 +4,19 @@ import userImage from "../../../assets/images/user.png";
 import StatusInputContainer from "../StatusInput/StatusInputContainer";
 import SocialLinks from "../../common/SocialsLinks/SocialLinks";
 import UserPhoto from "../../common/UserPhoto/UserPhoto";
+import EditProfile from "../../common/EditProfile/EditProfile";
 import styles from "./UserProfile.module.css";
 
-const UserProfile = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos, setPhoto, authId }) => {
+const UserProfile = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos, setPhoto, authId, setProfileDataThunk }) => {
+    const isOwner = userId === authId;
 
     const [modalActive, setModalActive] = useState(false)
+    const [editActive, setEditActive] = useState(false)
 
-    // const data = {
-    //     "aboutMe": 'Учкудук - три колодца!',
-    //     "lookingForAJob": true,
-    //     "lookingForAJobDescription": 'ищу свищу, найду сообщу',
-    //     "fullName": 'sabanin_k',
-    //     "contacts": {
-    //         github: 'https://github.com/sabanin-k',
-    //         vk: 'https://vk.com/sabanin_k',
-    //         facebook: 'https://facebook.com/sabanin.k',
-    //         instagram: 'https://instagram.com/sabanin_k',
-    //         twitter: 'https://twitter.com/sabanin_k',
-    //     }
-    // }
+    const handleEditProfileSubmit = (values) => {
+        setProfileDataThunk(values)
+        setEditActive(false)
+    }
 
     const onPhotoSelected = (event) => {
         if (event.target.files.length) setPhoto(event.target.files[0])
@@ -35,12 +29,12 @@ const UserProfile = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescript
                 {photos.large
                     ? <img src={photos.large} alt={fullName} className={styles.avaPhoto} onClick={() => setModalActive(true)} />
                     : <img src={userImage} alt={fullName} className={styles.avaImage} />}
-                { userId === authId
+                {isOwner
                     && <>
                         <label htmlFor="fileInput" className={styles.labelInput}>Загрузить фото</label>
-                        <input type="file" id="fileInput" className={styles.fileInput} onChange={onPhotoSelected}/> 
+                        <input type="file" id="fileInput" className={styles.fileInput} onChange={onPhotoSelected} />
                     </>}
-                
+
             </div>
             <div className={styles.about}>
                 <h2>{fullName}</h2>
@@ -82,7 +76,18 @@ const UserProfile = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescript
                             yt={contacts.youtube}
                             git={contacts.github} />
                     </div>
+                    {isOwner
+                        &&<div>
+                            {editActive
+                                ? <button className={styles.closeEditButton} onClick={() => setEditActive(false)}></button>
+                                : <button className={styles.openEditButton} onClick={() => setEditActive(true)}></button>}
+                        </div>}
                 </div>
+
+                {isOwner
+                    && <div className={editActive ? styles.formWrapper : styles.hideEditProfile }>
+                        <EditProfile handleEditProfileSubmit={handleEditProfileSubmit} />
+                    </div>}
             </div>
 
             <UserPhoto photo={photos.large} modalActive={modalActive} setModalActive={setModalActive} />

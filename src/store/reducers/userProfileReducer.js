@@ -48,7 +48,6 @@ const UserProfileReducer = (state = inititalState, action) => {
 const getUserProfile = (userProfile) => ({ type: GET_USER_PROFILE, userProfile })
 const setStatus = (statusMessage) => ({ type: SET_STATUS, statusMessage })
 const getStatus = (statusMessage) => ({ type: GET_STATUS, statusMessage })
-const setProfileDataSucces = () => ({ type: SET_PROFILE_DATA })
 const setPhotoSucces = (photoFiles) => ({ type: SET_PHOTO, photoFiles })
 
 export const getUserProfileThunk = (userId) => {
@@ -78,9 +77,10 @@ export const getStatusThunk = (userId) => {
     }
 }
 
-export const setProfileDataThunk = (profileData) => (dispatch) => {
+export const setProfileDataThunk = (profileData) => (dispatch, getState) => {
+    const userId = getState().auth.id;
     return profileAPI.setProfile(profileData).then(data => {
-        data.resultCode === 0 && dispatch(setProfileDataSucces())
+        data.resultCode === 0 && dispatch(getUserProfileThunk(userId))
     })
 }
 
