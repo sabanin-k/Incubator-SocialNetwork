@@ -64,7 +64,7 @@ const EditProfile = ({ handleEditProfileSubmit }) => {
                     handleEditProfileSubmit(values)
                 }}
             >
-                {({ errors }) => (
+                {({ errors, values }) => (
                     <Form className={styles.form}>
                         <div className={styles.div}>
                             <label htmlFor='aboutMe'>Обо мне</label>
@@ -74,7 +74,7 @@ const EditProfile = ({ handleEditProfileSubmit }) => {
                             <Field type='checkbox' name='lookingForAJob' id='checkbox' />
                             <label htmlFor="checkbox">В поисках работы</label>
                         </div>
-                        <Field className={styles.input} type='textarea' name='lookingForAJobDescription' placeholder='Описание работы' />
+                        <Field className={styles.input} type='textarea' name='lookingForAJobDescription' placeholder='Описание работы' disabled={!values.lookingForAJob} />
                         <div className={styles.div}>
                             <label htmlFor='fullName'>Имя</label>
                             <Field className={styles.input} type='input' name='fullName' placeholder='Введите имя' id='fullName' />
