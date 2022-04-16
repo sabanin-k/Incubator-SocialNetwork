@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import { getUserProfileThunk, setProfileDataThunk, setPhoto } from "../../../store/reducers/userProfileReducer";
+import { getUserProfileThunk, setProfileDataThunk, setPhoto } from "../../../store/reducers/userProfileReducer.ts";
 import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { compose } from "redux";

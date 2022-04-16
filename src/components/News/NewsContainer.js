@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
+import { getNewsThunk, getContent } from '../../store/reducers/newsReducer.ts';
 import News from './News';
 import Preloader from "../common/Preloader/Preloader";
 import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";

@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { Navigate } from "react-router-dom"
-import { loginThunk, getAuthThunk } from '../../store/reducers/authReducer';
+import { loginThunk, getAuthThunk } from '../../store/reducers/authReducer.ts';
 import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selectors/authSelector";
 import Login from "./Login"
 

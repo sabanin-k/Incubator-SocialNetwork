@@ -3,7 +3,7 @@ import { compose } from "redux";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import { useEffect } from "react";
 import FriendsField from "./FriendsField";
-import { getFollowedFriends } from "../../../store/reducers/friendsReducer";
+import { getFollowedFriends } from "../../../store/reducers/friendsReducer.ts";
 import { getIsLogged } from "../../../store/selectors/authSelector";
 
 const FriendsFieldContainer = ({ friends, getFollowedFriends, totalFriends, isLogged }) => {

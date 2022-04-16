@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { logoutThunk } from "../../store/reducers/authReducer";
+import { logoutThunk } from "../../store/reducers/authReducer.ts";
 import { getAuthData } from "../../store/selectors/authSelector";
 import Header from "./Header";
 

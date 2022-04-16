@@ -9,7 +9,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import LoginContainer from './components/Login/LoginContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
-import { initialApp } from './store/reducers/appReducer';
+import { initialApp } from './store/reducers/appReducer.ts';
 import './App.css';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));

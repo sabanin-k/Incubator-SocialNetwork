@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer";
-import { getFollowedFriends } from "../../store/reducers/friendsReducer";
+import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer.ts";
+import { getFollowedFriends } from "../../store/reducers/friendsReducer.ts";
 import Users from "./Users";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
 import { getCurrentPage, getInProgressFollow, getIsFetching, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
