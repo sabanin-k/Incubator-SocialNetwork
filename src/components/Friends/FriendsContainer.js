@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { followThunk, unfollowThunk } from "../../store/reducers/usersReducer.ts";
 import { getFollowedFriends } from "../../store/reducers/friendsReducer.ts";
 import { getFriends } from "../../store/selectors/friendsSelector";
-import { getInProgressFollow } from "../../store/selectors/usersSelector"
+import { getInProgressFollow } from "../../store/selectors/usersSelector.ts"
 import Friends from "./Friends"
 
 const FriendsContainer = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {

@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
+import { TGlobalState } from "../../store/reduxStore"
+import { UsersType } from "../../types/types.ts"
 
-const getUsersPrime = (state) => state.usersPage.users;
+const getUsersPrime = (state: TGlobalState): UsersType => state.usersPage.users;
 
 export const getUsers = createSelector(getUsersPrime, (users) => {
     // some big logic here

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
 import NavigationContainer from './components/Navigation/NavigationContainer';
 import Profile from './components/Profile/Profile';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersContainer.tsx';
 import LoginContainer from './components/Login/LoginContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';

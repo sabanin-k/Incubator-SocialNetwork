@@ -1,44 +1,31 @@
+import { TGlobalState } from './../reduxStore';
+import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from "../../api/api";
+import { TPhotos, TSetProfileData, TUserProfile } from "../../types/types";
 
 const GET_USER_PROFILE = 'userProfile/GET-USER-PROFILE',
-    SET_STATUS = 'userProfile/SET-STATUS',
     GET_STATUS = 'userProfile/GET-STATUS',
-    SET_PROFILE_DATA = 'userProfile/SET-PROFILE-DATA',
     SET_PHOTO = 'userProfile/SET-PHOTO';
 
 const inititalState = {
-    userProfile: null,
+    userProfile: null as TUserProfile | null,
     status: ''
 }
 
-type StateType = typeof inititalState
-type ActionType = {
-    type: string
-    userProfile: object
-    statusMessage: string
-    photoFiles: object
-}
+type TState = typeof inititalState
+type TAction = TGetUserProfileAction | TGetStatusAction | TSetPhotoSuccesAction
 
-const UserProfileReducer = (state = inititalState, action:ActionType) :StateType => {
+const UserProfileReducer = (state = inititalState, action:TAction) :TState => {
     switch (action.type) {
         case GET_USER_PROFILE:
             return {
                 ...state,
                 userProfile: action.userProfile
             }
-        case SET_STATUS:
-            return {
-                ...state,
-                status: action.statusMessage
-            }
         case GET_STATUS:
             return {
                 ...state,
                 status: action.statusMessage
-            }
-        case SET_PROFILE_DATA:
-            return {
-                ...state
             }
         case SET_PHOTO:
             return {
@@ -53,17 +40,19 @@ const UserProfileReducer = (state = inititalState, action:ActionType) :StateType
     }
 }
 
-type GetUserProfileActionType = {type: typeof GET_USER_PROFILE, userProfile: object}
-type GetStatusActionType = {type: typeof GET_STATUS, statusMessage: string}
-type SetPhotoSuccesActionType = {type: typeof SET_PHOTO, photoFiles: object}
+type TGetUserProfileAction = {type: typeof GET_USER_PROFILE, userProfile: TUserProfile}
+type TGetStatusAction = {type: typeof GET_STATUS, statusMessage: string}
+type TSetPhotoSuccesAction = {type: typeof SET_PHOTO, photoFiles: TPhotos}
 
-const getUserProfile = (userProfile: object) :GetUserProfileActionType => ({ type: GET_USER_PROFILE, userProfile })
-const getStatus = (statusMessage:string) :GetStatusActionType => ({ type: GET_STATUS, statusMessage })
-const setPhotoSucces = (photoFiles) :SetPhotoSuccesActionType => ({ type: SET_PHOTO, photoFiles })
+const getUserProfile = (userProfile: TUserProfile) :TGetUserProfileAction => ({ type: GET_USER_PROFILE, userProfile })
+const getStatus = (statusMessage:string) :TGetStatusAction => ({ type: GET_STATUS, statusMessage })
+const setPhotoSucces = (photoFiles: TPhotos) :TSetPhotoSuccesAction => ({ type: SET_PHOTO, photoFiles })
 
-export const getUserProfileThunk = (userId: number) => {
-    return (dispatch: any) => {
-        profileAPI.getProfile(userId).then((data: object) => {
+type TThunkAction = ThunkAction<void, TGlobalState, unknown, TAction>
+
+export const getUserProfileThunk = (userId: number): TThunkAction => {
+    return (dispatch) => {
+        profileAPI.getProfile(userId).then((data: TUserProfile) => {
             dispatch(getUserProfile(data))
         })
         profileAPI.getStatus(userId).then((data: string) => {
@@ -72,38 +61,38 @@ export const getUserProfileThunk = (userId: number) => {
     }
 }
 
-export const updateStatusThunk = (statusMessage: string) => {
-    return (dispatch: any) => {
+export const updateStatusThunk = (statusMessage: string): TThunkAction => {
+    return (dispatch) => {
         profileAPI.setStatus(statusMessage).then((data: {resultCode: number}) => {
             data.resultCode === 0 && dispatch(getStatus(statusMessage))
         })
     }
 }
 
-export const getStatusThunk = (userId: number) => {
-    return (dispatch: any) => {
+export const getStatusThunk = (userId: number): TThunkAction => {
+    return (dispatch) => {
         profileAPI.getStatus(userId).then((data: string) => {
             dispatch(getStatus(data))
         })
     }
 }
 
-export const setProfileDataThunk = (profileData) => (dispatch, getState) => {
-    const userId = getState().auth.id;
-    return profileAPI.setProfile(profileData).then(data => {
+export const setProfileDataThunk = (profileData: TSetProfileData): TThunkAction => (dispatch, getState) => {
+    const userId: number = getState().auth.id;
+    return profileAPI.setProfile(profileData).then((data: {resultCode: number}) => {
         data.resultCode === 0 && dispatch(getUserProfileThunk(userId))
     })
 }
 
-type SetPhotoType = {
+type TSetPhotoData = {
     data: {
-        photos: object
+        photos: TPhotos
     }
     resultCode: number
 }
 
-export const setPhoto = (photoFile: any) => (dispatch: any) => {
-    return profileAPI.setPhoto(photoFile).then((data: SetPhotoType) => {
+export const setPhoto = (photoFile: any): TThunkAction => (dispatch) => {
+    return profileAPI.setPhoto(photoFile).then((data: TSetPhotoData) => {
         data.resultCode === 0 && dispatch(setPhotoSucces(data.data.photos))
     })
 }

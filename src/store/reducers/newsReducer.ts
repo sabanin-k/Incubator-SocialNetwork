@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import { newsAPI } from "../../api/apiNews";
+import { TGlobalState } from '../reduxStore';
 
 const SET_NEWS = 'news/SET-NEWS',
     TOGGLE_FETCHING = 'news/TOGGLE-FETCHING',
@@ -10,15 +12,10 @@ const initialState = {
     hasContent: [] as number[]
 }
 
-type StateType = typeof initialState
-type ActionType = {
-    type: string
-    news: object[]
-    bool: boolean
-    id: number
-}
+type TState = typeof initialState
+type TAction = TSetNewsAction | TToggleFetchingAction | TGetContentAction
 
-const newsReducer = (state = initialState, action:ActionType) :StateType => {
+const newsReducer = (state = initialState, action:TAction) :TState => {
     switch (action.type) {
         case SET_NEWS:
             return {
@@ -42,16 +39,16 @@ const newsReducer = (state = initialState, action:ActionType) :StateType => {
     }
 }
 
-type setNewsActionType = {type: typeof SET_NEWS, news: object[]}
-type toggleFetchingActionType = {type: typeof TOGGLE_FETCHING, bool: boolean}
-type getContentActionType = {type: typeof TOGGLE_IS_CONTENT, id: number}
+type TSetNewsAction = {type: typeof SET_NEWS, news: object[]}
+type TToggleFetchingAction = {type: typeof TOGGLE_FETCHING, bool: boolean}
+type TGetContentAction = {type: typeof TOGGLE_IS_CONTENT, id: number}
 
-export const setNews = (news:object[]):setNewsActionType => ({ type: SET_NEWS, news })
-export const toggleFetching = (bool: boolean):toggleFetchingActionType => ({ type: TOGGLE_FETCHING, bool })
-export const getContent = (id: number):getContentActionType => ({ type: TOGGLE_IS_CONTENT, id })
+export const setNews = (news:object[]):TSetNewsAction => ({ type: SET_NEWS, news })
+export const toggleFetching = (bool: boolean):TToggleFetchingAction => ({ type: TOGGLE_FETCHING, bool })
+export const getContent = (id: number):TGetContentAction => ({ type: TOGGLE_IS_CONTENT, id })
 
-export const getNewsThunk = () => {
-    return (dispatch: any) => {
+export const getNewsThunk = (): ThunkAction<void, TGlobalState, unknown, TAction> => {
+    return (dispatch) => {
         newsAPI.getNews().then((data: {articles: object[]}) => {
             dispatch(setNews(data.articles))
             dispatch(toggleFetching(false))

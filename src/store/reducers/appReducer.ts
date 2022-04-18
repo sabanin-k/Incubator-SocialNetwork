@@ -1,15 +1,16 @@
+import { Dispatch } from "redux";
 import { getAuthThunk } from "./authReducer.ts";
 
 const INITIAL_APP = 'app/INITIAL-APP';
 
-type StateType = {initialized: boolean}
-type ActionType = {type: string}
+type TState = typeof initialState
+type TAction = TInitialAppAction
 
-const initialState:StateType = {
+const initialState = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action: ActionType):StateType => {
+const appReducer = (state = initialState, action: TAction):TState => {
     switch (action.type) {
         case (INITIAL_APP):
             return ({
@@ -21,12 +22,12 @@ const appReducer = (state = initialState, action: ActionType):StateType => {
     }
 }
 
-type InitialAppActionType = {type: typeof INITIAL_APP}
+type TInitialAppAction = {type: typeof INITIAL_APP}
 
-const initialAppAC = ():InitialAppActionType => ({ type: INITIAL_APP })
+const initialAppAC = ():TInitialAppAction => ({ type: INITIAL_APP })
 
-export const initialApp = () => (dispatch: any) => {
+export const initialApp = () => (dispatch: Dispatch) => {
     dispatch(getAuthThunk()).then(() => dispatch(initialAppAC()))
 }
 
-export default appReducer;
+export default appReducer

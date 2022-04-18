@@ -9,17 +9,13 @@ const initialState = {
     updateInput: ''
 }
 
-type StateType = typeof initialState
-type ActionType = {
-    type: string
-    postText: string
-    id: number
-}
+type TState = typeof initialState
+type TAction = TAddPostTAction | TPressLikeTAction
 
-const profileReducer = (state = initialState, action:ActionType) :StateType => {
+const profileReducer = (state = initialState, action:TAction) :TState => {
     switch (action.type) {
         case ADD_POST:
-            const newPost :{id:number, text: string, likes: number, onLike: boolean} = { 
+            const newPost: {id:number, text: string, likes: number, onLike: boolean} = { 
                 id: Math.random(),
                 text: action.postText,
                 likes: 0,
@@ -47,10 +43,10 @@ const profileReducer = (state = initialState, action:ActionType) :StateType => {
     }
 }
 
-type addPostActionType = {type: typeof ADD_POST, postText: string}
-type pressLikeActionType = {type: typeof PRESS_LIKE, id: number}
+type TAddPostTAction = {type: typeof ADD_POST, postText: string}
+type TPressLikeTAction = {type: typeof PRESS_LIKE, id: number}
 
-export const addPost = (valueOfInput:string) :addPostActionType => ({ type: ADD_POST, postText: valueOfInput })
-export const pressLike = (id: number) :pressLikeActionType => ({ type: PRESS_LIKE, id })
+export const addPost = (valueOfInput:string) :TAddPostTAction => ({ type: ADD_POST, postText: valueOfInput })
+export const pressLike = (id: number) :TPressLikeTAction => ({ type: PRESS_LIKE, id })
 
 export default profileReducer;

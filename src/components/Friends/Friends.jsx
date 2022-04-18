@@ -1,6 +1,6 @@
 import React from 'react'
 import UpButton from '../common/UpButton/UpButton';
-import User from '../Users/User';
+import User from '../Users/User.tsx';
 import styles from './Friends.module.css';
 
 const Friends = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {

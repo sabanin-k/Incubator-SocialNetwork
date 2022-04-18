@@ -20,9 +20,12 @@ const reducers = combineReducers({
     app: appReducer
 })
 
-const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, composeEnhacer(applyMiddleware(thunk)));
+export type TGlobalState = ReturnType<typeof reducers>
 
+//@ts-ignore
+const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store: TGlobalState = createStore(reducers, composeEnhacer(applyMiddleware(thunk)));
+//@ts-ignore
 window.store = store;
 
 export default store;
