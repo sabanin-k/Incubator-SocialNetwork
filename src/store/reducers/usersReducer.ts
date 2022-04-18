@@ -114,7 +114,7 @@ export const setCurrentPageThunk = (number: number, pageSize: number): TThunkAct
 export const followThunk = (userId: number): TThunkAction => {
     return (dispatch) => {
         dispatch(toggleFollowBtnActivity(true, userId))
-        followAPI.setFollow(userId).then(data => {
+        followAPI.setFollow(userId).then((data: {resultCode: number}) => {
             data.resultCode === 0 && dispatch(toggleFollowThunk(userId, true))
             dispatch(toggleFollowBtnActivity(false, userId))
         })

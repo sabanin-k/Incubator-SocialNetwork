@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Field, Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { getUserProfile } from '../../../store/selectors/userProfileSelector';
 import styles from './EditProfile.module.css';
+import { TSetProfileData } from '../../../types/types';
+import { TGlobalState } from '../../../store/reduxStore';
 
-const EditProfile = ({ handleEditProfileSubmit }) => {
-    const userProfile = useSelector(state => getUserProfile(state))
+type TProps = {
+    handleEditProfileSubmit: (vales: TSetProfileData) => void
+}
+
+const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
+    const userProfile = useSelector((state: TGlobalState) => getUserProfile(state))
 
     const {
         aboutMe,

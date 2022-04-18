@@ -3,22 +3,22 @@ import Preloader from "../../common/Preloader/Preloader";
 import userImage from "../../../assets/images/user.png";
 import StatusInputContainer from "../StatusInput/StatusInputContainer";
 import SocialLinks from "../../common/SocialsLinks/SocialLinks";
-import UserPhoto from "../../common/UserPhoto/UserPhoto";
+import UserPhoto from "../../common/UserPhoto/UserPhoto.tsx";
 import EditProfile from "../../common/EditProfile/EditProfile";
-import { ContactsType, PhotosType, SetProfileDataType } from "../../../types/types.ts";
+import { TContacts, TPhotos, TSetProfileData } from "../../../types/types";
 import styles from "./UserProfile.module.css";
 
 type TProps = {
     userId: number
     authId: number
     aboutMe: string
-    contacts: ContactsType
+    contacts: TContacts
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    photos: PhotosType
+    photos: TPhotos
     setPhoto: (file: any) => void
-    setProfileDataThunk: (values: SetProfileDataType) => void
+    setProfileDataThunk: (values: TSetProfileData) => void
 }
 
 const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos, setPhoto, authId, setProfileDataThunk }) => {
@@ -27,7 +27,7 @@ const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingFor
     const [modalActive, setModalActive] = useState(false)
     const [editActive, setEditActive] = useState(false)
 
-    const handleEditProfileSubmit = (values: SetProfileDataType) => {
+    const handleEditProfileSubmit = (values: TSetProfileData) => {
         setProfileDataThunk(values)
         setEditActive(false)
     }

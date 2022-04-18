@@ -2,10 +2,11 @@ import { connect } from "react-redux"
 import { compose } from "redux"
 import { getAuthUserId } from "../../../store/selectors/authSelector"
 import { getStatus, getUserId } from "../../../store/selectors/userProfileSelector"
-import { updateStatusThunk } from "../../../store/reducers/userProfileReducer.ts"
+import { updateStatusThunk } from "../../../store/reducers/userProfileReducer"
 import StatusInput from "./StatusInput"
+import { TGlobalState } from "../../../store/reduxStore"
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: TGlobalState) => ({
     status: getStatus(state),
     userId: getUserId(state),
     authUserId: getAuthUserId(state)

@@ -1,9 +1,14 @@
-import React from "react"
+import React, { FC } from "react"
 import { Link } from "react-router-dom"
 import logo from "../../../assets/images/network.png"
 import styles from "./Logged.module.css"
 
-const Logged = ({login, logoutThunk}) => {
+type TProps = {
+    login: string
+    logoutThunk: () => void
+}
+
+const Logged: FC<TProps> = ({login, logoutThunk}) => {
     return (
         <header className={styles.header}>
             <img className={styles.logo} src={logo} alt='logo'/>

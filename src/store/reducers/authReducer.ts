@@ -11,7 +11,7 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     isLogged: false,
-    errorMessage: null as object | null,
+    errorMessage: null as string | null,
     captchaURL: null as string | null
 }
 
@@ -52,7 +52,7 @@ type TSetAuthUserDataAction = {
 }
 type TSetAuthErrorAction = {
     type: typeof SET_AUTH_ERROR
-    errorMessage: object
+    errorMessage: string
 }
 type TetCaptchaAction = {
     type: typeof SET_CAPTCHA
@@ -60,7 +60,7 @@ type TetCaptchaAction = {
 }
 type TData = {
     resultCode: number
-    messages: object
+    messages: string
     data: {
         id: number
         email: string
@@ -71,12 +71,12 @@ type TData = {
 const setAuthUserData = (id:number, email:string, login:string, isLogged:boolean) :TSetAuthUserDataAction => (
     { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
 })
-const setAuthError = (errorMessage:object) :TSetAuthErrorAction => ({ type: SET_AUTH_ERROR, errorMessage })
+const setAuthError = (errorMessage:string) :TSetAuthErrorAction => ({ type: SET_AUTH_ERROR, errorMessage })
 const setCaptcha = (captchaURL:string) :TetCaptchaAction => ({ type: SET_CAPTCHA, captchaURL })
 
-type TThunkAction = ThunkAction<Promise<void>, TGlobalState, unknown, TAction>
+export type TAuthThunkAction = ThunkAction<Promise<void>, TGlobalState, unknown, TAction>
 
-export const getAuthThunk = (): TThunkAction => (dispatch) => {
+export const getAuthThunk = (): TAuthThunkAction => (dispatch) => {
     return authAPI.getAuth().then((data:TData) => {
         let { id, email, login } = data.data
         data.resultCode === 0 && dispatch(setAuthUserData(id, email, login, true))
@@ -85,7 +85,7 @@ export const getAuthThunk = (): TThunkAction => (dispatch) => {
 
 type TResponse = { data: {url: string} }
 
-export const loginThunk = (loginData: object): TThunkAction => (dispatch) => {
+export const loginThunk = (loginData: object): ThunkAction<Promise<any>, TGlobalState, unknown, TAction> => (dispatch) => {
     return authAPI.login(loginData).then((data:TData) => {
         if (data.resultCode === 0) {
             return dispatch(getAuthThunk())
@@ -100,7 +100,7 @@ export const loginThunk = (loginData: object): TThunkAction => (dispatch) => {
     })
 }
 
-export const logoutThunk = ():TThunkAction => (dispatch) => {
+export const logoutThunk = ():TAuthThunkAction => (dispatch) => {
     return authAPI.logout().then((data:TData) => {
         data.resultCode === 0 && dispatch(setAuthUserData(null, null, null, false))
     })

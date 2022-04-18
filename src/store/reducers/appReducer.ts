@@ -1,5 +1,6 @@
-import { Dispatch } from "redux";
-import { getAuthThunk } from "./authReducer.ts";
+import { ThunkAction } from "redux-thunk";
+import { TGlobalState } from "../reduxStore";
+import { getAuthThunk } from "./authReducer";
 
 const INITIAL_APP = 'app/INITIAL-APP';
 
@@ -26,7 +27,7 @@ type TInitialAppAction = {type: typeof INITIAL_APP}
 
 const initialAppAC = ():TInitialAppAction => ({ type: INITIAL_APP })
 
-export const initialApp = () => (dispatch: Dispatch) => {
+export const initialApp = (): ThunkAction<void, TGlobalState, unknown, TAction> => (dispatch) => {
     dispatch(getAuthThunk()).then(() => dispatch(initialAppAC()))
 }
 

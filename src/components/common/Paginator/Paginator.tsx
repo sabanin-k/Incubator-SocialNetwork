@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './Paginator.module.css';
 
-const Paginator = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
+type TProps = {
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    setCurrentPage: (number: number) => void
+}
+
+const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
 
     const PageButton = ({ disableDepend, funcParametr, innerText }) => {
         return (
@@ -52,11 +59,11 @@ const Paginator = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
             </div>
             <div className={styles.inputPageWrapper}>
                 <label htmlFor='pageInput' className={styles.label}>Введите страницу</label>
-                <input className={styles.input} id="pagesInput" type="number" min={1} onChange={(e) => {
-                    if (e.target.value > totalPagesCount) e.target.value = totalPagesCount;
-                    if (e.target.value === null || e.target.value < 1) e.target.value = 1;
-                    setPortionNumber(Math.ceil(e.target.value / portionSize))
-                    setCurrentPage(e.target.value)
+                <input className={styles.input} id="pagesInput" type="number" min={1} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    if (+event.target.value > totalPagesCount) event.target.value = totalPagesCount.toString();
+                    if (event.target.value === null || +event.target.value < 1) event.target.value = '1';
+                    setPortionNumber(Math.ceil(+event.target.value / portionSize))
+                    setCurrentPage(+event.target.value)
                 }} />
                 <span className={styles.spanTotalPages}> / {totalPagesCount}</span>
             </div>

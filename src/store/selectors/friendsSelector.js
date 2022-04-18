@@ -1,1 +1,0 @@
-export const getFriends = (state) => state.friendsSection.friends

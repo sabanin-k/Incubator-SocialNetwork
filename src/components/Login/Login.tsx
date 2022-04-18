@@ -1,9 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
 import styles from "./Login.module.css";
 
-const Login = ({login, getAuth, errorMessage, captchaURL}) => {
+type TProps = {
+    errorMessage: string
+    captchaURL: string
+    login: (loginData: object) => Promise<void>
+    getAuth: () => void
+}
+
+const Login: FC<TProps> = ({login, getAuth, errorMessage, captchaURL}) => {
     const schema = yup.object().shape({
         email: yup.string().required('Обязательно').email('Неправильно, ебанные волки!'),
         password: yup.string().required('Обязательно')

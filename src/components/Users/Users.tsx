@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { UsersType } from "../../types/types";
+import { TUsers } from "../../types/types";
 import Paginator from "../common/Paginator/Paginator";
 import UpButton from "../common/UpButton/UpButton";
 import User from "./User.tsx";
 import styles from './Users.module.css';
 
 type TProps = {
-    users: UsersType
+    users: TUsers
     totalCount: number
     pageSize: number
     currentPage: number

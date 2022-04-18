@@ -9,13 +9,20 @@ const initialState = {
     updateInput: ''
 }
 
+export type TPost = {
+    id: number
+    text: string
+    likes: number
+    onLike: boolean
+}
+
 type TState = typeof initialState
 type TAction = TAddPostTAction | TPressLikeTAction
 
 const profileReducer = (state = initialState, action:TAction) :TState => {
     switch (action.type) {
         case ADD_POST:
-            const newPost: {id:number, text: string, likes: number, onLike: boolean} = { 
+            const newPost: TPost = { 
                 id: Math.random(),
                 text: action.postText,
                 likes: 0,

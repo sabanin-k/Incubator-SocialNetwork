@@ -1,16 +1,16 @@
 import React, { FC, useEffect } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer.ts";
-import { getFollowedFriends } from "../../store/reducers/friendsReducer.ts";
-import { getCurrentPage, getInProgressFollow, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector.ts";
-import { UsersType } from "../../types/types";
+import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer";
+import { getFollowedFriends } from "../../store/reducers/friendsReducer";
+import { getCurrentPage, getInProgressFollow, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
+import { TUsers } from "../../types/types";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
 import { TGlobalState } from "../../store/reduxStore"
 import Users from "./Users.tsx";
 
 type TStateProps = {
-    users: UsersType
+    users: TUsers
     totalCount: number
     pageSize: number
     currentPage: number
@@ -20,8 +20,8 @@ type TStateProps = {
 type TDispatchProps = {
     setCurrentPageThunk: (number: number, pageSize: number) => void
     getUsersThunk: (currentPage: number, pageSize: number) => void
-    followThunk: () => void
-    unfollowThunk: () => void
+    followThunk: (userId: number) => void
+    unfollowThunk: (userId: number) => void
     getFollowedFriends: () => void
 }
 type TUserContainerProps = TStateProps & TDispatchProps

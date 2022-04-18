@@ -19,14 +19,14 @@ export type TUserProfile = {
 
 export type TSetProfileData = {
     aboutMe: string | null
-    userId: number | null
+    // userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
     contacts: TContacts
 }
 
-type TContacts = {
+export type TContacts = {
     github: string | null
     vk: string | null
     facebook: string | null

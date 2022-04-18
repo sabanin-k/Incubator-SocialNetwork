@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { TUser } from '../../types/types';
 import UpButton from '../common/UpButton/UpButton';
 import User from '../Users/User.tsx';
 import styles from './Friends.module.css';
 
-const Friends = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
+type TProps = {
+    friends: TUser[]
+    inProgressFollow: number[]
+    followThunk: (userId: number) => void
+    unfollowThunk: (userId: number) => void
+    getFollowedFriends: () => void
+}
+
+const Friends: FC<TProps> = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
     return (
         <div className={styles.friendsWrapper}>
             {friends.map(friend => {

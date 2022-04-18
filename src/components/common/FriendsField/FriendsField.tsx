@@ -1,9 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link, NavLink } from "react-router-dom";
 import userImage from '../../../assets/images/user.png';
+import { TUser } from "../../../types/types";
 import styles from './FriendsField.module.css';
 
-const FriendsField = ({ friends, totalFriends }) => {
+type TProps = {
+    friends: TUser[]
+    totalFriends: number
+}
+
+const FriendsField: FC<TProps> = ({ friends, totalFriends }) => {
     const sixFriends = friends.slice(0, 6)
     const friendRender = sixFriends.map((item) => {
         return (

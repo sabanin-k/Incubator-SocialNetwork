@@ -1,5 +1,5 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -9,7 +9,7 @@ import UsersContainer from './components/Users/UsersContainer.tsx';
 import LoginContainer from './components/Login/LoginContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
-import { initialApp } from './store/reducers/appReducer.ts';
+import { initialApp } from './store/reducers/appReducer';
 import './App.css';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));

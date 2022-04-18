@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import fbLogo from "../../../assets/images/contactLogos/facebook.png";
 import webLogo from "../../../assets/images/contactLogos/web.png";
 import vkLogo from "../../../assets/images/contactLogos/vk.png";
@@ -8,9 +8,19 @@ import ytLogo from "../../../assets/images/contactLogos/youtube.png";
 import gitLogo from "../../../assets/images/contactLogos/github.png";
 import styles from "./SocialLinks.module.css";
 
-const SocialLinks = ({fb, web, vk, tw, inst, yt, git}) => {
+type TProps = {
+  fb: string
+  web: string
+  vk: string
+  tw: string
+  inst: string
+  yt: string
+  git: string
+}
+
+const SocialLinks: FC<TProps> = ({fb, web, vk, tw, inst, yt, git}) => {
   return (<>
-    {fb && <a href={fb} target='_blank' rel='noreferrer' className={styles.link}><img src={fbLogo} alt={fb.facebook} width='32px' /></a>}
+    {fb && <a href={fb} target='_blank' rel='noreferrer' className={styles.link}><img src={fbLogo} alt={fb} width='32px' /></a>}
     {web && <a href={web} target='_blank' rel='noreferrer' className={styles.link}><img src={webLogo} alt={web} width='32px' /></a>}
     {vk && <a href={vk} target='_blank' rel='noreferrer' className={styles.link}><img src={vkLogo} alt={vk} width='32px' /></a>}
     {tw && <a href={tw} target='_blank' rel='noreferrer' className={styles.link}><img src={twLogo} alt={tw} width='32px' /></a>}

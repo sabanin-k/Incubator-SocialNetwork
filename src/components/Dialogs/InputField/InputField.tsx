@@ -1,8 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import { Formik, Form, Field } from "formik";
 import s from "./InputField.module.css";
 
-const InputField = (props) => {
+type TProps = {
+    writeMessage: (value: string) => void
+}
+
+const InputField: FC<TProps> = (props) => {
     return (
         <Formik 
             initialValues={{
@@ -10,7 +14,7 @@ const InputField = (props) => {
             }}
             onSubmit={(values, { resetForm }) =>
                 {props.writeMessage(values.textarea)
-                resetForm({values: ''})}}>
+                resetForm({})}}>
             <Form className={s.form}>
                 <Field
                     type='textarea'

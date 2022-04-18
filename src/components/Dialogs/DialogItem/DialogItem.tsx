@@ -1,11 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
+import { TDialogsFriend } from "../../../store/reducers/dialogsReducer";
 import s from './DialogItem.module.css';
 
-const DialogItem = (props) => {
-    return (
+type TProps = {
+    friends: TDialogsFriend[]
+}
+
+const DialogItem: FC<TProps> = ({ friends }) => {
+    return <>
         <div className={s.dialogListItem}>
-            {props.friends.map(item => {
+            {friends.map(item => {
                 return (
                     <NavLink
                         to={'/dialogs/' + item.id}
@@ -20,7 +25,7 @@ const DialogItem = (props) => {
                 )
             })}
         </div>
-    )
+    </>
 }
 
 export default DialogItem;

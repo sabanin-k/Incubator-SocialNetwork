@@ -1,8 +1,8 @@
 const WRITE_MESSAGE = 'dialogs/WRITE-MESSAGE'
 const PRESS_DELETE = 'dialogs/PRESS-DELETE'
 
-type TFriend = { name: string, id: number, avaLink: string }
-type TMessage = { message: string, id: number }
+export type TDialogsFriend = { name: string, id: number, avaLink: string }
+export type TDialogsMessage = { message: string, id: number }
 
 const initialState = {
     friends: [
@@ -11,12 +11,12 @@ const initialState = {
         { name: 'Friend3', id: 3, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
         { name: 'Friend4', id: 4, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
         { name: 'Friend5', id: 5, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-    ] as TFriend[],
+    ] as TDialogsFriend[],
     messages: [
         { message: 'Lorem ipsum dolor sit amet.', id: 1 },
         { message: 'Lorem ipsum dolor amet.', id: 2 },
         { message: 'Lorem ipsum dolor.', id: 3 }
-    ] as TMessage[],
+    ] as TDialogsMessage[],
     updateInput: '' as string
 }
 

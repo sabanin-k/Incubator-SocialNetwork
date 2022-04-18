@@ -1,12 +1,21 @@
+import React, { FC, useEffect, Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
-import { useEffect } from "react";
 import FriendsField from "./FriendsField";
-import { getFollowedFriends } from "../../../store/reducers/friendsReducer.ts";
+import { getFollowedFriends } from "../../../store/reducers/friendsReducer";
 import { getIsLogged } from "../../../store/selectors/authSelector";
+import { TGlobalState } from "../../../store/reduxStore"
+import { TUser } from "../../../types/types"
 
-const FriendsFieldContainer = ({ friends, getFollowedFriends, totalFriends, isLogged }) => {
+type TProps = {
+    friends: TUser[]
+    isLogged: boolean
+    totalFriends: number
+    getFollowedFriends: () => void
+}
+
+const FriendsFieldContainer: FC<TProps> = ({ friends, getFollowedFriends, totalFriends, isLogged }) => {
     useEffect(() => {
         getFollowedFriends()
     }, [getFollowedFriends])
@@ -17,7 +26,7 @@ const FriendsFieldContainer = ({ friends, getFollowedFriends, totalFriends, isLo
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TGlobalState) => {
     return {
         isLogged: getIsLogged(state),
         friends: state.friendsSection.friends,
@@ -25,7 +34,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default compose(
+export default compose<Component>(
     connect(mapStateToProps, { getFollowedFriends }),
     withNavigateToLogin
 )(FriendsFieldContainer)
