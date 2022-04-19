@@ -1,6 +1,6 @@
 import { ThunkAction } from "redux-thunk"
 import { authAPI } from "../../api/api"
-import { TGlobalState } from "../reduxStore"
+import { TGlobalState, TReturnActionType } from "../reduxStore"
 
 const SET_AUTH_USER_DATA = 'auth/SET-AUTH-USER-DATA'
 const SET_AUTH_ERROR = 'auth/SET-AUTH-ERROR'
@@ -16,7 +16,7 @@ const initialState = {
 }
 
 type TState = typeof initialState
-type TAction = TSetAuthUserDataAction | TSetAuthErrorAction | TetCaptchaAction
+type TAction = TReturnActionType<typeof actionCreators>
 type TPayload = {
     id: number | null
     email: string | null
@@ -68,33 +68,37 @@ type TData = {
     }
 }
 
-const setAuthUserData = (id:number, email:string, login:string, isLogged:boolean) :TSetAuthUserDataAction => (
-    { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
-})
-const setAuthError = (errorMessage:string) :TSetAuthErrorAction => ({ type: SET_AUTH_ERROR, errorMessage })
-const setCaptcha = (captchaURL:string) :TetCaptchaAction => ({ type: SET_CAPTCHA, captchaURL })
+const actionCreators = {
+    setAuthUserData: (id:number, email:string, login:string, isLogged:boolean) :TSetAuthUserDataAction => (
+        { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
+    } as const),
+    setAuthError: (errorMessage:string) :TSetAuthErrorAction => ({ type: SET_AUTH_ERROR, errorMessage } as const),
+    setCaptcha: (captchaURL:string) :TetCaptchaAction => ({ type: SET_CAPTCHA, captchaURL } as const)
+
+}
+
 
 export type TAuthThunkAction = ThunkAction<Promise<void>, TGlobalState, unknown, TAction>
 
 export const getAuthThunk = (): TAuthThunkAction => (dispatch) => {
     return authAPI.getAuth().then((data:TData) => {
         let { id, email, login } = data.data
-        data.resultCode === 0 && dispatch(setAuthUserData(id, email, login, true))
+        data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(id, email, login, true))
     })
 }
 
 type TResponse = { data: {url: string} }
 
-export const loginThunk = (loginData: object): ThunkAction<Promise<any>, TGlobalState, unknown, TAction> => (dispatch) => {
+export const loginThunk = (loginData: object): TAuthThunkAction => (dispatch) => {
     return authAPI.login(loginData).then((data:TData) => {
         if (data.resultCode === 0) {
             return dispatch(getAuthThunk())
         } else if (data.resultCode === 10) {
             authAPI.getCaptcha().then((res: TResponse) => {
-                dispatch(setCaptcha(res.data.url))
+                dispatch(actionCreators.setCaptcha(res.data.url))
             })
         } else if (data.resultCode !== 0) {
-            return dispatch(setAuthError(data.messages))
+            return dispatch(actionCreators.setAuthError(data.messages))
         }
 
     })
@@ -102,7 +106,7 @@ export const loginThunk = (loginData: object): ThunkAction<Promise<any>, TGlobal
 
 export const logoutThunk = ():TAuthThunkAction => (dispatch) => {
     return authAPI.logout().then((data:TData) => {
-        data.resultCode === 0 && dispatch(setAuthUserData(null, null, null, false))
+        data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(null, null, null, false))
     })
 }
 

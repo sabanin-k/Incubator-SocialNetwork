@@ -1,4 +1,4 @@
-import { TGlobalState } from './../reduxStore';
+import { TGlobalState, TReturnActionType } from './../reduxStore';
 import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from "../../api/api";
 import { TPhotos, TSetProfileData, TUserProfile } from "../../types/types";
@@ -13,7 +13,7 @@ const inititalState = {
 }
 
 type TState = typeof inititalState
-type TAction = TGetUserProfileAction | TGetStatusAction | TSetPhotoSuccesAction
+type TAction = TReturnActionType<typeof actionCreators>
 
 const UserProfileReducer = (state = inititalState, action:TAction) :TState => {
     switch (action.type) {
@@ -40,23 +40,21 @@ const UserProfileReducer = (state = inititalState, action:TAction) :TState => {
     }
 }
 
-type TGetUserProfileAction = {type: typeof GET_USER_PROFILE, userProfile: TUserProfile}
-type TGetStatusAction = {type: typeof GET_STATUS, statusMessage: string}
-type TSetPhotoSuccesAction = {type: typeof SET_PHOTO, photoFiles: TPhotos}
-
-const getUserProfile = (userProfile: TUserProfile) :TGetUserProfileAction => ({ type: GET_USER_PROFILE, userProfile })
-const getStatus = (statusMessage:string) :TGetStatusAction => ({ type: GET_STATUS, statusMessage })
-const setPhotoSucces = (photoFiles: TPhotos) :TSetPhotoSuccesAction => ({ type: SET_PHOTO, photoFiles })
+const actionCreators = {
+    getUserProfile: (userProfile: TUserProfile) => ({ type: GET_USER_PROFILE, userProfile }) as const,
+    getStatus: (statusMessage:string) => ({ type: GET_STATUS, statusMessage }) as const,
+    setPhotoSucces: (photoFiles: TPhotos) => ({ type: SET_PHOTO, photoFiles }) as const
+}
 
 type TThunkAction = ThunkAction<void, TGlobalState, unknown, TAction>
 
 export const getUserProfileThunk = (userId: number): TThunkAction => {
     return (dispatch) => {
         profileAPI.getProfile(userId).then((data: TUserProfile) => {
-            dispatch(getUserProfile(data))
+            dispatch(actionCreators.getUserProfile(data))
         })
         profileAPI.getStatus(userId).then((data: string) => {
-            dispatch(getStatus(data))
+            dispatch(actionCreators.getStatus(data))
         })
     }
 }
@@ -64,7 +62,7 @@ export const getUserProfileThunk = (userId: number): TThunkAction => {
 export const updateStatusThunk = (statusMessage: string): TThunkAction => {
     return (dispatch) => {
         profileAPI.setStatus(statusMessage).then((data: {resultCode: number}) => {
-            data.resultCode === 0 && dispatch(getStatus(statusMessage))
+            data.resultCode === 0 && dispatch(actionCreators.getStatus(statusMessage))
         })
     }
 }
@@ -72,7 +70,7 @@ export const updateStatusThunk = (statusMessage: string): TThunkAction => {
 export const getStatusThunk = (userId: number): TThunkAction => {
     return (dispatch) => {
         profileAPI.getStatus(userId).then((data: string) => {
-            dispatch(getStatus(data))
+            dispatch(actionCreators.getStatus(data))
         })
     }
 }
@@ -93,7 +91,7 @@ type TSetPhotoData = {
 
 export const setPhoto = (photoFile: any): TThunkAction => (dispatch) => {
     return profileAPI.setPhoto(photoFile).then((data: TSetPhotoData) => {
-        data.resultCode === 0 && dispatch(setPhotoSucces(data.data.photos))
+        data.resultCode === 0 && dispatch(actionCreators.setPhotoSucces(data.data.photos))
     })
 }
 

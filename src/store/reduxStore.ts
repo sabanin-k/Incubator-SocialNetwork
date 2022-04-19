@@ -22,6 +22,10 @@ const reducers = combineReducers({
 
 export type TGlobalState = ReturnType<typeof reducers>
 
+type TInferValue<T> = T extends { [key: string]: infer U } ? U : never // определяем тип передоваемого объекта
+export type TReturnActionType< T extends { [key: string]: (...args: any[]) => any }> = ReturnType<TInferValue<T> >
+// создаем тип для любого экшона, чтобы не писать каждый раз ReturnType<>
+
 //@ts-ignore
 const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store: TGlobalState = createStore(reducers, composeEnhacer(applyMiddleware(thunk)));

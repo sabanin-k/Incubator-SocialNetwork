@@ -51,7 +51,6 @@ type TWriteMessageAction = {type: typeof WRITE_MESSAGE, message: string}
 type TDeleteMessageAction = {type: typeof PRESS_DELETE, id: number}
 
 export const writeMessage = (message: string): TWriteMessageAction => ({ type: WRITE_MESSAGE, message })
-
 export const deleteMessage = (id: number): TDeleteMessageAction => ({ type: PRESS_DELETE, id })
 
 export default dialogsReducer;
