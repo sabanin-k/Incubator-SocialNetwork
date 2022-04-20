@@ -1,5 +1,5 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { FC, lazy, Suspense, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -11,11 +11,12 @@ import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
 import { initialApp } from './store/reducers/appReducer';
 import './App.css';
+import { TGlobalState } from './store/reduxStore';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
 const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
 
-function App({ initialized, initialApp }) {
+const App: FC<TProps> = ({ initialized, initialApp }) => {
 
   useEffect(() => {
     initialApp()
@@ -45,10 +46,18 @@ function App({ initialized, initialApp }) {
   );
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: TGlobalState) => ({
   initialized: state.app.initialized
 })
 
-export default compose(
-  connect(mapStateToProps, { initialApp })
+export default compose<React.Component>(
+  connect<TStateProps, TDispatchProps>(mapStateToProps, { initialApp })
 )(App);
+
+type TStateProps = {
+  initialized: boolean
+}
+type TDispatchProps = {
+  initialApp: () => void
+}
+type TProps = TStateProps & TDispatchProps

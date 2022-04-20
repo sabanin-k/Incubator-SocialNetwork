@@ -1,3 +1,7 @@
+import { Action } from "redux"
+import { ThunkAction } from "redux-thunk"
+import { TGlobalState } from "../store/reduxStore"
+
 export type TUser = {
     id: number
     name: string
@@ -19,7 +23,6 @@ export type TUserProfile = {
 
 export type TSetProfileData = {
     aboutMe: string | null
-    // userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
@@ -41,3 +44,5 @@ export type TPhotos = {
     small: string | null
     large: string | null
 }
+
+export type TThunkAction<A extends Action, R = Promise<void>> = ThunkAction<R, TGlobalState, unknown, A>

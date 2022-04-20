@@ -1,7 +1,6 @@
-import { ThunkAction } from 'redux-thunk';
-import { followAPI, userAPI } from "../../api/api";
-import { TUsers } from "../../types/types";
-import { TGlobalState, TReturnActionType } from '../reduxStore';
+import { usersAPI, followAPI } from "../../api/usersAPI";
+import { TThunkAction, TUsers } from "../../types/types";
+import { TReturnActionType } from '../reduxStore';
 
 const TOGGLE_FOLLOW = 'users/TOGGLE-FOLLOW',
     SET_USERS = 'users/SET-USERS',
@@ -18,8 +17,6 @@ const initialState = {
     isFetching: true,
     inProgressFollow: [] as number[]
 }
-
-type TState = typeof initialState
 
 const usersReducer = (state = initialState, action: TAction): TState => {
     switch (action.type) {
@@ -65,8 +62,6 @@ const usersReducer = (state = initialState, action: TAction): TState => {
     }
 }
 
-type TAction = TReturnActionType<typeof actionCreators>
-
 const actionCreators = {
     toggleFollowThunk: (id: number, bool: boolean) => ({ type: TOGGLE_FOLLOW, id, bool } as const),
     setUsers: (users: TUsers) => ({ type: SET_USERS, users } as const),
@@ -76,16 +71,9 @@ const actionCreators = {
     toggleFollowBtnActivity: (bool :boolean, id :number) => ({ type: TOGGLE_FOLLOW_BTN_ACTIVITY, bool, id } as const)
 }
 
-type TGetUsersData = {
-    items: TUsers
-    totalCount: number
-}
-
-type TThunkAction = ThunkAction<void, TGlobalState, unknown, TAction>
-
-export const getUsersThunk = (currentPage: number, pageSize: number): TThunkAction => {
+export const getUsersThunk = (currentPage: number, pageSize: number): TThunk => {
     return (dispatch) => {
-        userAPI.getUsers(currentPage, pageSize)
+        usersAPI.getUsers(currentPage, pageSize)
             .then((data: TGetUsersData) => {
                 dispatch(actionCreators.setUsers(data.items))
                 dispatch(actionCreators.totalPages(data.totalCount))
@@ -94,11 +82,11 @@ export const getUsersThunk = (currentPage: number, pageSize: number): TThunkActi
     }
 }
 
-export const setCurrentPageThunk = (number: number, pageSize: number): TThunkAction => {
+export const setCurrentPageThunk = (number: number, pageSize: number): TThunk => {
     return (dispatch) => {
         dispatch(actionCreators.toggleFetching(true))
         dispatch(actionCreators.setCurrentPage(number))
-        userAPI.getCurrentPage(number, pageSize)
+        usersAPI.getUsers(number, pageSize)
             .then((data :TGetUsersData) => {
                 dispatch(actionCreators.setUsers(data.items))
                 dispatch(actionCreators.toggleFetching(false))
@@ -106,7 +94,7 @@ export const setCurrentPageThunk = (number: number, pageSize: number): TThunkAct
     }
 }
 
-export const followThunk = (userId: number): TThunkAction => {
+export const followThunk = (userId: number): TThunk => {
     return (dispatch) => {
         dispatch(actionCreators.toggleFollowBtnActivity(true, userId))
         followAPI.setFollow(userId).then((data: {resultCode: number}) => {
@@ -116,7 +104,7 @@ export const followThunk = (userId: number): TThunkAction => {
     }
 }
 
-export const unfollowThunk = (userId: number): TThunkAction => {
+export const unfollowThunk = (userId: number): TThunk => {
     return (dispatch) => {
         dispatch(actionCreators.toggleFollowBtnActivity(true, userId))
         followAPI.setUnfollow(userId).then((data: {resultCode: number}) => {
@@ -127,3 +115,12 @@ export const unfollowThunk = (userId: number): TThunkAction => {
 }
 
 export default usersReducer;
+
+type TState = typeof initialState
+type TAction = TReturnActionType<typeof actionCreators>
+type TGetUsersData = {
+    items: TUsers
+    totalCount: number
+}
+
+type TThunk = TThunkAction<TAction, void>

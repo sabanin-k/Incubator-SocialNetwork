@@ -1,6 +1,6 @@
 import { TGlobalState, TReturnActionType } from './../reduxStore';
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI } from "../../api/api";
+import { profileAPI } from "../../api/profileAPI";
 import { TPhotos, TSetProfileData, TUserProfile } from "../../types/types";
 
 const GET_USER_PROFILE = 'userProfile/GET-USER-PROFILE',
@@ -42,7 +42,7 @@ const UserProfileReducer = (state = inititalState, action:TAction) :TState => {
 
 const actionCreators = {
     getUserProfile: (userProfile: TUserProfile) => ({ type: GET_USER_PROFILE, userProfile }) as const,
-    getStatus: (statusMessage:string) => ({ type: GET_STATUS, statusMessage }) as const,
+    getStatus: (statusMessage :string) => ({ type: GET_STATUS, statusMessage }) as const,
     setPhotoSucces: (photoFiles: TPhotos) => ({ type: SET_PHOTO, photoFiles }) as const
 }
 

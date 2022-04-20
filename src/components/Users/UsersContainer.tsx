@@ -24,9 +24,9 @@ type TDispatchProps = {
     unfollowThunk: (userId: number) => void
     getFollowedFriends: () => void
 }
-type TUserContainerProps = TStateProps & TDispatchProps
+type TProps = TStateProps & TDispatchProps
 
-const UsersContainer: FC<TUserContainerProps> = ({getUsersThunk, ...props}) => {
+const UsersContainer: FC<TProps> = ({getUsersThunk, ...props}) => {
     useEffect(() => {
         getUsersThunk(props.currentPage, props.pageSize)
     }, [getUsersThunk, props.currentPage, props.pageSize])

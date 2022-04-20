@@ -1,7 +1,5 @@
-import { ThunkAction } from "redux-thunk";
-import { userAPI } from "../../api/api";
-import { TUser } from "../../types/types";
-import { TGlobalState } from "../reduxStore";
+import { TThunkAction, TUser } from "../../types/types";
+import { usersAPI } from "../../api/usersAPI";
 
 const GET_FOLLOWED_FRIENDS = 'friends/GET-FOLLOWED-FRIENDS'
 
@@ -38,11 +36,11 @@ type TGetFollowedFriendsAction = {
 const getFollowedFriendsAC = (friends: TUser[], totalFriends:number) :TGetFollowedFriendsAction => (
     { type: GET_FOLLOWED_FRIENDS, payload: { friends, totalFriends } })
 
-type TThunkAction = ThunkAction<void, TGlobalState, unknown, TAction>
+type TThunk = TThunkAction<TAction>
 type TResponse = {items: TUser[], totalCount: number}
 
-export const getFollowedFriends = ():TThunkAction => async (dispatch) => {
-    const response: TResponse = await userAPI.getFriends();
+export const getFollowedFriends = ():TThunk => async (dispatch) => {
+    const response: TResponse = await usersAPI.getFriends();
     dispatch(getFollowedFriendsAC(response.items, response.totalCount))
 }
 
