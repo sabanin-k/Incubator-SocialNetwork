@@ -9,23 +9,6 @@ import withNavigateToLogin from "../../hoc/withNavigateToLogin";
 import { TGlobalState } from "../../store/reduxStore"
 import Users from "./Users.tsx";
 
-type TStateProps = {
-    users: TUsers
-    totalCount: number
-    pageSize: number
-    currentPage: number
-    inProgressFollow: Array<number>
-   
-}
-type TDispatchProps = {
-    setCurrentPageThunk: (number: number, pageSize: number) => void
-    getUsersThunk: (currentPage: number, pageSize: number) => void
-    followThunk: (userId: number) => void
-    unfollowThunk: (userId: number) => void
-    getFollowedFriends: () => void
-}
-type TProps = TStateProps & TDispatchProps
-
 const UsersContainer: FC<TProps> = ({getUsersThunk, ...props}) => {
     useEffect(() => {
         getUsersThunk(props.currentPage, props.pageSize)
@@ -60,3 +43,21 @@ export default compose<React.Component>(
     connect<TStateProps, TDispatchProps>(mapStateToProps, { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk, getFollowedFriends }),
     withNavigateToLogin
 )(UsersContainer)
+
+
+type TStateProps = {
+    users: TUsers
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    inProgressFollow: Array<number>
+   
+}
+type TDispatchProps = {
+    setCurrentPageThunk: (number: number, pageSize: number) => void
+    getUsersThunk: (currentPage: number, pageSize: number) => void
+    followThunk: (userId: number) => void
+    unfollowThunk: (userId: number) => void
+    getFollowedFriends: () => void
+}
+type TProps = TStateProps & TDispatchProps
