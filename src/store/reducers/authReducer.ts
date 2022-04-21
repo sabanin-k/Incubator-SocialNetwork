@@ -1,4 +1,4 @@
-import { authAPI } from "../../api/authAPI"
+import { authAPI, TLoginValues } from "../../api/authAPI"
 import { TThunkAction } from "../../types/types"
 import { TReturnActionType } from "../reduxStore"
 
@@ -11,7 +11,7 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     isLogged: false,
-    errorMessage: null as string | null,
+    errorMessage: null as string[] | null,
     captchaURL: null as string | null
 }
 
@@ -41,51 +41,33 @@ const actionCreators = {
     setAuthUserData: (id:number, email:string, login:string, isLogged:boolean) => (
         { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
     } as const),
-    setAuthError: (errorMessage:string) => ({ type: SET_AUTH_ERROR, errorMessage } as const),
+    setAuthError: (errorMessage:string[]) => ({ type: SET_AUTH_ERROR, errorMessage } as const),   
     setCaptcha: (captchaURL:string) => ({ type: SET_CAPTCHA, captchaURL } as const)
-
 }
 
-export const getAuthThunk = (): TThunk => (dispatch) => {
-    return authAPI.getAuth().then((data:TData) => {
-        let { id, email, login } = data.data
-        data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(id, email, login, true))
-    })
+export const getAuthThunk = (): TThunkAction<TAction> => async (dispatch) => {
+    const data = await authAPI.getAuth()
+    const { id, email, login } = data.data
+    data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(id, email, login, true))
 }
 
-export const loginThunk = (loginData: object): TThunk => (dispatch) => {
-    return authAPI.login(loginData).then((data:TData) => {
-        if (data.resultCode === 0) {
-            return dispatch(getAuthThunk())
-        } else if (data.resultCode === 10) {
-            authAPI.getCaptcha().then((data: TCaptchaData) => {
-                dispatch(actionCreators.setCaptcha(data.url))
-            })
-        } else if (data.resultCode !== 0) {
-            return dispatch(actionCreators.setAuthError(data.messages))
-        }
-
-    })
+export const loginThunk = (loginData: TLoginValues): TThunkAction<TAction, void> => async (dispatch) => {
+    const data = await authAPI.login(loginData)
+    switch (data.resultCode) {
+        case 0: return dispatch(getAuthThunk())
+        case 10: return authAPI.getCaptcha().then(data => {
+            dispatch(actionCreators.setCaptcha(data.url))
+        })
+        default: return dispatch(actionCreators.setAuthError(data.messages))
+    }
 }
 
-export const logoutThunk = ():TThunk => (dispatch) => {
-    return authAPI.logout().then((data:TData) => {
-        data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(null, null, null, false))
-    })
+export const logoutThunk = (): TThunkAction<TAction> => async (dispatch) => {
+    const data = await authAPI.logout()
+    data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(null, null, null, false))
 }
 
 export default authReducer;
 
 type TState = typeof initialState
 type TAction = TReturnActionType<typeof actionCreators>
-type TData = {
-    resultCode: number
-    messages: string
-    data: {
-        id: number
-        email: string
-        login: string
-    }
-}
-type TThunk = TThunkAction<TAction>
-type TCaptchaData = { url: string }

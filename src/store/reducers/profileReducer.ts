@@ -1,3 +1,5 @@
+import { TReturnActionType } from "../reduxStore"
+
 const ADD_POST = 'profile/ADD-POST',
     PRESS_LIKE = 'profile/PRESS-LIKE'
 
@@ -8,16 +10,6 @@ const initialState = {
     ],
     updateInput: ''
 }
-
-export type TPost = {
-    id: number
-    text: string
-    likes: number
-    onLike: boolean
-}
-
-type TState = typeof initialState
-type TAction = TAddPostTAction | TPressLikeTAction
 
 const profileReducer = (state = initialState, action:TAction) :TState => {
     switch (action.type) {
@@ -50,10 +42,19 @@ const profileReducer = (state = initialState, action:TAction) :TState => {
     }
 }
 
-type TAddPostTAction = {type: typeof ADD_POST, postText: string}
-type TPressLikeTAction = {type: typeof PRESS_LIKE, id: number}
-
-export const addPost = (valueOfInput:string) :TAddPostTAction => ({ type: ADD_POST, postText: valueOfInput })
-export const pressLike = (id: number) :TPressLikeTAction => ({ type: PRESS_LIKE, id })
+export const actionCreators = {
+    addPost: (valueOfInput:string) => ({ type: ADD_POST, postText: valueOfInput } as const),
+    pressLike: (id: number) => ({ type: PRESS_LIKE, id } as const)
+}
 
 export default profileReducer;
+
+
+type TState = typeof initialState
+type TAction = TReturnActionType<typeof actionCreators>
+export type TPost = {
+    id: number
+    text: string
+    likes: number
+    onLike: boolean
+}

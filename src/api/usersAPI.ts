@@ -1,25 +1,39 @@
-import { instance } from "./api"
+import { instance, TResponseData } from "./api"
 
 export const usersAPI = {
-    getUsers(currentPage, pageSize) {
-        return (
-            instance.get(`users?page=${currentPage}&count=${pageSize}`)
-                .then(response => response.data)
-        )
+    async getUsers(currentPage: number, pageSize: number) {
+        const response = await instance.get<TResponseUsers>(`users?page=${currentPage}&count=${pageSize}`)
+        return response.data
     },
-    getFriends() {
-        return (
-            instance.get(`users?count=100&friend=true`)
-                .then(response => response.data)
-        )
+    async getFriends() {
+        const response = await instance.get<TResponseUsers>(`users?count=100&friend=true`)
+        return response.data
     }
 }
 
 export const followAPI = {
-    setFollow(id) {
-        return instance.post(`follow/${id}`).then(response => response.data)
+    async setFollow(id: number) {
+        const response = await instance.post<TResponseData>(`follow/${id}`)
+        return response.data
     },
-    setUnfollow(id) {
-        return instance.delete(`follow/${id}`).then(response => response.data)
+    async setUnfollow(id: number) {
+        const response = await instance.delete<TResponseData>(`follow/${id}`)
+        return response.data
     }
+}
+
+type TResponseUsers = {
+    items: TUser[]
+    totalCount: number
+    error: string
+}
+type TUser = {
+    id: number
+    name: string
+    status: string
+    photos:{
+        small: string
+        large: string
+    }
+    followed: boolean
 }

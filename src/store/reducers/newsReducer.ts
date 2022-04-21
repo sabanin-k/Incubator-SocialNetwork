@@ -12,9 +12,6 @@ const initialState = {
     hasContent: [] as number[]
 }
 
-type TState = typeof initialState
-type TAction = TSetNewsAction | TToggleFetchingAction | TGetContentAction
-
 const newsReducer = (state = initialState, action:TAction) :TState => {
     switch (action.type) {
         case SET_NEWS:
@@ -39,10 +36,6 @@ const newsReducer = (state = initialState, action:TAction) :TState => {
     }
 }
 
-type TSetNewsAction = {type: typeof SET_NEWS, news: object[]}
-type TToggleFetchingAction = {type: typeof TOGGLE_FETCHING, bool: boolean}
-type TGetContentAction = {type: typeof TOGGLE_IS_CONTENT, id: number}
-
 export const setNews = (news:object[]):TSetNewsAction => ({ type: SET_NEWS, news })
 export const toggleFetching = (bool: boolean):TToggleFetchingAction => ({ type: TOGGLE_FETCHING, bool })
 export const getContent = (id: number):TGetContentAction => ({ type: TOGGLE_IS_CONTENT, id })
@@ -57,3 +50,9 @@ export const getNewsThunk = (): ThunkAction<void, TGlobalState, unknown, TAction
 }
 
 export default newsReducer;
+
+type TState = typeof initialState
+type TAction = TSetNewsAction | TToggleFetchingAction | TGetContentAction
+type TSetNewsAction = {type: typeof SET_NEWS, news: object[]}
+type TToggleFetchingAction = {type: typeof TOGGLE_FETCHING, bool: boolean}
+type TGetContentAction = {type: typeof TOGGLE_IS_CONTENT, id: number}

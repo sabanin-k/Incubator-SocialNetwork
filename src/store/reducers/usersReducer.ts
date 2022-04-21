@@ -74,7 +74,7 @@ const actionCreators = {
 export const getUsersThunk = (currentPage: number, pageSize: number): TThunk => {
     return (dispatch) => {
         usersAPI.getUsers(currentPage, pageSize)
-            .then((data: TGetUsersData) => {
+            .then(data => {
                 dispatch(actionCreators.setUsers(data.items))
                 dispatch(actionCreators.totalPages(data.totalCount))
                 dispatch(actionCreators.toggleFetching(false))
@@ -87,7 +87,7 @@ export const setCurrentPageThunk = (number: number, pageSize: number): TThunk =>
         dispatch(actionCreators.toggleFetching(true))
         dispatch(actionCreators.setCurrentPage(number))
         usersAPI.getUsers(number, pageSize)
-            .then((data :TGetUsersData) => {
+            .then(data => {
                 dispatch(actionCreators.setUsers(data.items))
                 dispatch(actionCreators.toggleFetching(false))
             })
@@ -97,7 +97,7 @@ export const setCurrentPageThunk = (number: number, pageSize: number): TThunk =>
 export const followThunk = (userId: number): TThunk => {
     return (dispatch) => {
         dispatch(actionCreators.toggleFollowBtnActivity(true, userId))
-        followAPI.setFollow(userId).then((data: {resultCode: number}) => {
+        followAPI.setFollow(userId).then(data => {
             data.resultCode === 0 && dispatch(actionCreators.toggleFollowThunk(userId, true))
             dispatch(actionCreators.toggleFollowBtnActivity(false, userId))
         })
@@ -107,7 +107,7 @@ export const followThunk = (userId: number): TThunk => {
 export const unfollowThunk = (userId: number): TThunk => {
     return (dispatch) => {
         dispatch(actionCreators.toggleFollowBtnActivity(true, userId))
-        followAPI.setUnfollow(userId).then((data: {resultCode: number}) => {
+        followAPI.setUnfollow(userId).then(data => {
             data.resultCode === 0 && dispatch(actionCreators.toggleFollowThunk(userId, false))
             dispatch(actionCreators.toggleFollowBtnActivity(false, userId))
         })
@@ -118,9 +118,4 @@ export default usersReducer;
 
 type TState = typeof initialState
 type TAction = TReturnActionType<typeof actionCreators>
-type TGetUsersData = {
-    items: TUsers
-    totalCount: number
-}
-
 type TThunk = TThunkAction<TAction, void>

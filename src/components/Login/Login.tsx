@@ -4,13 +4,14 @@ import * as yup from "yup";
 import styles from "./Login.module.css";
 
 type TProps = {
-    errorMessage: string
+    errorMessage: string[]
     captchaURL: string
     login: (loginData: object) => Promise<void>
     getAuth: () => void
 }
 
-const Login: FC<TProps> = ({login, getAuth, errorMessage, captchaURL}) => {
+const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
+
     const schema = yup.object().shape({
         email: yup.string().required('Обязательно').email('Неправильно, ебанные волки!'),
         password: yup.string().required('Обязательно')

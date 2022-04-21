@@ -1,18 +1,12 @@
 import { TThunkAction, TUser } from "../../types/types";
 import { usersAPI } from "../../api/usersAPI";
+import { TReturnActionType } from "../reduxStore";
 
 const GET_FOLLOWED_FRIENDS = 'friends/GET-FOLLOWED-FRIENDS'
 
 const initialState = {
     friends: [] as TUser[],
     totalFriends: 0
-}
-
-type TState = typeof initialState
-type TAction = TGetFollowedFriendsAction
-type TPayload = {
-    friends: TUser[]
-    totalFriends: number
 }
 
 const friendsReducer = (state = initialState, action: TAction): TState => {
@@ -28,20 +22,19 @@ const friendsReducer = (state = initialState, action: TAction): TState => {
     }
 }
 
-type TGetFollowedFriendsAction = {
-    type: typeof GET_FOLLOWED_FRIENDS
-    payload: TPayload
+const actionCreators = {
+    getFollowedFriendsAC: (friends: TUser[], totalFriends:number) => (
+        { type: GET_FOLLOWED_FRIENDS, payload: { friends, totalFriends } } as const)
 }
 
-const getFollowedFriendsAC = (friends: TUser[], totalFriends:number) :TGetFollowedFriendsAction => (
-    { type: GET_FOLLOWED_FRIENDS, payload: { friends, totalFriends } })
-
-type TThunk = TThunkAction<TAction>
-type TResponse = {items: TUser[], totalCount: number}
-
 export const getFollowedFriends = ():TThunk => async (dispatch) => {
-    const response: TResponse = await usersAPI.getFriends();
-    dispatch(getFollowedFriendsAC(response.items, response.totalCount))
+    const data = await usersAPI.getFriends();
+    dispatch(actionCreators.getFollowedFriendsAC(data.items, data.totalCount))
 }
 
 export default friendsReducer;
+
+
+type TState = typeof initialState
+type TAction = TReturnActionType<typeof actionCreators>
+type TThunk = TThunkAction<TAction>

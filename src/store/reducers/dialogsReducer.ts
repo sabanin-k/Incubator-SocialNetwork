@@ -1,9 +1,6 @@
 const WRITE_MESSAGE = 'dialogs/WRITE-MESSAGE'
 const PRESS_DELETE = 'dialogs/PRESS-DELETE'
 
-export type TDialogsFriend = { name: string, id: number, avaLink: string }
-export type TDialogsMessage = { message: string, id: number }
-
 const initialState = {
     friends: [
         { name: 'Friend1', id: 1, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
@@ -19,9 +16,6 @@ const initialState = {
     ] as TDialogsMessage[],
     updateInput: '' as string
 }
-
-type TState = typeof initialState
-type TAction = TWriteMessageAction | TDeleteMessageAction
 
 const dialogsReducer = (state = initialState, action: TAction): TState | any => { // this 'any' because of 'messages' in Action
     switch (action.type) {
@@ -47,10 +41,15 @@ const dialogsReducer = (state = initialState, action: TAction): TState | any => 
     }
 }
 
-type TWriteMessageAction = {type: typeof WRITE_MESSAGE, message: string}
-type TDeleteMessageAction = {type: typeof PRESS_DELETE, id: number}
-
 export const writeMessage = (message: string): TWriteMessageAction => ({ type: WRITE_MESSAGE, message })
 export const deleteMessage = (id: number): TDeleteMessageAction => ({ type: PRESS_DELETE, id })
 
 export default dialogsReducer;
+
+
+type TState = typeof initialState
+type TAction = TWriteMessageAction | TDeleteMessageAction
+type TWriteMessageAction = {type: typeof WRITE_MESSAGE, message: string}
+type TDeleteMessageAction = {type: typeof PRESS_DELETE, id: number}
+export type TDialogsFriend = { name: string, id: number, avaLink: string }
+export type TDialogsMessage = { message: string, id: number }

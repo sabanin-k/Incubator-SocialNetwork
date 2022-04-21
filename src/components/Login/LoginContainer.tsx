@@ -25,7 +25,7 @@ const mapStateToProps = (state: TGlobalState) => ({
 
 type TStateToProps = {
     isLogged: boolean
-    errorMessage: string
+    errorMessage: string[]
     captchaURL: string
 }
 type TDispatchProps = {

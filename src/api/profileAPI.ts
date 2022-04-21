@@ -1,42 +1,39 @@
 import { TSetProfileData, TUserProfile } from "../types/types"
-import { instance } from "./api"
+import { instance, TResponseData } from "./api"
 
 export const profileAPI = {
-    getProfile(userId: number) {
-        return instance.get<TUserProfile>(`profile/${userId}`).then(response => response.data)
+    async getProfile(userId: number) {
+        const response = await instance.get<TUserProfile>(`profile/${userId}`)
+        return response.data
     },
-    setProfile(profileData: TSetProfileData) {
-        return instance.put(`profile`, profileData).then(response => response.data)
+    async setProfile(profileData: TSetProfileData) {
+        const response = await instance.put<TResponseData>(`profile`, profileData)
+        return response.data
     },
-    setStatus(status: string) {
-        return instance.put(`profile/status`, { status: status }).then(response => response.data)
+    async setStatus(status: string) {
+        const response = await instance.put<TResponseData>(`profile/status`, { status: status })
+        return response.data
     },
-    getStatus(userId: number) {
-        return instance.get<string>(`profile/status/${userId}`).then(response => response.data)
+    async getStatus(userId: number) {
+        const response = await instance.get<string>(`profile/status/${userId}`)
+        return response.data
     },
-    setPhoto(photoFile) {
+    async setPhoto(photoFile: File) {
         const formData = new FormData()
         formData.append('image', photoFile)
         
-        return instance.put(`profile/photo`, formData, {
+        const response = await instance.put<TResponseData<TPhotoData>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        }).then(response => response.data)
+        })
+        return response.data
     }
 }
 
-// setProfile put:
-    // resultCode: required(number)
-    // messages: required(array of string)
-    // data: required(object)
-
-// setStatus put:
-    // resultCode: required(number)
-    // messages: required(array of string)
-    // data: required(object)
-
-// setPhoto get:
-    // resultCode: required(number)
-    // messages: required(array of string)
-    // data: required(object)
+type TPhotoData = {
+    photos: {
+        small: string
+        large: string
+    }
+}

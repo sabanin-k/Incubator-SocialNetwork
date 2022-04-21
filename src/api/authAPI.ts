@@ -1,36 +1,38 @@
-import { instance } from "./api"
+import { instance, TResponseData } from "./api"
 
 export const authAPI = {
-    getAuth() {
-        return instance.get('auth/me').then(response => response.data)
+    async getAuth() {
+        const response = await instance.get<TResponseData<TAuthData>>('auth/me')
+        return response.data
     },
-    login(values) {
-        return instance.post('auth/login', values).then(response => response.data)
+    async login(values: TLoginValues) {
+        const response = await instance.post<TResponseData<TLoginData>>('auth/login', values)
+        return response.data
     },
-    logout() {
-        return instance.delete('auth/login').then(response => response.data)
+    async logout() {
+        const response = await instance.delete<TResponseData>('auth/login')
+        return response.data
     },
-    getCaptcha() {
-        return instance.get('security/get-captcha-url').then(response => response.data)
+    async getCaptcha() {
+        const response = await instance.get<TCaptchaData>('security/get-captcha-url')
+        return response.data
     }
 }
-// getAyth get:
-    // data: required(object)
-        // id: required(number)
-        // email: required(string)
-        // login: required(string)
-    // resultCode: required(number)
-    // messages: required(array of string)
 
-// login post:
-    // data: required(object)
-    // resultCode: required(number)
-    // messages: required(array of string)
-
-// logout delete:
-    // data: required(object)
-    // resultCode: required(number)
-    // messages: required(array of string)
-
-
-
+type TAuthData = {
+    id: number
+    email: string
+    login: string
+}
+type TLoginData = {
+    userId: number
+}
+export type TLoginValues = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
+}
+type TCaptchaData = {
+    url: string
+}
