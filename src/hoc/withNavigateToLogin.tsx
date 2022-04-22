@@ -1,13 +1,15 @@
-import React, { FC } from "react";
+import React, { ComponentType, FC } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { TGlobalState } from "../store/reduxStore";
+import { getIsLogged } from "../store/selectors/authSelector";
 
-const withNavigateToLogin = (Component: React.ComponentType) => {
-    const WrapperComponent: FC<any> = (props) => {
-        if (props.initialized && !props.isLogged) return <Navigate to='/login' />
+const withNavigateToLogin = <T,> (Component: ComponentType<T>) => {
+    const WrapperComponent: FC<TProps> = (props) => {
+        const { initialized, isLogged, ...restProps } = props
+        if (initialized && !isLogged) return <Navigate to='/login' />
         return (
-            <Component {...props}/>
+            <Component {...restProps as T} />
         )   
     }
 
@@ -15,8 +17,10 @@ const withNavigateToLogin = (Component: React.ComponentType) => {
 }
 
 const mapStateToProps = (state: TGlobalState) => ({
-    isLogged: state.auth.isLogged,
+    isLogged: getIsLogged(state),
     initialized: state.app.initialized
 })
 
 export default withNavigateToLogin;
+
+type TProps = ReturnType<typeof mapStateToProps>

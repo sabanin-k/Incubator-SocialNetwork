@@ -1,32 +1,19 @@
-import { connect } from "react-redux";
 import React, { FC, useEffect } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 import { getUserProfileThunk, setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
-import { compose } from "redux";
 import withMatchToProps from "../../../hoc/withMatchToProps";
 import { getUserProfile } from "../../../store/selectors/userProfileSelector";
 import { TGlobalState } from "../../../store/reduxStore";
 import { TSetProfileData, TUserProfile } from "../../../types/types";
 
-type TMatch = {params: {userId: number}}
-
-type TProps = {
-    userProfile: TUserProfile
-    match: TMatch
-    authId: number
-    getUserProfileThunk: (matchUserId: number) => void
-    setPhoto: (photoFile: any) => void
-    setProfileDataThunk: (profileData: TSetProfileData) => void
-}
-
-const UserProfileContainer: FC<TProps> = ({userProfile, match, authId, getUserProfileThunk, setPhoto, setProfileDataThunk }) => {
-    
+const UserProfileContainer: FC<TProps> = ({ userProfile, match, authId, getUserProfileThunk, setPhoto, setProfileDataThunk }) => {
     const matchUserId = match != null ? match.params.userId : authId
     useEffect(() => {
         getUserProfileThunk(matchUserId)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [matchUserId])
+    }, [matchUserId, getUserProfileThunk])
 
     return <UserProfile setPhoto={setPhoto} authId={authId} {...userProfile} setProfileDataThunk={setProfileDataThunk}/>
 }
@@ -41,3 +28,14 @@ export default compose<React.Component>(
     withNavigateToLogin,
     withMatchToProps
 )(UserProfileContainer)
+
+
+type TMatch = {params: {userId: number}}
+type TProps = {
+    userProfile: TUserProfile
+    match: TMatch
+    authId: number
+    getUserProfileThunk: (matchUserId: number) => void
+    setPhoto: (photoFile: any) => void
+    setProfileDataThunk: (profileData: TSetProfileData) => void
+}
