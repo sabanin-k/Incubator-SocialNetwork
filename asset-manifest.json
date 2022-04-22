@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Incubator-SocialNetwork/static/css/main.b1216b05.css",
-    "main.js": "/Incubator-SocialNetwork/static/js/main.46133f07.js",
+    "main.js": "/Incubator-SocialNetwork/static/js/main.f21803ed.js",
     "static/css/276.47385b87.chunk.css": "/Incubator-SocialNetwork/static/css/276.47385b87.chunk.css",
     "static/js/276.71f18de2.chunk.js": "/Incubator-SocialNetwork/static/js/276.71f18de2.chunk.js",
     "static/css/163.6cccba52.chunk.css": "/Incubator-SocialNetwork/static/css/163.6cccba52.chunk.css",
@@ -13,7 +13,7 @@
     "static/media/loadingRing.svg": "/Incubator-SocialNetwork/static/media/loadingRing.8920d16a19fe7840d3e3ee5b7abd00ce.svg",
     "index.html": "/Incubator-SocialNetwork/index.html",
     "main.b1216b05.css.map": "/Incubator-SocialNetwork/static/css/main.b1216b05.css.map",
-    "main.46133f07.js.map": "/Incubator-SocialNetwork/static/js/main.46133f07.js.map",
+    "main.f21803ed.js.map": "/Incubator-SocialNetwork/static/js/main.f21803ed.js.map",
     "276.47385b87.chunk.css.map": "/Incubator-SocialNetwork/static/css/276.47385b87.chunk.css.map",
     "276.71f18de2.chunk.js.map": "/Incubator-SocialNetwork/static/js/276.71f18de2.chunk.js.map",
     "163.6cccba52.chunk.css.map": "/Incubator-SocialNetwork/static/css/163.6cccba52.chunk.css.map",
@@ -21,6 +21,6 @@
   },
   "entrypoints": [
     "static/css/main.b1216b05.css",
-    "static/js/main.46133f07.js"
+    "static/js/main.f21803ed.js"
   ]
 }
