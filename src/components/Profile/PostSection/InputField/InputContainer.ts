@@ -1,4 +1,4 @@
-import { actionCreators } from '../../../../store/reducers/profileReducer.ts'
+import { actionCreators } from '../../../../store/reducers/profileReducer'
 import { connect } from "react-redux";
 import Input from "./Input";
 

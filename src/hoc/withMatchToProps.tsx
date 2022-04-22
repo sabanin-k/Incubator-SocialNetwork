@@ -7,7 +7,7 @@ import { getUserProfile } from "../store/selectors/userProfileSelector";
 
 const withMatchToProps = (Component: FC<any>) => {
     const WrapperComponent = (props: TProps) => {
-        const match = useMatch('/users/:userId/');
+        const match = useMatch('/users/:userId');
         return (
             <Component {...props} match={match} />
         )

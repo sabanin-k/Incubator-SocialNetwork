@@ -5,18 +5,6 @@ import UpButton from "../common/UpButton/UpButton";
 import User from "./User.tsx";
 import styles from './Users.module.css';
 
-type TProps = {
-    users: TUsers
-    totalCount: number
-    pageSize: number
-    currentPage: number
-    inProgressFollow: number[]
-    hadlerSetCurrentPage: (number: number) => void
-    followThunk: () => void
-    unfollowThunk: () => void
-    getFollowedFriends: () => void
-}
-
 const Users: FC<TProps> = (props) => {
     return <>
         <section className={styles.usersSection}>
@@ -40,3 +28,16 @@ const Users: FC<TProps> = (props) => {
 }
 
 export default Users;
+
+
+type TProps = {
+    users: TUsers
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    inProgressFollow: number[]
+    hadlerSetCurrentPage: (number: number) => void
+    followThunk: () => void
+    unfollowThunk: () => void
+    getFollowedFriends: () => void
+}

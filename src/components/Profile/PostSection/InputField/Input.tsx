@@ -3,10 +3,6 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import styles from './Input.module.css';
 
-type TProps = {
-    addPost: (value: string) => void
-}
-
 const Input: FC<TProps> = ({ addPost }) => {
     const schema = yup.object().shape({
         input: yup.string().required('Ну говори, ты же начинал говорить, говори')
@@ -40,3 +36,8 @@ const Input: FC<TProps> = ({ addPost }) => {
 }
 
 export default Input;
+
+
+type TProps = {
+    addPost: (value: string) => void
+}

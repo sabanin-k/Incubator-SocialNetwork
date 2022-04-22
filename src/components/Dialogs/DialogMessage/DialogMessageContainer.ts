@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import DialogMessage from "./DialogMessage";
-import { deleteMessage } from "../../../store/reducers/dialogsReducer.ts";
+import { deleteMessage } from "../../../store/reducers/dialogsReducer";
+import { TGlobalState } from "../../../store/reduxStore";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: TGlobalState) => {
     return {
         messages: state.dialogsPage.messages
     }

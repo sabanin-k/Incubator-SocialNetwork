@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import withNavigateToLogin from "../../../hoc/withNavigateToLogin";
 import withMatchToProps from "../../../hoc/withMatchToProps";
 import { getUserProfile } from "../../../store/selectors/userProfileSelector";
+import { getAuthUserId } from "../../../store/selectors/authSelector";
 import { TGlobalState } from "../../../store/reduxStore";
 import { TSetProfileData, TUserProfile } from "../../../types/types";
 
@@ -20,10 +21,10 @@ const UserProfileContainer: FC<TProps> = ({ userProfile, match, authId, getUserP
 
 const mapStateToProps = (state: TGlobalState) => ({
     userProfile: getUserProfile(state),
-    authId: state.auth.id
+    authId: getAuthUserId(state)
 })
 
-export default compose<React.Component>(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, { getUserProfileThunk, setPhoto, setProfileDataThunk }),
     withNavigateToLogin,
     withMatchToProps
@@ -36,6 +37,6 @@ type TProps = {
     match: TMatch
     authId: number
     getUserProfileThunk: (matchUserId: number) => void
-    setPhoto: (photoFile: any) => void
+    setPhoto: (photoFile: File) => void
     setProfileDataThunk: (profileData: TSetProfileData) => void
 }

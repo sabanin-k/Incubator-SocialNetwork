@@ -32,14 +32,15 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
         <NavigationContainer />
         <div className='App__main'>
           <Routes>
-            <Route path='/*' element={<Page404 />} />
-            <Route path='/profile/' element={<Profile key='me' />} />
-            <Route path='/dialogs' element={<Suspense fallback={<Preloader />}> <Dialogs /> </Suspense>} />
-            <Route path='/news' element={ <Suspense fallback={<Preloader />}> <NewsContainer /> </Suspense>} />
-            <Route path='/users' element={<UsersContainer />} />
-            <Route path='/users/*' element={<Profile />} />
-            <Route path='/login' element={<LoginContainer />} />
-            <Route path='/friends' element={<FriendsContainer />}/>
+            <Route path='/' element={<Profile/>} />
+            <Route path='profile' element={<Profile key='me' />} />
+            <Route path='dialogs' element={<Suspense fallback={<Preloader />}> <Dialogs /> </Suspense>} />
+            <Route path='news' element={ <Suspense fallback={<Preloader />}> <NewsContainer /> </Suspense>} />
+            <Route path='users' element={<UsersContainer />} />
+            <Route path='users/:userId' element={<Profile />} />
+            <Route path='login' element={<LoginContainer />} />
+            <Route path='friends' element={<FriendsContainer />}/>
+            <Route path='*' element={<Page404 />} />
           </Routes>
         </div>
       </div>

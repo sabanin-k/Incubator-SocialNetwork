@@ -4,20 +4,12 @@ import userImage from '../../assets/images/user.png';
 import { TUser } from '../../types/types';
 import styles from './Users.module.css';
 
-type TProps = {
-    user: TUser
-    inProgressFollow: number[]
-    followThunk: (id: number) => void
-    unfollowThunk: (id: number) => void
-    getFollowedFriends: () => void
-}
-
 const User: FC<TProps> = ({ user , inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
     useEffect(() => {
         getFollowedFriends()
     }, [inProgressFollow, getFollowedFriends])
 
-    const followButtons = (user) => {
+    const followButtons = (user: TUser) => {
         return user.followed
             ? <button disabled={inProgressFollow.includes(user.id)} className={styles.button} onClick={(event) => {
                 event.preventDefault();
@@ -53,3 +45,12 @@ const User: FC<TProps> = ({ user , inProgressFollow, followThunk, unfollowThunk,
 }
 
 export default User;
+
+
+type TProps = {
+    user: TUser
+    inProgressFollow: number[]
+    followThunk: (id: number) => void
+    unfollowThunk: (id: number) => void
+    getFollowedFriends: () => void
+}

@@ -3,10 +3,6 @@ import { NavLink } from 'react-router-dom';
 import FriendsFieldContainer from '../common/FriendsField/FriendsFieldContainer';
 import style from './Navigation.module.css';
 
-type TProps = {
-    isLogged: boolean
-}
-
 const Navigation: FC<TProps> = ({ isLogged }) => {
     return <nav className={style.nav}>
         <ul className={style.ul}>
@@ -29,3 +25,8 @@ const Navigation: FC<TProps> = ({ isLogged }) => {
 }
 
 export default Navigation
+
+
+type TProps = {
+    isLogged: boolean
+}

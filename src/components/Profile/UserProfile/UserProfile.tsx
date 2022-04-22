@@ -8,19 +8,6 @@ import EditProfile from "../../common/EditProfile/EditProfile";
 import { TContacts, TPhotos, TSetProfileData } from "../../../types/types";
 import styles from "./UserProfile.module.css";
 
-type TProps = {
-    userId: number
-    authId: number
-    aboutMe: string
-    contacts: TContacts
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    photos: TPhotos
-    setPhoto: (file: any) => void
-    setProfileDataThunk: (values: TSetProfileData) => void
-}
-
 const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos, setPhoto, authId, setProfileDataThunk }) => {
     const isOwner = userId === authId;
 
@@ -110,3 +97,17 @@ const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingFor
 }
 
 export default UserProfile;
+
+
+type TProps = {
+    userId: number
+    authId: number
+    aboutMe: string
+    contacts: TContacts
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    photos: TPhotos
+    setPhoto: (file: any) => void
+    setProfileDataThunk: (values: TSetProfileData) => void
+}

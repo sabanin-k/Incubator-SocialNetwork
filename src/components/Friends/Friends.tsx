@@ -4,14 +4,6 @@ import UpButton from '../common/UpButton/UpButton';
 import User from '../Users/User.tsx';
 import styles from './Friends.module.css';
 
-type TProps = {
-    friends: TUser[]
-    inProgressFollow: number[]
-    followThunk: (userId: number) => void
-    unfollowThunk: (userId: number) => void
-    getFollowedFriends: () => void
-}
-
 const Friends: FC<TProps> = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
     return (
         <div className={styles.friendsWrapper}>
@@ -29,3 +21,12 @@ const Friends: FC<TProps> = ({ friends, inProgressFollow, followThunk, unfollowT
 }
 
 export default Friends;
+
+
+type TProps = {
+    friends: TUser[]
+    inProgressFollow: number[]
+    followThunk: (userId: number) => void
+    unfollowThunk: (userId: number) => void
+    getFollowedFriends: () => void
+}

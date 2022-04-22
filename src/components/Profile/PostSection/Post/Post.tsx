@@ -2,11 +2,6 @@ import React, { FC } from "react";
 import { TPost } from "../../../../store/reducers/profileReducer";
 import styles from './Post.module.css'
 
-type TProps = {
-    posts: TPost[]
-    pressLike: (id: number) => void
-}
-
 const Post: FC<TProps> = ({ posts, pressLike }) => {
     return <>
         {posts.map(item => {
@@ -30,3 +25,9 @@ const Post: FC<TProps> = ({ posts, pressLike }) => {
 }
 
 export default Post;
+
+
+type TProps = {
+    posts: TPost[]
+    pressLike: (id: number) => void
+}

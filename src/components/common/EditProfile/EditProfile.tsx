@@ -7,10 +7,6 @@ import styles from './EditProfile.module.css';
 import { TSetProfileData } from '../../../types/types';
 import { TGlobalState } from '../../../store/reduxStore';
 
-type TProps = {
-    handleEditProfileSubmit: (vales: TSetProfileData) => void
-}
-
 const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
     const userProfile = useSelector((state: TGlobalState) => getUserProfile(state))
 
@@ -105,3 +101,8 @@ const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
 }
 
 export default EditProfile;
+
+
+type TProps = {
+    handleEditProfileSubmit: (vales: TSetProfileData) => void
+}

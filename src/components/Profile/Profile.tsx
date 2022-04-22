@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PostSection from './PostSection/PostSection';
 import InputContainer from './PostSection/InputField/InputContainer';
 import UserProfileContainer from './UserProfile/UserProfileContainer';
 import style from './Profile.module.css';
 
-const Profile = () => {
+const Profile: FC = () => {
     return <div className={style.content}>
         <div className={style.userProfile}>
             <UserProfileContainer />

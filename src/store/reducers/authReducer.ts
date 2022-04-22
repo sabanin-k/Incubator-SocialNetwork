@@ -15,7 +15,7 @@ const initialState = {
     captchaURL: null as string | null
 }
 
-const authReducer = (state = initialState, action:TAction):TState => {
+const authReducer = (state = initialState, action:TAuthAction):TState => {
     switch (action.type) {
         case SET_AUTH_USER_DATA:
             return {
@@ -45,13 +45,13 @@ const actionCreators = {
     setCaptcha: (captchaURL:string) => ({ type: SET_CAPTCHA, captchaURL } as const)
 }
 
-export const getAuthThunk = (): TThunkAction<TAction> => async (dispatch) => {
+export const getAuthThunk = (): TThunkAction<TAuthAction> => async (dispatch) => {
     const data = await authAPI.getAuth()
     const { id, email, login } = data.data
     data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(id, email, login, true))
 }
 
-export const loginThunk = (loginData: TLoginValues): TThunkAction<TAction, void> => async (dispatch) => {
+export const loginThunk = (loginData: TLoginValues): TThunkAction<TAuthAction, void> => async (dispatch) => {
     const data = await authAPI.login(loginData)
     switch (data.resultCode) {
         case 0: return dispatch(getAuthThunk())
@@ -62,7 +62,7 @@ export const loginThunk = (loginData: TLoginValues): TThunkAction<TAction, void>
     }
 }
 
-export const logoutThunk = (): TThunkAction<TAction> => async (dispatch) => {
+export const logoutThunk = (): TThunkAction<TAuthAction> => async (dispatch) => {
     const data = await authAPI.logout()
     data.resultCode === 0 && dispatch(actionCreators.setAuthUserData(null, null, null, false))
 }
@@ -70,4 +70,4 @@ export const logoutThunk = (): TThunkAction<TAction> => async (dispatch) => {
 export default authReducer;
 
 type TState = typeof initialState
-type TAction = TReturnActionType<typeof actionCreators>
+export type TAuthAction = TReturnActionType<typeof actionCreators>

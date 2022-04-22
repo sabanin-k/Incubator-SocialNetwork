@@ -1,9 +1,9 @@
-import React from "react"
+import React, { FC } from "react"
 import { Link } from "react-router-dom"
 import logo from "../../../assets/images/network.png"
 import styles from "./UnLogged.module.css"
 
-const UnLogged = () => {
+const UnLogged: FC = () => {
     return (
         <header className={styles.header}>
             <img className={styles.logo} src={logo} alt='logo'></img>

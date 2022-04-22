@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { connect } from "react-redux"
 import { Navigate } from "react-router-dom"
-import { loginThunk, getAuthThunk } from '../../store/reducers/authReducer';
+import { TLoginValues } from '../../api/authAPI';
+import { loginThunk, getAuthThunk, TAuthAction } from '../../store/reducers/authReducer';
 import { TGlobalState } from '../../store/reduxStore';
 import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selectors/authSelector";
+import { TThunkAction } from '../../types/types';
 import Login from "./Login"
-
-type TProps = TStateToProps & TDispatchProps
 
 const LoginContainer: FC<TProps> = ({ isLogged, loginThunk, getAuthThunk, errorMessage, captchaURL }) => {
     if (isLogged) return <Navigate to={'/profile'} />
@@ -23,14 +23,12 @@ const mapStateToProps = (state: TGlobalState) => ({
     captchaURL: getCaptchaURL(state)
 })
 
-type TStateToProps = {
-    isLogged: boolean
-    errorMessage: string[]
-    captchaURL: string
-}
+export default connect<TStateToProps, TDispatchProps>(mapStateToProps, { loginThunk, getAuthThunk })(LoginContainer)
+
+
+type TProps = TStateToProps & TDispatchProps
+type TStateToProps = ReturnType<typeof mapStateToProps>
 type TDispatchProps = {
-    loginThunk: (loginData: object) => any
+    loginThunk: (loginData: TLoginValues) => TThunkAction<TAuthAction, void>
     getAuthThunk: () => void
 }
-
-export default connect<TStateToProps, TDispatchProps>(mapStateToProps, { loginThunk, getAuthThunk })(LoginContainer)

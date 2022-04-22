@@ -3,10 +3,6 @@ import { NavLink } from "react-router-dom";
 import { TDialogsFriend } from "../../../store/reducers/dialogsReducer";
 import s from './DialogItem.module.css';
 
-type TProps = {
-    friends: TDialogsFriend[]
-}
-
 const DialogItem: FC<TProps> = ({ friends }) => {
     return <>
         <div className={s.dialogListItem}>
@@ -29,3 +25,8 @@ const DialogItem: FC<TProps> = ({ friends }) => {
 }
 
 export default DialogItem;
+
+
+type TProps = {
+    friends: TDialogsFriend[]
+}

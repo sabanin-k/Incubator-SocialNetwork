@@ -6,14 +6,14 @@ type TProps = {
     writeMessage: (value: string) => void
 }
 
-const InputField: FC<TProps> = (props) => {
+const InputField: FC<TProps> = ({ writeMessage }) => {
     return (
         <Formik 
             initialValues={{
                 textarea: ''
             }}
             onSubmit={(values, { resetForm }) =>
-                {props.writeMessage(values.textarea)
+                {writeMessage(values.textarea)
                 resetForm({})}}>
             <Form className={s.form}>
                 <Field

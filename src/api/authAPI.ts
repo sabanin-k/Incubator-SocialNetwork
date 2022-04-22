@@ -31,7 +31,7 @@ export type TLoginValues = {
     email: string
     password: string
     rememberMe: boolean
-    captcha: boolean
+    captcha?: boolean
 }
 type TCaptchaData = {
     url: string

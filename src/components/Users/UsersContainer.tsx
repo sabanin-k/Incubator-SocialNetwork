@@ -50,14 +50,11 @@ type TStateProps = {
     totalCount: number
     pageSize: number
     currentPage: number
-    inProgressFollow: Array<number>
-   
-}
+    inProgressFollow: Array<number> }
 type TDispatchProps = {
     setCurrentPageThunk: (number: number, pageSize: number) => void
     getUsersThunk: (currentPage: number, pageSize: number) => void
     followThunk: (userId: number) => void
     unfollowThunk: (userId: number) => void
-    getFollowedFriends: () => void
-}
+    getFollowedFriends: () => void }
 type TProps = TStateProps & TDispatchProps

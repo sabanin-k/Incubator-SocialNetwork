@@ -3,11 +3,6 @@ import { Link } from "react-router-dom"
 import logo from "../../../assets/images/network.png"
 import styles from "./Logged.module.css"
 
-type TProps = {
-    login: string
-    logoutThunk: () => void
-}
-
 const Logged: FC<TProps> = ({login, logoutThunk}) => {
     return (
         <header className={styles.header}>
@@ -21,3 +16,9 @@ const Logged: FC<TProps> = ({login, logoutThunk}) => {
 }
 
 export default Logged;
+
+
+type TProps = {
+    login: string
+    logoutThunk: () => void
+}

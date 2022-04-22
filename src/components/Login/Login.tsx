@@ -2,13 +2,7 @@ import React, { FC } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
 import styles from "./Login.module.css";
-
-type TProps = {
-    errorMessage: string[]
-    captchaURL: string
-    login: (loginData: object) => Promise<void>
-    getAuth: () => void
-}
+import { TLoginValues } from "../../api/authAPI";
 
 const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
 
@@ -32,7 +26,7 @@ const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
                     email: '',
                     password: '',
                     rememberMe: false,
-                    captcha: ''
+                    captcha: false
                 }}
                 validateOnChange
                 validationSchema={schema}
@@ -83,3 +77,11 @@ const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
 }
 
 export default Login;
+
+
+type TProps = {
+    errorMessage: string[]
+    captchaURL: string
+    login: (loginData: TLoginValues) => any
+    getAuth: () => void
+}
