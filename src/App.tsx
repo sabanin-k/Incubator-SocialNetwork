@@ -10,8 +10,9 @@ import LoginContainer from './components/Login/LoginContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
 import { initialApp } from './store/reducers/appReducer';
-import './App.css';
 import { TGlobalState } from './store/reduxStore';
+import './App.css';
+import Page404 from './components/common/404/Page404';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
 const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
@@ -31,7 +32,7 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
         <NavigationContainer />
         <div className='App__main'>
           <Routes>
-            <Route path='/' element={<Profile />} />
+            <Route path='/*' element={<Page404 />} />
             <Route path='/profile/' element={<Profile key='me' />} />
             <Route path='/dialogs' element={<Suspense fallback={<Preloader />}> <Dialogs /> </Suspense>} />
             <Route path='/news' element={ <Suspense fallback={<Preloader />}> <NewsContainer /> </Suspense>} />
@@ -54,10 +55,6 @@ export default compose<React.Component>(
   connect<TStateProps, TDispatchProps>(mapStateToProps, { initialApp })
 )(App);
 
-type TStateProps = {
-  initialized: boolean
-}
-type TDispatchProps = {
-  initialApp: () => void
-}
+type TStateProps = { initialized: boolean }
+type TDispatchProps = { initialApp: () => void }
 type TProps = TStateProps & TDispatchProps
