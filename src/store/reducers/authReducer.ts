@@ -37,7 +37,7 @@ const authReducer = (state = initialState, action:TAuthAction):TState => {
     }
 }
 
-const actionCreators = {
+export const actionCreators = {
     setAuthUserData: (id:number, email:string, login:string, isLogged:boolean) => (
         { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
     } as const),
@@ -54,11 +54,13 @@ export const getAuthThunk = (): TThunkAction<TAuthAction> => async (dispatch) =>
 export const loginThunk = (loginData: TLoginValues): TThunkAction<TAuthAction, void> => async (dispatch) => {
     const data = await authAPI.login(loginData)
     switch (data.resultCode) {
-        case 0: return dispatch(getAuthThunk())
-        case 10: return authAPI.getCaptcha().then(data => {
-            dispatch(actionCreators.setCaptcha(data.url))
-        })
-        default: return dispatch(actionCreators.setAuthError(data.messages))
+        case 0:
+            return dispatch(getAuthThunk())
+        case 10:
+            const data = await authAPI.getCaptcha()
+            return dispatch(actionCreators.setCaptcha(data.url))
+        default:
+            return dispatch(actionCreators.setAuthError(data.messages))
     }
 }
 

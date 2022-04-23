@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { connect } from "react-redux"
 import { Navigate } from "react-router-dom"
 import { TLoginValues } from '../../api/authAPI';
-import { loginThunk, getAuthThunk, TAuthAction } from '../../store/reducers/authReducer';
+import { loginThunk, TAuthAction } from '../../store/reducers/authReducer';
 import { TGlobalState } from '../../store/reduxStore';
 import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selectors/authSelector";
 import { TThunkAction } from '../../types/types';

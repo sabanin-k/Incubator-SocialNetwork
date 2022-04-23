@@ -19,10 +19,11 @@ const appReducer = (state = initialState, action: TAction):TState => {
     }
 }
 
-const initialAppAC = ():TInitialAppAction => ({ type: INITIAL_APP })
+export const initialAppAC = ():TInitialAppAction => ({ type: INITIAL_APP })
 
-export const initialApp = (): TThunkAction<TAction, void> => (dispatch) => {
-    dispatch(getAuthThunk()).then(() => dispatch(initialAppAC()))
+export const initialApp = (): TThunkAction<TAction, void> => async (dispatch) => {
+    await dispatch(getAuthThunk())
+    dispatch(initialAppAC())
 }
 
 export default appReducer

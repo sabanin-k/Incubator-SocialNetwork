@@ -19,12 +19,12 @@ export const authAPI = {
     }
 }
 
-type TAuthData = {
+export type TAuthData = {
     id: number
     email: string
     login: string
 }
-type TLoginData = {
+export type TLoginData = {
     userId: number
 }
 export type TLoginValues = {
@@ -35,4 +35,5 @@ export type TLoginValues = {
 }
 type TCaptchaData = {
     url: string
+    messages: []
 }
