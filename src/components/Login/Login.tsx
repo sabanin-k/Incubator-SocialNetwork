@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
-import styles from "./Login.module.css";
 import { TLoginValues } from "../../api/authAPI";
+import { TThunkAction } from "../../types/types";
+import { TAuthAction } from "../../store/reducers/authReducer";
+import styles from "./Login.module.css";
 
-const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
+const Login: FC<TProps> = ({ login, errorMessage, captchaURL }) => {
 
     const schema = yup.object().shape({
         email: yup.string().required('Обязательно').email('Неправильно, ебанные волки!'),
@@ -16,7 +18,7 @@ const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
             email: 'free@samuraijs.com',
             password: 'free',
             rememberMe: false
-        }).then(() => getAuth())
+        })
     }
 
     return (
@@ -31,7 +33,7 @@ const Login: FC<TProps> = ({ login, getAuth, errorMessage, captchaURL }) => {
                 validateOnChange
                 validationSchema={schema}
                 onSubmit={(values) => {
-                    login(values).then(() => getAuth())
+                    login(values)
                 }}
             >
                 {({ errors, touched, dirty, isValid, handleBlur }) => (
@@ -82,6 +84,5 @@ export default Login;
 type TProps = {
     errorMessage: string[]
     captchaURL: string
-    login: (loginData: TLoginValues) => any
-    getAuth: () => void
+    login: (loginData: TLoginValues) => TThunkAction<TAuthAction, void>
 }

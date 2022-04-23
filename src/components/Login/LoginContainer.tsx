@@ -8,11 +8,10 @@ import { getCaptchaURL, getErrorMessage, getIsLogged } from "../../store/selecto
 import { TThunkAction } from '../../types/types';
 import Login from "./Login"
 
-const LoginContainer: FC<TProps> = ({ isLogged, loginThunk, getAuthThunk, errorMessage, captchaURL }) => {
+const LoginContainer: FC<TProps> = ({ isLogged, loginThunk, errorMessage, captchaURL }) => {
     if (isLogged) return <Navigate to={'/profile'} />
 
     return <Login login={loginThunk}
-            getAuth={getAuthThunk}
             errorMessage={errorMessage}
             captchaURL={captchaURL} />
 }
@@ -23,12 +22,11 @@ const mapStateToProps = (state: TGlobalState) => ({
     captchaURL: getCaptchaURL(state)
 })
 
-export default connect<TStateToProps, TDispatchProps>(mapStateToProps, { loginThunk, getAuthThunk })(LoginContainer)
+export default connect<TStateToProps, TDispatchProps>(mapStateToProps, { loginThunk })(LoginContainer)
 
 
 type TProps = TStateToProps & TDispatchProps
 type TStateToProps = ReturnType<typeof mapStateToProps>
 type TDispatchProps = {
     loginThunk: (loginData: TLoginValues) => TThunkAction<TAuthAction, void>
-    getAuthThunk: () => void
 }
