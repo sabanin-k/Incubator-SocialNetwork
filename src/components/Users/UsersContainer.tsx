@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk } from "../../store/reducers/usersReducer";
+import { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk, searchUser } from "../../store/reducers/usersReducer";
 import { getFollowedFriends } from "../../store/reducers/friendsReducer";
 import { getCurrentPage, getInProgressFollow, getPageSize, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
 import { TUsers } from "../../types/types";
@@ -18,15 +18,16 @@ const UsersContainer: FC<TProps> = ({getUsersThunk, ...props}) => {
         props.setCurrentPageThunk(number, props.pageSize)
     }
 
-    return <Users totalCount= { props.totalCount }
-        pageSize = { props.pageSize }
-        users = { props.users }
-        currentPage = { props.currentPage }
-        inProgressFollow = { props.inProgressFollow }
-        hadlerSetCurrentPage = { hadlerSetCurrentPage }
-        followThunk = { props.followThunk }
-        unfollowThunk = { props.unfollowThunk }
-        getFollowedFriends = { props.getFollowedFriends } />
+    return <Users totalCount= {props.totalCount}
+        pageSize = {props.pageSize}
+        users = {props.users}
+        currentPage = {props.currentPage}
+        inProgressFollow = {props.inProgressFollow}
+        hadlerSetCurrentPage = {hadlerSetCurrentPage}
+        followThunk = {props.followThunk}
+        unfollowThunk = {props.unfollowThunk}
+        getFollowedFriends = {props.getFollowedFriends}
+        searchUser = {props.searchUser} />
 }
 
 const mapStateToProps = (state: TGlobalState): TStateProps => {
@@ -40,7 +41,10 @@ const mapStateToProps = (state: TGlobalState): TStateProps => {
 }
 
 export default compose<React.Component>(
-    connect<TStateProps, TDispatchProps>(mapStateToProps, { setCurrentPageThunk, getUsersThunk, followThunk, unfollowThunk, getFollowedFriends }),
+    connect<TStateProps, TDispatchProps>(mapStateToProps, {
+        setCurrentPageThunk, getUsersThunk,
+        followThunk, unfollowThunk,
+        getFollowedFriends, searchUser }),
     withNavigateToLogin
 )(UsersContainer)
 
@@ -56,5 +60,6 @@ type TDispatchProps = {
     getUsersThunk: (currentPage: number, pageSize: number) => void
     followThunk: (userId: number) => void
     unfollowThunk: (userId: number) => void
-    getFollowedFriends: () => void }
+    getFollowedFriends: () => void 
+    searchUser: (value: string) => void }
 type TProps = TStateProps & TDispatchProps

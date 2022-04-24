@@ -8,6 +8,10 @@ export const usersAPI = {
     async getFriends() {
         const response = await instance.get<TResponseUsers>(`users?count=100&friend=true`)
         return response.data
+    },
+    async searchUser(value: string) {
+        const response = await instance.get<TResponseUsers>(`users?term=${value}`)
+        return response.data
     }
 }
 

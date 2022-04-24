@@ -114,6 +114,12 @@ export const unfollowThunk = (userId: number): TThunk => {
     }
 }
 
+export const searchUser = (value: string): TThunk => async (dispatch) => {
+    const data = await usersAPI.searchUser(value)
+    dispatch(actionCreators.setUsers(data.items))
+    dispatch(actionCreators.totalPages(data.totalCount))
+}
+
 export default usersReducer;
 
 type TState = typeof initialState
