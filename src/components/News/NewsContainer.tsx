@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
-import { getNewsThunk, getContent } from '../../store/reducers/newsReducer.ts';
+import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
 import News from './News';
 import Preloader from "../common/Preloader/Preloader";
 import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
+import { TArticle } from "../../api/apiNews";
 
-const NewsContainer = ({getNewsThunk, isFetching, news, hasContent, getContent}) => {
+const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent, getContent }) => {
     useEffect(() => {
         getNewsThunk()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,3 +30,12 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, { getNewsThunk, getContent })(NewsContainer);
+
+
+type TProps = {
+    isFetching: boolean
+    news: TArticle[]
+    hasContent: string[]
+    getContent: () => void
+    getNewsThunk: () => void
+}

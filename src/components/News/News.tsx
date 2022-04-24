@@ -1,16 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
+import { TArticle } from "../../api/apiNews";
 import newspaper from "../../assets/images/newspaper.png";
 import UpButton from "../common/UpButton/UpButton";
 import styles from "./News.module.css";
 
-const News = ({news, hasContent, getContent}) => {
-    const showContent = (content) => {
+const News: FC<TProps> = ({ news, hasContent, getContent }) => {
+    const showContent = (content: string) => {
         return (
             <p>{content}</p>
         )
     }
 
-    const toggleContent = (id, content, text) => {
+    const toggleContent = (id: string, content: string, text: string) => {
         return (
             <>
                 <span className={styles.contentSpan} onClick={(event) => {
@@ -50,3 +51,10 @@ const News = ({news, hasContent, getContent}) => {
 }
 
 export default News;
+
+
+type TProps = {
+    news: TArticle[]
+    hasContent: string[]
+    getContent: (id: string) => void
+}

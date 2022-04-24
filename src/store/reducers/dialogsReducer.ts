@@ -17,7 +17,7 @@ const initialState = {
     updateInput: '' as string
 }
 
-const dialogsReducer = (state = initialState, action: TAction): TState | any => { // this 'any' because of 'messages' in Action
+const dialogsReducer = (state = initialState, action: TAction): TDialogsState => { 
     switch (action.type) {
         case WRITE_MESSAGE:
             const newMessage = { message: action.message, id: Math.random() }
@@ -26,15 +26,10 @@ const dialogsReducer = (state = initialState, action: TAction): TState | any => 
                 messages: [...state.messages, newMessage]
             };
         case PRESS_DELETE:
+            const index = state.messages.findIndex(elem => elem.id === action.id)
             return {
                 ...state,
-                messages: state.messages.map((item: {message: string, id: number}) => {
-                    if (item.id === action.id) {
-                        const index = state.messages.findIndex(elem => item.id === elem.id)
-                        return [...state.messages.slice(0, index), ...state.messages.slice(index + 1)]
-                    }
-                    return item
-                })
+                messages: [...state.messages.slice(0, index), ...state.messages.slice(index + 1)]
             }
         default:
             return state;
@@ -47,7 +42,7 @@ export const deleteMessage = (id: number): TDeleteMessageAction => ({ type: PRES
 export default dialogsReducer;
 
 
-type TState = typeof initialState
+export type TDialogsState = typeof initialState
 type TAction = TWriteMessageAction | TDeleteMessageAction
 type TWriteMessageAction = {type: typeof WRITE_MESSAGE, message: string}
 type TDeleteMessageAction = {type: typeof PRESS_DELETE, id: number}

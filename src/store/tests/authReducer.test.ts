@@ -1,4 +1,3 @@
-import { TResponseData } from '../../api/api';
 import { authAPI, TAuthData, TLoginData, TLoginValues } from '../../api/authAPI';
 import authReducer, { actionCreators, getAuthThunk, loginThunk, logoutThunk } from '../reducers/authReducer';
 jest.mock('../../api/authAPI')

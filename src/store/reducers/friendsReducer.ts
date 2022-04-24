@@ -22,7 +22,7 @@ const friendsReducer = (state = initialState, action: TAction): TState => {
     }
 }
 
-const actionCreators = {
+export const actionCreators = {
     getFollowedFriendsAC: (friends: TUser[], totalFriends:number) => (
         { type: GET_FOLLOWED_FRIENDS, payload: { friends, totalFriends } } as const)
 }
@@ -35,6 +35,6 @@ export const getFollowedFriends = ():TThunk => async (dispatch) => {
 export default friendsReducer;
 
 
-type TState = typeof initialState
+export type TState = typeof initialState
 type TAction = TReturnActionType<typeof actionCreators>
 type TThunk = TThunkAction<TAction>
