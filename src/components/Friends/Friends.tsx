@@ -1,10 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { TUser } from '../../types/types';
 import UpButton from '../common/UpButton/UpButton';
 import User from '../Users/User.tsx';
 import styles from './Friends.module.css';
 
 const Friends: FC<TProps> = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
+    useEffect(() => {
+        getFollowedFriends()
+    }, [getFollowedFriends, inProgressFollow])
     return (
         <div className={styles.friendsWrapper}>
             {friends.map(friend => {

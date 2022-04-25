@@ -16,6 +16,7 @@ const SearchUserInput: FC<TProps> = ({ searchUser }) => {
         setValue('')
         searchUser('')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceHandle = useCallback(debounce(value => searchUser(value), 500), [searchUser])
     return (
         <form className={styles.form}>
