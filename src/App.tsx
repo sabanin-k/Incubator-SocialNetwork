@@ -2,17 +2,17 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import React, { FC, lazy, Suspense, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import HeaderContainer from './components/Header/HeaderContainer';
-import NavigationContainer from './components/Navigation/NavigationContainer';
-import Profile from './components/Profile/Profile';
+import {Header} from './components/Header/Header';
+import {Navigation} from './components/Navigation/Navigation';
+import {Profile} from './components/Profile/Profile';
 import UsersContainer from './components/Users/UsersContainer.tsx';
-import LoginContainer from './components/Login/LoginContainer';
-import Preloader from './components/common/Preloader/Preloader';
+import {LoginContainer} from './components/Login/LoginContainer';
+import {Preloader} from './components/common/Preloader/Preloader';
 import FriendsContainer from './components/Friends/FriendsContainer';
+import {Page404} from './components/common/404/Page404';
 import { initialApp } from './store/reducers/appReducer';
 import { TGlobalState } from './store/reduxStore';
 import './App.css';
-import Page404 from './components/common/404/Page404';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
 const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
@@ -28,8 +28,8 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
   return (
     <HashRouter>
       <div className="App">
-        <HeaderContainer />
-        <NavigationContainer />
+        <Header />
+        <Navigation />
         <div className='App__main'>
           <Routes>
             <Route path='/' element={<Profile/>} />

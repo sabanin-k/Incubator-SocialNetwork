@@ -1,26 +1,35 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import Preloader from "../../common/Preloader/Preloader";
+import { useDispatch, useSelector } from "react-redux";
+import { Preloader } from "../../common/Preloader/Preloader";
+import { StatusInput } from "../StatusInput/StatusInput";
+import { SocialLinks } from "../../common/SocialsLinks/SocialLinks";
+import { UserPhoto } from "../../common/UserPhoto/UserPhoto";
+import { EditProfile } from "../../common/EditProfile/EditProfile";
+import { TSetProfileData } from "../../../types/types";
+import { getUserProfile } from "../../../store/selectors/userProfileSelector";
+import { getAuthUserId } from "../../../store/selectors/authSelector";
+import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import userImage from "../../../assets/images/user.png";
-import StatusInputContainer from "../StatusInput/StatusInputContainer";
-import SocialLinks from "../../common/SocialsLinks/SocialLinks";
-import UserPhoto from "../../common/UserPhoto/UserPhoto.tsx";
-import EditProfile from "../../common/EditProfile/EditProfile";
-import { TContacts, TPhotos, TSetProfileData } from "../../../types/types";
 import styles from "./UserProfile.module.css";
 
-const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos, setPhoto, authId, setProfileDataThunk }) => {
+export const UserProfile: FC = () => {
+    const dispatch = useDispatch()
+    const userProfile = useSelector(getUserProfile)
+    const authId = useSelector(getAuthUserId)
+    
+    const {aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos} = userProfile
     const isOwner = userId === authId;
 
     const [modalActive, setModalActive] = useState(false)
     const [editActive, setEditActive] = useState(false)
 
     const handleEditProfileSubmit = (values: TSetProfileData) => {
-        setProfileDataThunk(values)
+        dispatch(setProfileDataThunk(values))
         setEditActive(false)
     }
 
     const onPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files.length) setPhoto(event.target.files[0])
+        if (event.target.files.length) dispatch(setPhoto(event.target.files[0]))
     }
 
     if (!userId) { return <Preloader /> }
@@ -40,7 +49,7 @@ const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingFor
             <div className={styles.about}>
                 <h2>{fullName}</h2>
                 <div className={styles.status}>
-                    <StatusInputContainer />
+                    <StatusInput />
                 </div>
                 <div className={styles.idDiv}>
                     <span className={styles.idSpan}>ID:</span>
@@ -94,20 +103,4 @@ const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingFor
             <UserPhoto photo={photos.large} modalActive={modalActive} setModalActive={setModalActive} />
         </div>
     )
-}
-
-export default UserProfile;
-
-
-type TProps = {
-    userId: number
-    authId: number
-    aboutMe: string
-    contacts: TContacts
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    photos: TPhotos
-    setPhoto: (file: any) => void
-    setProfileDataThunk: (values: TSetProfileData) => void
 }

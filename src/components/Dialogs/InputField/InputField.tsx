@@ -1,19 +1,18 @@
 import React, { FC } from "react";
 import { Formik, Form, Field } from "formik";
+import { useDispatch } from "react-redux";
+import { writeMessage } from "../../../store/reducers/dialogsReducer";
 import s from "./InputField.module.css";
 
-type TProps = {
-    writeMessage: (value: string) => void
-}
-
-const InputField: FC<TProps> = ({ writeMessage }) => {
+export const InputField: FC = () => {
+    const dispatch = useDispatch()
     return (
         <Formik 
             initialValues={{
                 textarea: ''
             }}
             onSubmit={(values, { resetForm }) =>
-                {writeMessage(values.textarea)
+                {dispatch(writeMessage(values.textarea))
                 resetForm({})}}>
             <Form className={s.form}>
                 <Field
@@ -25,5 +24,3 @@ const InputField: FC<TProps> = ({ writeMessage }) => {
         </Formik>
     )
 }
-
-export default InputField

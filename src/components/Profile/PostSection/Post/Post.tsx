@@ -1,8 +1,12 @@
 import React, { FC } from "react";
-import { TPost } from "../../../../store/reducers/profileReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators } from "../../../../store/reducers/profileReducer";
+import { TGlobalState } from "../../../../store/reduxStore";
 import styles from './Post.module.css'
 
-const Post: FC<TProps> = ({ posts, pressLike }) => {
+export const Post: FC = () => {
+    const posts = useSelector((state: TGlobalState) => state.profilePage.posts)
+    const dispatch = useDispatch()
     return <>
         {posts.map(item => {
             let likesClasses = styles.likesCount;
@@ -14,7 +18,7 @@ const Post: FC<TProps> = ({ posts, pressLike }) => {
                     <p className={styles.text}>{item.text}</p>
                     <p className={styles.likes}>
                         Likes: <span className={likesClasses}
-                            onClick={() => pressLike(item.id)}>
+                            onClick={() => dispatch(actionCreators.pressLike(item.id))}>
                             &#x2661; {item.likes}
                         </span>
                     </p>
@@ -22,12 +26,4 @@ const Post: FC<TProps> = ({ posts, pressLike }) => {
             )
         })}
     </>
-}
-
-export default Post;
-
-
-type TProps = {
-    posts: TPost[]
-    pressLike: (id: number) => void
 }

@@ -2,8 +2,11 @@ import React, { FC } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import styles from './Input.module.css';
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../../../store/reducers/profileReducer";
 
-const Input: FC<TProps> = ({ addPost }) => {
+export const Input: FC = () => {
+    const dispatch = useDispatch()
     const schema = yup.object().shape({
         input: yup.string().required('Ну говори, ты же начинал говорить, говори')
     })
@@ -16,7 +19,7 @@ const Input: FC<TProps> = ({ addPost }) => {
             validateOnBlur
             validationSchema={schema}
             onSubmit={(values, { resetForm }) => {
-                addPost(values.input)
+                dispatch(actionCreators.addPost(values.input))
                 resetForm({})
             }}>
             {({ errors, touched, dirty, handleBlur, isValid }) => (
@@ -33,11 +36,4 @@ const Input: FC<TProps> = ({ addPost }) => {
             )}
         </Formik>
     )
-}
-
-export default Input;
-
-
-type TProps = {
-    addPost: (value: string) => void
 }

@@ -1,15 +1,14 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import userImage from '../../../assets/images/user.png';
-import { TUser } from "../../../types/types";
+import { getFriends, getTotalFriends } from "../../../store/selectors/friendsSelector";
 import styles from './FriendsField.module.css';
 
-type TProps = {
-    friends: TUser[]
-    totalFriends: number
-}
+export const FriendsField: FC = () => {
+    const friends = useSelector(getFriends)
+    const totalFriends = useSelector(getTotalFriends)
 
-const FriendsField: FC<TProps> = ({ friends, totalFriends }) => {
     const sixFriends = friends.slice(0, 6)
     const friendRender = sixFriends.map((item) => {
         return (
@@ -35,5 +34,3 @@ const FriendsField: FC<TProps> = ({ friends, totalFriends }) => {
     )
 
 }
-
-export default FriendsField;

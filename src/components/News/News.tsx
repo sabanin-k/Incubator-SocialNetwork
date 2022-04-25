@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { TArticle } from "../../api/apiNews";
 import newspaper from "../../assets/images/newspaper.png";
-import UpButton from "../common/UpButton/UpButton";
+import {UpButton} from "../common/UpButton/UpButton";
 import styles from "./News.module.css";
 
 const News: FC<TProps> = ({ news, hasContent, getContent }) => {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import image from '../../../assets/images/error-404.png'
 import styles from './Page404.module.css'
 
-const Page404: FC<{}> = () => {
+export const Page404: FC<{}> = () => {
     return <div className={styles.wrapper}>
         <div className={styles.content}>
             <h1 className={styles.h1}>Здесь нет такой страницы</h1>
@@ -16,5 +16,3 @@ const Page404: FC<{}> = () => {
         </div>
     </div>
 }
-
-export default Page404

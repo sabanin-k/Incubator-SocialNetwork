@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './UpButton.module.css';
 
-const UpButton = () => {
+export const UpButton: FC = () => {
     const [buttonState, setButtonState] = useState(false)
 
     const handleScroll = () => {
@@ -30,5 +30,3 @@ const UpButton = () => {
         </div>
     )
 }
-
-export default UpButton;

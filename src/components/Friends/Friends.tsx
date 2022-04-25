@@ -1,35 +1,34 @@
 import React, { FC, useEffect } from 'react'
-import { TUser } from '../../types/types';
-import UpButton from '../common/UpButton/UpButton';
-import User from '../Users/User.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFollowedFriends } from '../../store/reducers/friendsReducer';
+import { followThunk, unfollowThunk } from '../../store/reducers/usersReducer';
+import { getFriends } from '../../store/selectors/friendsSelector';
+import { getInProgressFollow } from '../../store/selectors/usersSelector';
+import { UpButton } from '../common/UpButton/UpButton';
+import { User } from '../Users/User';
 import styles from './Friends.module.css';
 
-const Friends: FC<TProps> = ({ friends, inProgressFollow, followThunk, unfollowThunk, getFollowedFriends }) => {
+export const Friends: FC = () => {
+    const friends = useSelector(getFriends)
+    const inProgressFollow = useSelector(getInProgressFollow)
+    const dispatch = useDispatch()
+    const follow = (userId: number) => dispatch(followThunk(userId))
+    const unfollow = (userId: number) => dispatch(unfollowThunk(userId))
+
     useEffect(() => {
-        getFollowedFriends()
-    }, [getFollowedFriends, inProgressFollow])
+        dispatch(getFollowedFriends())
+    }, [dispatch, inProgressFollow])
+
     return (
         <div className={styles.friendsWrapper}>
             {friends.map(friend => {
                 return <User user={friend}
                     inProgressFollow={inProgressFollow}
-                    followThunk={followThunk}
-                    unfollowThunk={unfollowThunk}
-                    getFollowedFriends={getFollowedFriends}
+                    followThunk={follow}
+                    unfollowThunk={unfollow}
                     key={friend.id} />
             })}
             <UpButton />
         </div>
     )
-}
-
-export default Friends;
-
-
-type TProps = {
-    friends: TUser[]
-    inProgressFollow: number[]
-    followThunk: (userId: number) => void
-    unfollowThunk: (userId: number) => void
-    getFollowedFriends: () => void
 }

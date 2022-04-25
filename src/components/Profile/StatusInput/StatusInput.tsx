@@ -1,7 +1,15 @@
 import React, { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStatusThunk } from "../../../store/reducers/userProfileReducer";
+import { getAuthUserId } from "../../../store/selectors/authSelector";
+import { getStatus, getUserId } from "../../../store/selectors/userProfileSelector";
 import styles from "./StatusInput.module.css";
 
-const StatusInput: FC<TProps> = ({ status, updateStatusThunk, userId, authUserId }) => {
+export const StatusInput: FC = () => {
+    const dispatch = useDispatch()
+    const status = useSelector(getStatus)
+    const userId = useSelector(getUserId)
+    const authUserId = useSelector(getAuthUserId)
     const [editMode, setEditMode] = useState(false)
     const [statusValue, setStatusValue] = useState(status)
     
@@ -14,7 +22,7 @@ const StatusInput: FC<TProps> = ({ status, updateStatusThunk, userId, authUserId
     }
 
     const handleOnBlur = () => {
-        updateStatusThunk(statusValue)
+        dispatch(updateStatusThunk(statusValue))
         setEditMode(false)
     }
 
@@ -36,14 +44,4 @@ const StatusInput: FC<TProps> = ({ status, updateStatusThunk, userId, authUserId
                     : <p className={styles.p}>{ status || ''}</p> }
         </div>
     )
-}
-
-export default StatusInput;
-
-
-type TProps = {
-    status: string
-    updateStatusThunk: (statusValue: string) => void
-    userId: number
-    authUserId: number
 }

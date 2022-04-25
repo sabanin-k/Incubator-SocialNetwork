@@ -1,13 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import loadingRing from "../../../assets/images/loadingRing.svg"
 import styles from "./Preloader.module.css";
 
-const Preloader = () => {
+export const Preloader: FC = () => {
     return(
         <div className={styles.imgWrapper}>
             <img src={loadingRing} alt=""/>
         </div>
     )
 }
-
-export default Preloader;

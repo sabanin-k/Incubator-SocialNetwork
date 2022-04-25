@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import logo from "../../../assets/images/network.png"
 import styles from "./UnLogged.module.css"
 
-const UnLogged: FC = () => {
+export const UnLogged: FC = () => {
     return (
         <header className={styles.header}>
             <img className={styles.logo} src={logo} alt='logo'></img>
@@ -13,5 +13,3 @@ const UnLogged: FC = () => {
         </header>
     )
 }
-
-export default UnLogged;

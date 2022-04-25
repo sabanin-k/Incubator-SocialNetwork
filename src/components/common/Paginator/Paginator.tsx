@@ -1,14 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import styles from './Paginator.module.css';
 
-type TProps = {
-    totalCount: number
-    pageSize: number
-    currentPage: number
-    setCurrentPage: (number: number) => void
-}
-
-const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
+export const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
     const PageButton = ({ disableDepend, funcParametr, innerText }) => {
         return (
             <button disabled={disableDepend}
@@ -75,4 +68,10 @@ const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPa
     )
 }
 
-export default Paginator;
+
+type TProps = {
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    setCurrentPage: (number: number) => void
+}

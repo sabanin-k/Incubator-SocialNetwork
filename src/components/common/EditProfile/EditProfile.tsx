@@ -3,12 +3,11 @@ import { Field, Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { getUserProfile } from '../../../store/selectors/userProfileSelector';
-import styles from './EditProfile.module.css';
 import { TSetProfileData } from '../../../types/types';
-import { TGlobalState } from '../../../store/reduxStore';
+import styles from './EditProfile.module.css';
 
-const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
-    const userProfile = useSelector((state: TGlobalState) => getUserProfile(state))
+export const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
+    const userProfile = useSelector(getUserProfile)
 
     const {
         aboutMe,
@@ -99,8 +98,6 @@ const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
         </div>
     )
 }
-
-export default EditProfile;
 
 
 type TProps = {

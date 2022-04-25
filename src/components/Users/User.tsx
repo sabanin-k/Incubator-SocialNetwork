@@ -4,7 +4,7 @@ import userImage from '../../assets/images/user.png';
 import { TUser } from '../../types/types';
 import styles from './Users.module.css';
 
-const User: FC<TProps> = ({ user , inProgressFollow, followThunk, unfollowThunk }) => {
+export const User: FC<TProps> = ({ user , inProgressFollow, followThunk, unfollowThunk }) => {
     const followButtons = (user: TUser) => {
         return user.followed
             ? <button disabled={inProgressFollow.includes(user.id)} className={styles.button} onClick={(event) => {
@@ -39,8 +39,6 @@ const User: FC<TProps> = ({ user , inProgressFollow, followThunk, unfollowThunk 
         </div>
     )
 }
-
-export default User;
 
 
 type TProps = {

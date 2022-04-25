@@ -1,13 +1,10 @@
 import React, { FC } from "react";
-import PostContainer from "./Post/PostContainer";
+import {Post} from "./Post/Post";
 
-const PostSection: FC = () => {
+export const PostSection: FC = () => {
     return (
         <section className="postSection">
-            <PostContainer />
+            <Post />
         </section>
     )
 }
-
-
-export default PostSection;

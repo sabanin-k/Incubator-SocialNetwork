@@ -1,12 +1,15 @@
 import React, { FC } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as yup from "yup";
-import { TLoginValues } from "../../api/authAPI";
-import { TThunkAction } from "../../types/types";
-import { TAuthAction } from "../../store/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { loginThunk } from "../../store/reducers/authReducer";
+import { getCaptchaURL, getErrorMessage } from "../../store/selectors/authSelector";
 import styles from "./Login.module.css";
 
-const Login: FC<TProps> = ({ login, errorMessage, captchaURL }) => {
+export const Login: FC = () => {
+    const errorMessage = useSelector(getErrorMessage)
+    const captchaURL = useSelector(getCaptchaURL)
+    const dispatch = useDispatch()
 
     const schema = yup.object().shape({
         email: yup.string().required('Обязательно').email('Неправильно, ебанные волки!'),
@@ -14,11 +17,12 @@ const Login: FC<TProps> = ({ login, errorMessage, captchaURL }) => {
     });
 
     const handleClick = () => {
-        login({
+        dispatch(loginThunk({
             email: 'free@samuraijs.com',
             password: 'free',
             rememberMe: false
-        })
+            })
+        )
     }
 
     return (
@@ -33,7 +37,7 @@ const Login: FC<TProps> = ({ login, errorMessage, captchaURL }) => {
                 validateOnChange
                 validationSchema={schema}
                 onSubmit={(values) => {
-                    login(values)
+                    dispatch(loginThunk(values))
                 }}
             >
                 {({ errors, touched, dirty, isValid, handleBlur }) => (
@@ -72,17 +76,8 @@ const Login: FC<TProps> = ({ login, errorMessage, captchaURL }) => {
                 </p>
             </div>
             <div className={styles.descr}>
-                
+
             </div>
         </div>
     )
-}
-
-export default Login;
-
-
-type TProps = {
-    errorMessage: string[]
-    captchaURL: string
-    login: (loginData: TLoginValues) => TThunkAction<TAuthAction, void>
 }

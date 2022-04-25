@@ -1,20 +1,20 @@
 import React, { ComponentType, FC } from "react";
-import InputFieldContainer from "./InputField/InputFieldContainer";
-import DialogItemContainer from "./DialogItem/DialogItemContainer";
-import DialogMessageContainer from "./DialogMessage/DialogMessageContainer";
-import s from './Dialogs.module.css';
 import { compose } from "redux";
+import {InputField} from "./InputField/InputField";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {DialogMessage} from "./DialogMessage/DialogMessage";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
+import s from './Dialogs.module.css';
 
 const Dialogs: FC = () => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogList}>
-                <DialogItemContainer />
+                <DialogItem />
             </div>
             <div className={s.messages}>
-                <DialogMessageContainer />
-                <InputFieldContainer />
+                <DialogMessage />
+                <InputField />
             </div>
         </div>
     )

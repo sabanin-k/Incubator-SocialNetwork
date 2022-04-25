@@ -1,53 +1,62 @@
 import React, { FC, useEffect } from "react";
-import { TUsers } from "../../types/types";
-import Paginator from "../common/Paginator/Paginator";
-import UpButton from "../common/UpButton/UpButton";
+import { useDispatch, useSelector } from "react-redux";
+import { getFollowedFriends } from "../../store/reducers/friendsReducer";
+import { followThunk, setCurrentPageThunk, setSearchTerm, unfollowThunk } from "../../store/reducers/usersReducer";
+import { getCurrentPage, getInProgressFollow, getPageSize, getSearchTerm, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
+import {Paginator} from "../common/Paginator/Paginator";
+import {UpButton} from "../common/UpButton/UpButton";
 import SearchUserInput from "./SearchUser/SearchUserInput";
-import User from "./User.tsx";
+import { User } from "./User";
 import styles from './Users.module.css';
 
-const Users: FC<TProps> = ({ getFollowedFriends, ...props }) => {
+const Users: FC = () => {
+    const dispatch = useDispatch()
+    const users = useSelector(getUsers)
+    const totalCount = useSelector(getTotalCount)
+    const pageSize = useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
+    const searchTerm = useSelector(getSearchTerm)
+    const inProgressFollow = useSelector(getInProgressFollow)
+    const handleFollowThunk = (userId: number) => {
+        dispatch(followThunk(userId))
+    }
+    const handleUnfollowThunk = (userId: number) => {
+        dispatch(unfollowThunk(userId))
+    }
+    const handleSetCurrentPageThunk = (number: number) => {
+        dispatch(setCurrentPageThunk(number))
+    }
+    const handleSetSearchTerm = (value: string) => {
+        dispatch(setSearchTerm(value))
+    }
+
     useEffect(() => {
-        getFollowedFriends()
-    }, [props.inProgressFollow, getFollowedFriends])
+        dispatch(getFollowedFriends())
+    }, [inProgressFollow, dispatch])
+    
     return <>
         <section className={styles.usersSection}>
             <div className={styles.search}>
-                <SearchUserInput setSearchTerm={props.setSearchTerm}
-                    setCurrentPage={props.hadlerSetCurrentPage}
-                    searchTerm={props.searchTerm} />
+                <SearchUserInput setSearchTerm={handleSetSearchTerm}
+                    setCurrentPage={handleSetCurrentPageThunk}
+                    searchTerm={searchTerm} />
             </div>
-            {props.users.map(user => {
+            {users.map(user => {
                 return <User key={user.id}
                     user={user}
-                    inProgressFollow={props.inProgressFollow}
-                    followThunk={props.followThunk}
-                    unfollowThunk={props.unfollowThunk} />
+                    inProgressFollow={inProgressFollow}
+                    followThunk={handleFollowThunk}
+                    unfollowThunk={handleUnfollowThunk} />
             })}
         </section>
         <UpButton />
         <div className={styles.paginatorDiv}>
-            <Paginator totalCount={props.totalCount}
-                pageSize={props.pageSize}
-                currentPage={props.currentPage}
-                setCurrentPage={props.hadlerSetCurrentPage} />
+            <Paginator totalCount={totalCount}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                setCurrentPage={handleSetCurrentPageThunk} />
         </div>
     </>
 }
 
 export default Users;
-
-
-type TProps = {
-    users: TUsers
-    totalCount: number
-    pageSize: number
-    currentPage: number
-    inProgressFollow: number[]
-    hadlerSetCurrentPage: (number: number) => void
-    followThunk: () => void
-    unfollowThunk: () => void
-    getFollowedFriends: () => void
-    setSearchTerm: (term: string) => void
-    searchTerm: string
-}
