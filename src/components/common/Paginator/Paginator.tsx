@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './Paginator.module.css';
 
 type TProps = {
@@ -9,7 +9,6 @@ type TProps = {
 }
 
 const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPage }) => {
-
     const PageButton = ({ disableDepend, funcParametr, innerText }) => {
         return (
             <button disabled={disableDepend}
@@ -21,6 +20,9 @@ const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPa
     const portionSize = 10;
     const totalPagesCount = Math.ceil(totalCount / pageSize);
     const [portionNumber, setPortionNumber] = useState(1);
+    useEffect(() => {
+        setPortionNumber(1)
+    }, [totalCount])
 
     let totalPages = []
     if (totalCount) {
@@ -39,11 +41,13 @@ const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCurrentPa
                     funcParametr={portionNumber - 1}
                     innerText='◀' />
                 <div className={styles.pageNumbersWrapper}>
-                    {totalPages.filter(p => p >= leftSidePortionNumber && p <= rightSidePortionNumber).map((item) => {
-                        return <span key={item} onClick={() => setCurrentPage(item)}
-                            className={currentPage === item ? styles.activePage : styles.pageNumber}
-                        >{item}</span>
-                    })}
+                    {totalPages
+                        .filter(p => p >= leftSidePortionNumber && p <= rightSidePortionNumber)
+                        .map(item => {
+                            return <span key={item} onClick={() => setCurrentPage(item)}
+                                className={currentPage === item ? styles.activePage : styles.pageNumber}
+                            >{item}</span>
+                        })}
                 </div>
                 <PageButton disableDepend={portionNumber === totalPagesCount / portionSize}
                     funcParametr={portionNumber + 1}

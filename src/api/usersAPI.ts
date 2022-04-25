@@ -1,8 +1,8 @@
 import { instance, TResponseData } from "./api"
 
 export const usersAPI = {
-    async getUsers(currentPage: number, pageSize: number) {
-        const response = await instance.get<TResponseUsers>(`users?page=${currentPage}&count=${pageSize}`)
+    async getUsers(currentPage: number, pageSize: number, searchTerm: string) {
+        const response = await instance.get<TResponseUsers>(`users?page=${currentPage}&count=${pageSize}&term=${searchTerm}`)
         return response.data
     },
     async getFriends() {

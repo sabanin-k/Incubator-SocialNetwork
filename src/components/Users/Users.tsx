@@ -6,14 +6,16 @@ import SearchUserInput from "./SearchUser/SearchUserInput";
 import User from "./User.tsx";
 import styles from './Users.module.css';
 
-const Users: FC<TProps> = ({getFollowedFriends, ...props}) => {
+const Users: FC<TProps> = ({ getFollowedFriends, ...props }) => {
     useEffect(() => {
         getFollowedFriends()
     }, [props.inProgressFollow, getFollowedFriends])
     return <>
         <section className={styles.usersSection}>
             <div className={styles.search}>
-                <SearchUserInput searchUser={props.searchUser} />
+                <SearchUserInput setSearchTerm={props.setSearchTerm}
+                    setCurrentPage={props.hadlerSetCurrentPage}
+                    searchTerm={props.searchTerm} />
             </div>
             {props.users.map(user => {
                 return <User key={user.id}
@@ -46,5 +48,6 @@ type TProps = {
     followThunk: () => void
     unfollowThunk: () => void
     getFollowedFriends: () => void
-    searchUser: (value: string) => void
+    setSearchTerm: (term: string) => void
+    searchTerm: string
 }

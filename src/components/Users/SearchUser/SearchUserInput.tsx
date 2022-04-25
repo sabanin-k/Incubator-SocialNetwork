@@ -4,8 +4,8 @@ import searchIcon from '../../../assets/images/search.png'
 import crossIcon from '../../../assets/images/close.png'
 import styles from './SearchUserInput.module.css'
 
-const SearchUserInput: FC<TProps> = ({ searchUser }) => {
-    const [value, setValue] = useState('')
+const SearchUserInput: FC<TProps> = ({ setSearchTerm, setCurrentPage, searchTerm }) => {
+    const [value, setValue] = useState(searchTerm)
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e?.target?.value
         setValue(value)
@@ -14,10 +14,15 @@ const SearchUserInput: FC<TProps> = ({ searchUser }) => {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setValue('')
-        searchUser('')
+        setSearchTerm('')
+        setCurrentPage(1)
+    }
+    const handleDebounce = (value: string) => {
+        setSearchTerm(value)
+        setCurrentPage(1)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const debounceHandle = useCallback(debounce(value => searchUser(value), 500), [searchUser])
+    const debounceHandle = useCallback(debounce(value => handleDebounce(value), 500), [setSearchTerm])
     return (
         <form className={styles.form}>
             <label htmlFor='input' className={styles.label}>
@@ -37,5 +42,7 @@ export default SearchUserInput
 
 
 type TProps = {
-    searchUser: (value: string) => void
+    setSearchTerm: (term: string) => void
+    setCurrentPage: (number: number) => void
+    searchTerm: string
 }
