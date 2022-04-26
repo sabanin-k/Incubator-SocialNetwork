@@ -1,14 +1,14 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import userImage from "../../../assets/images/user.png";
+import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
+import { getAuthUserId } from "../../../store/selectors/authSelector";
+import { TSetProfileData, TUserProfile } from "../../../types/types";
+import { EditProfile } from "../../common/EditProfile/EditProfile";
 import { Preloader } from "../../common/Preloader/Preloader";
-import { StatusInput } from "../StatusInput/StatusInput";
 import { SocialLinks } from "../../common/SocialsLinks/SocialLinks";
 import { UserPhoto } from "../../common/UserPhoto/UserPhoto";
-import { EditProfile } from "../../common/EditProfile/EditProfile";
-import { TSetProfileData } from "../../../types/types";
-import { getAuthUserId } from "../../../store/selectors/authSelector";
-import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
-import userImage from "../../../assets/images/user.png";
+import { StatusInput } from "../StatusInput/StatusInput";
 import styles from "./UserProfile.module.css";
 
 export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos }) => {
@@ -102,6 +102,4 @@ export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, loo
 }
 
 
-type TProps = {
-    aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos
-}
+type TProps = TUserProfile

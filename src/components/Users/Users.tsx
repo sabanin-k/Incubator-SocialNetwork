@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowedFriends } from "../../store/reducers/friendsReducer";
-import { followThunk, setCurrentPageThunk, setSearchTerm, unfollowThunk } from "../../store/reducers/usersReducer";
+import { followThunk, getUsersThunk, setCurrentPageThunk, setSearchTerm, unfollowThunk } from "../../store/reducers/usersReducer";
 import { getCurrentPage, getInProgressFollow, getPageSize, getSearchTerm, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
 import { Paginator } from "../common/Paginator/Paginator";
 import { UpButton } from "../common/UpButton/UpButton";
@@ -18,6 +18,7 @@ const Users: FC = () => {
     const currentPage = useSelector(getCurrentPage)
     const searchTerm = useSelector(getSearchTerm)
     const inProgressFollow = useSelector(getInProgressFollow)
+
     const handleFollowThunk = (userId: number) => {
         dispatch(followThunk(userId))
     }
@@ -35,12 +36,17 @@ const Users: FC = () => {
         dispatch(getFollowedFriends())
     }, [inProgressFollow, dispatch])
 
+    useEffect(() => {
+        dispatch(getUsersThunk(currentPage, pageSize, searchTerm))
+    }, [dispatch, currentPage, pageSize, searchTerm])
+
     return <>
         <section className={styles.usersSection}>
             <div className={styles.search}>
                 <SearchUserInput setSearchTerm={handleSetSearchTerm}
                     setCurrentPage={handleSetCurrentPageThunk}
-                    searchTerm={searchTerm} />
+                    searchTerm={searchTerm} 
+                    currentPage={currentPage}/>
             </div>
             {users.length !== 0
                 ? users.map(user => {
