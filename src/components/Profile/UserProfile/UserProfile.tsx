@@ -6,18 +6,14 @@ import { SocialLinks } from "../../common/SocialsLinks/SocialLinks";
 import { UserPhoto } from "../../common/UserPhoto/UserPhoto";
 import { EditProfile } from "../../common/EditProfile/EditProfile";
 import { TSetProfileData } from "../../../types/types";
-import { getUserProfile } from "../../../store/selectors/userProfileSelector";
 import { getAuthUserId } from "../../../store/selectors/authSelector";
 import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import userImage from "../../../assets/images/user.png";
 import styles from "./UserProfile.module.css";
 
-export const UserProfile: FC = () => {
+export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos }) => {
     const dispatch = useDispatch()
-    const userProfile = useSelector(getUserProfile)
     const authId = useSelector(getAuthUserId)
-    
-    const {aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos} = userProfile
     const isOwner = userId === authId;
 
     const [modalActive, setModalActive] = useState(false)
@@ -103,4 +99,9 @@ export const UserProfile: FC = () => {
             <UserPhoto photo={photos.large} modalActive={modalActive} setModalActive={setModalActive} />
         </div>
     )
+}
+
+
+type TProps = {
+    aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos
 }

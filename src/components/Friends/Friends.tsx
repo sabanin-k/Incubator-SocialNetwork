@@ -6,6 +6,7 @@ import { getFriends } from '../../store/selectors/friendsSelector';
 import { getInProgressFollow } from '../../store/selectors/usersSelector';
 import { UpButton } from '../common/UpButton/UpButton';
 import { User } from '../Users/User';
+import sadImage from '../../assets/images/sad.png'
 import styles from './Friends.module.css';
 
 export const Friends: FC = () => {
@@ -19,16 +20,20 @@ export const Friends: FC = () => {
         dispatch(getFollowedFriends())
     }, [dispatch, inProgressFollow])
 
-    return (
-        <div className={styles.friendsWrapper}>
-            {friends.map(friend => {
-                return <User user={friend}
-                    inProgressFollow={inProgressFollow}
-                    followThunk={follow}
-                    unfollowThunk={unfollow}
-                    key={friend.id} />
-            })}
-            <UpButton />
-        </div>
-    )
+    return <>
+        {friends.length !== 0
+            ? <div className={styles.friendsWrapper}>
+                {friends.map(friend => {
+                    return <User user={friend}
+                        inProgressFollow={inProgressFollow}
+                        followThunk={follow}
+                        unfollowThunk={unfollow}
+                        key={friend.id} />
+                })}
+                <UpButton />
+            </div>
+            : <div className={styles.sadness}>
+                <img src={sadImage} alt="Грусть" />
+            </div>}
+    </>
 }
