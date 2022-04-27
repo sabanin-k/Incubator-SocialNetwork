@@ -21,6 +21,9 @@ export const Navigation: FC = () => {
             <li className={styles.li}>
                 <NavLink className={navData => navData.isActive ? styles.active : styles.link} to='/users'>Люди</NavLink>
             </li>
+            <li className={styles.li}>
+                <NavLink className={navData => navData.isActive ? styles.active : styles.link} to='/chat'>Чат</NavLink>
+            </li>
         </ul>
 
         {isLogged && <FriendsFieldContainer />}

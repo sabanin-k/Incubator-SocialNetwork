@@ -16,6 +16,7 @@ import './App.css';
 
 const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
 const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
+const ChatPage = lazy(() => import('./pages/ChatPage/ChatPage'));
 
 const App: FC<TProps> = ({ initialized, initialApp }) => {
 
@@ -36,6 +37,7 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
             <Route path='profile' element={<Profile key='me' />} />
             <Route path='dialogs' element={<Suspense fallback={<Preloader />}> <Dialogs /> </Suspense>} />
             <Route path='news' element={ <Suspense fallback={<Preloader />}> <NewsContainer /> </Suspense>} />
+            <Route path='chat' element={ <Suspense fallback={<Preloader />}> <ChatPage /> </Suspense>} />
             <Route path='users' element={<UsersContainer />} />
             <Route path='users/:userId' element={<Profile />} />
             <Route path='login' element={<LoginContainer />} />

@@ -8,6 +8,7 @@ import newsReducer from "./reducers/newsReducer";
 import userProfileReducer from "./reducers/userProfileReducer";
 import authReducer from "./reducers/authReducer";
 import appReducer from "./reducers/appReducer";
+import chatReducer from "./reducers/chatReducer";
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -17,12 +18,13 @@ const reducers = combineReducers({
     usersPage: usersReducer,
     userProfilePage: userProfileReducer,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    chat: chatReducer
 })
 
 //@ts-ignore
 const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store: TGlobalState = createStore(reducers, composeEnhacer(applyMiddleware(thunk)));
+const store = createStore(reducers, composeEnhacer(applyMiddleware(thunk)));
 //@ts-ignore
 window.store = store;
 

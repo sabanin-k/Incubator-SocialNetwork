@@ -1,0 +1,31 @@
+.messages {
+    height: 60vh;
+    overflow: auto;
+    background-color: var(--bg-header);
+    border-radius: 5px;
+}
+
+.wrapper {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.photo {
+    border-radius: 50%;
+}
+
+.name {
+    margin: 0;
+    padding: 0;
+    color: var(--font-grey-disactive);
+    font-weight: 100;
+    font-size: 12px;
+}
+
+.message {
+    margin: 0;
+    padding: 0;
+    color: var(--font-grey)
+}
