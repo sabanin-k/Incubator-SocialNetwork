@@ -1,16 +1,18 @@
 import { Dispatch } from "redux"
-import { TMessages, webSocket } from "../../api/wsAPI"
+import { TMessages, TStatus, webSocket } from "../../api/wsAPI"
 import { TThunkAction } from "../../types/types"
 import { TReturnActionType } from "../reduxStore"
 
 const MESSAGES_RECEIVED = 'chat/MESSAGE-RECEIVED'
 const MESSAGES_REMOVED = 'chat/MESSAGE-REMOVED'
+const CONNECT_STATUS_CHANGED = 'chat/CONNECT-STATUS-CHANGED'
 
 const initialState = {
-    messages: [] as TMessages[]
+    messages: [] as TMessages[],
+    connectStatus: 'connecting' || 'OK' as TStatus
 }
 
-const chatReducer = (state = initialState, action: TAction) => {
+const chatReducer = (state = initialState, action: TAction): TState => {
     switch (action.type) {
         case MESSAGES_RECEIVED:
             return {
@@ -22,6 +24,11 @@ const chatReducer = (state = initialState, action: TAction) => {
                 ...state,
                 messages: []
             }
+        case CONNECT_STATUS_CHANGED:
+            return {
+                ...state,
+                connectStatus: action.status
+            }
         default:
             return state
     }
@@ -29,7 +36,8 @@ const chatReducer = (state = initialState, action: TAction) => {
 
 const actionCreators = {
     messagesReceived: (messages: TMessages[]) => ({type: MESSAGES_RECEIVED, messages} as const),
-    messagesRemoved: () => ({type: MESSAGES_REMOVED} as const)
+    messagesRemoved: () => ({type: MESSAGES_REMOVED} as const),
+    statusChanged: (status: TStatus) => ({type: CONNECT_STATUS_CHANGED, status} as const)
 }
 
 let _handleDM: ((messages: TMessages[]) => void) | null = null
@@ -41,14 +49,25 @@ const handleDispatchMessages = (dispatch: Dispatch) => {
     }
     return _handleDM
 }
+let _handleDS: ((status: TStatus) => void) | null = null
+const handleDispatchStatus = (dispatch: Dispatch) => {
+    if (_handleDS === null) {
+        return (
+            _handleDS = (status) => dispatch(actionCreators.statusChanged(status))
+        )
+    }
+    return _handleDS
+}
 
 export const startChatListener = (): TThunk => (dispatch) => {
     webSocket.start()
-    webSocket.subscribe(handleDispatchMessages(dispatch))
+    webSocket.subscribe('messages', handleDispatchMessages(dispatch))
+    webSocket.subscribe('status', handleDispatchStatus(dispatch))
 }
 export const stopChatListener = (): TThunk => (dispatch) => {
     webSocket.stop()
-    webSocket.unsubscribe(handleDispatchMessages(dispatch))
+    webSocket.unsubscribe('messages', handleDispatchMessages(dispatch))
+    webSocket.unsubscribe('status', handleDispatchStatus(dispatch))
     dispatch(actionCreators.messagesRemoved())
 }
 export const sendMessage = (message: string): TThunk => (dispatch) => {
@@ -59,4 +78,5 @@ export default chatReducer
 
 
 type TAction = TReturnActionType<typeof actionCreators>
+type TState = typeof initialState
 type TThunk = TThunkAction<TAction, void>

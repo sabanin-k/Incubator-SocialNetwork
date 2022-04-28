@@ -2,13 +2,14 @@ import React, { FC, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { sendMessage, startChatListener, stopChatListener } from '../../store/reducers/chatReducer'
 import { getIsLogged } from '../../store/selectors/authSelector'
-import { getChatMessagesSelector } from '../../store/selectors/chatSelector'
+import { getChatConnectStatusSelector, getChatMessagesSelector } from '../../store/selectors/chatSelector'
 import { InputMessage } from './InputMessage/InputMessage'
 import { Messages } from './Messages/Messages'
 
 const ChatPage: FC = () => {
     const messages = useSelector(getChatMessagesSelector)
     const isLogged = useSelector(getIsLogged)
+    const connectStatus = useSelector(getChatConnectStatusSelector)
     const dispatch = useDispatch()
     const handleSendMessage = (message: string) => {
         dispatch(sendMessage(message))
@@ -23,7 +24,7 @@ const ChatPage: FC = () => {
     return (
         <>
             {useMemo(() => { return <Messages messages={messages} />}, [messages])}
-            {isLogged && <InputMessage handleSendMessage={handleSendMessage} />}
+            {isLogged && <InputMessage handleSendMessage={handleSendMessage} connectStatus={connectStatus} />}
         </>
     )
 }

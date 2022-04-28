@@ -1,5 +1,6 @@
 .messages {
     height: 60vh;
+    width: 700px;
     overflow: auto;
     background-color: var(--bg-header);
     border-radius: 5px;
