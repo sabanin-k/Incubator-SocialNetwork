@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFollowedFriends } from "../../store/reducers/friendsReducer";
 import { followThunk, getUsersThunk, setCurrentPageThunk, setSearchTerm, unfollowThunk } from "../../store/reducers/usersReducer";
 import { getCurrentPage, getInProgressFollow, getPageSize, getSearchTerm, getTotalCount, getUsers } from "../../store/selectors/usersSelector";
-import { Paginator } from "../common/Paginator/Paginator";
-import { UpButton } from "../common/UpButton/UpButton";
+import { Paginator } from "../../components/common/Paginator/Paginator";
+import { UpButton } from "../../components/common/UpButton/UpButton";
 import SearchUserInput from "./SearchUser/SearchUserInput";
 import { User } from "./User";
 import sadFace from "../../assets/images/meh.png"

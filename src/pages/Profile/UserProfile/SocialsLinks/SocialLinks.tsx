@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import fbLogo from "../../../assets/images/contactLogos/facebook.png";
-import webLogo from "../../../assets/images/contactLogos/web.png";
-import vkLogo from "../../../assets/images/contactLogos/vk.png";
-import twLogo from "../../../assets/images/contactLogos/twitter.png";
-import instLogo from "../../../assets/images/contactLogos/instagram.png";
-import ytLogo from "../../../assets/images/contactLogos/youtube.png";
-import gitLogo from "../../../assets/images/contactLogos/github.png";
+import fbLogo from "../../../../assets/images/contactLogos/facebook.png";
+import webLogo from "../../../../assets/images/contactLogos/web.png";
+import vkLogo from "../../../../assets/images/contactLogos/vk.png";
+import twLogo from "../../../../assets/images/contactLogos/twitter.png";
+import instLogo from "../../../../assets/images/contactLogos/instagram.png";
+import ytLogo from "../../../../assets/images/contactLogos/youtube.png";
+import gitLogo from "../../../../assets/images/contactLogos/github.png";
 import styles from "./SocialLinks.module.css";
 
 export const SocialLinks: FC<TProps> = ({fb, web, vk, tw, inst, yt, git}) => {

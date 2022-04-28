@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TMessages } from '../../../api/wsAPI'
 import userImage from '../../../assets/images/user.png'
@@ -8,8 +8,14 @@ export const Messages: FC<TProps> = ({ messages }) => {
     const [scrollActive, setScrollActive] = useState(true)
     const divRef = useRef(null)
     const scrollRef = useRef(null)
+
+    // НИ ЭТОТ, НИ ВТОРОЙ СКРОЛЛЫ НЕ СПУСКАЮТСЯ ДО САМОГО НИЗА И ОНИ МЕНЯ ЗАЕБАЛИ УЖЕ. ПОШЕЛ НАХУЙ, СКРОЛЛ!
+    // const scrollToBottom = () => {
+    //     divRef.current?.scrollIntoView()
+    // }
     const scrollToBottom = () => {
-        divRef.current?.scrollIntoView({ behavior: "smooth" })
+        const scrolledDiv = document.getElementById('scrolledDiv')
+        scrolledDiv.scrollTo({ top: scrolledDiv.scrollHeight })
     }
     const handleScroll = () => {        
         scrollRef.current.scrollHeight - scrollRef.current.scrollTop > 680
@@ -17,11 +23,12 @@ export const Messages: FC<TProps> = ({ messages }) => {
             : setScrollActive(true)
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (scrollActive) scrollToBottom()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages])
 
-    return <div className={styles.messages} onScroll={handleScroll} ref={scrollRef}>
+    return <div className={styles.messages} onScroll={handleScroll} ref={scrollRef} id='scrolledDiv'>
         {messages !== null && messages.length !== 0
         ? messages.map((m, i) => {            
             return <div key={i} className={styles.wrapper}>

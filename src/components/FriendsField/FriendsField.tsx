@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import userImage from '../../../assets/images/user.png';
-import { getFriends, getTotalFriends } from "../../../store/selectors/friendsSelector";
+import { getFriends, getTotalFriends } from "../../store/selectors/friendsSelector";
+import userImage from '../../assets/images/user.png';
 import styles from './FriendsField.module.css';
 
 export const FriendsField: FC = () => {

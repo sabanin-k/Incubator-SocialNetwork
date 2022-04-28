@@ -4,7 +4,7 @@ import { getFollowedFriends } from '../../store/reducers/friendsReducer';
 import { followThunk, unfollowThunk } from '../../store/reducers/usersReducer';
 import { getFriends } from '../../store/selectors/friendsSelector';
 import { getInProgressFollow } from '../../store/selectors/usersSelector';
-import { UpButton } from '../common/UpButton/UpButton';
+import { UpButton } from '../../components/common/UpButton/UpButton';
 import { User } from '../Users/User';
 import sadImage from '../../assets/images/sad.png'
 import styles from './Friends.module.css';

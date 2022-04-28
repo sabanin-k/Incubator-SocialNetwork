@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import { Field, Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { getUserProfile } from '../../../store/selectors/userProfileSelector';
-import { TSetProfileData } from '../../../types/types';
+import { getUserProfile } from '../../../../store/selectors/userProfileSelector';
+import { TSetProfileData } from '../../../../types/types';
 import styles from './EditProfile.module.css';
 
 export const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
@@ -27,7 +27,9 @@ export const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
     } = userProfile.contacts
 
     const schema = yup.object().shape({
-        lookingForAJob: yup.boolean(),
+        aboutMe: yup.string().required(),
+        lookingForAJob: yup.boolean().required(),
+        fullName: yup.string().required(),
         contacts: yup.object().shape({
             github: yup.string().url('неправильный url-адрес'),
             vk: yup.string().url('неправильный url-адрес'),
@@ -69,7 +71,10 @@ export const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
                     <Form className={styles.form}>
                         <div className={styles.div}>
                             <label htmlFor='aboutMe'>Обо мне</label>
-                            <Field className={styles.input} type='textarea' name='aboutMe' placeholder='Расскажите о себе' id='aboutMe'/>
+                            <div className={styles.divWithReqField}>
+                                <Field className={styles.input} type='textarea' name='aboutMe' placeholder='Расскажите о себе' id='aboutMe'/>
+                                {errors.aboutMe && <span className={styles.error}>Обязательно</span>}
+                            </div>
                         </div>
                         <div className={styles.checkboxDiv}>
                             <Field type='checkbox' name='lookingForAJob' id='checkbox' />
@@ -78,7 +83,10 @@ export const EditProfile: FC<TProps> = ({ handleEditProfileSubmit }) => {
                         <Field className={styles.input} type='textarea' name='lookingForAJobDescription' placeholder='Описание работы' disabled={!values.lookingForAJob} />
                         <div className={styles.div}>
                             <label htmlFor='fullName'>Имя</label>
-                            <Field className={styles.input} type='input' name='fullName' placeholder='Введите имя' id='fullName' />
+                            <div className={styles.divWithReqField}>
+                                <Field className={styles.input} type='input' name='fullName' placeholder='Введите имя' id='fullName' />
+                                {errors.fullName && <span className={styles.error}>Обязательно</span>}
+                            </div>
                         </div>
                         {Object.keys(userProfile.contacts).map(key => {
                             return <div key={key} className={styles.div}>

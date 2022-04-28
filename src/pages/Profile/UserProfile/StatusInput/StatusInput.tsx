@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStatusThunk } from "../../../store/reducers/userProfileReducer";
-import { getAuthUserId } from "../../../store/selectors/authSelector";
-import { getStatus, getUserId } from "../../../store/selectors/userProfileSelector";
+import { updateStatusThunk } from "../../../../store/reducers/userProfileReducer";
+import { getAuthUserId } from "../../../../store/selectors/authSelector";
+import { getStatus, getUserId } from "../../../../store/selectors/userProfileSelector";
 import styles from "./StatusInput.module.css";
 
 export const StatusInput: FC = () => {
@@ -26,7 +26,7 @@ export const StatusInput: FC = () => {
         setEditMode(false)
     }
 
-    const handleOnChange = (event) => {
+    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         setStatusValue(event.target.value)
     }
 

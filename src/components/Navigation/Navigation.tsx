@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getIsLogged } from '../../store/selectors/authSelector';
-import {FriendsFieldContainer} from '../common/FriendsField/FriendsFieldContainer';
+import {FriendsFieldContainer} from '../FriendsField/FriendsFieldContainer';
 import styles from './Navigation.module.css';
 
 export const Navigation: FC = () => {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import image from '../../../assets/images/error-404.png'
+import image from '../../assets/images/error-404.png'
 import styles from './Page404.module.css'
 
 export const Page404: FC<{}> = () => {

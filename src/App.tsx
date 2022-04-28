@@ -4,18 +4,18 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Header } from './components/Header/Header';
 import { Navigation } from './components/Navigation/Navigation';
-import { Profile } from './components/Profile/Profile';
-import UsersContainer from './components/Users/UsersContainer.tsx';
-import { LoginContainer } from './components/Login/LoginContainer';
+import { Profile } from './pages/Profile/Profile';
+import UsersContainer from './pages/Users/UsersContainer.tsx';
+import { LoginContainer } from './pages/Login/LoginContainer';
 import { Preloader } from './components/common/Preloader/Preloader';
-import FriendsContainer from './components/Friends/FriendsContainer';
-import { Page404 } from './components/common/404/Page404';
+import FriendsContainer from './pages/Friends/FriendsContainer';
+import { Page404 } from './pages/404/Page404';
 import { initialApp } from './store/reducers/appReducer';
 import { TGlobalState } from './store/reduxStore';
 import './App.css';
 
-const NewsContainer = lazy(() => import('./components/News/NewsContainer'));
-const Dialogs = lazy(() => import('./components/Dialogs/Dialogs'));
+const NewsContainer = lazy(() => import('./pages/News/NewsContainer'));
+const Dialogs = lazy(() => import('./pages/Dialogs/Dialogs'));
 const ChatPage = lazy(() => import('./pages/ChatPage/ChatPage'));
 
 const App: FC<TProps> = ({ initialized, initialApp }) => {
