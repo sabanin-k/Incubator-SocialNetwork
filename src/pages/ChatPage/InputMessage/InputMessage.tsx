@@ -1,14 +1,11 @@
 import React, { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { sendMessage } from '../../../store/reducers/chatReducer'
 import styles from './InputMessages.module.css'
 
-export const InputMessage: FC = () => {
+export const InputMessage: FC<TProps> = ({ handleSendMessage }) => {
     const [value, setValue] = useState('')
-    const dispatch = useDispatch()
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setValue(e.target.value)
     const handleClick = () => {
-        dispatch(sendMessage(value))
+        handleSendMessage(value)
         setValue('')
     }
     return <div className={styles.wrapper}>
@@ -16,3 +13,6 @@ export const InputMessage: FC = () => {
         <button onClick={handleClick} className={styles.button}>Отправить</button>
     </div>
 }
+
+
+type TProps = { handleSendMessage: (message: string) => void }

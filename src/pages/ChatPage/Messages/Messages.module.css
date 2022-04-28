@@ -29,3 +29,11 @@
     padding: 0;
     color: var(--font-grey)
 }
+
+.plug {
+    margin-top: 30vh;
+    text-align: center;
+    color: var(--font-grey-disactive);
+    font-weight: 100;
+    font-size: 15px;
+}

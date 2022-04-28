@@ -1,21 +1,19 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getChatMessagesSelector } from '../../../store/selectors/chatSelector'
+import { TMessages } from '../../../api/wsAPI'
+import userImage from '../../../assets/images/user.png'
 import styles from './Messages.module.css'
 
-export const Messages: FC = () => {
-    const messages = useSelector(getChatMessagesSelector)
-
+export const Messages: FC<TProps> = ({ messages }) => {
     return <div className={styles.messages} >
         {messages !== null && messages.length !== 0
-        ?  messages.map((m, i) => {
-            console.log('message');
-            
+        ? messages.map((m, i) => {            
             return <div key={i} className={styles.wrapper}>
                 <div className={styles.photoWrapper}>
                     <Link to={'/users/' + m.userId}>
-                        <img src={m.photo} alt={m.userName} width='50px' className={styles.photo} />                    
+                        {m.photo
+                        ? <img src={m.photo} alt={m.userName} width='50px' className={styles.photo} />
+                        : <img src={userImage} alt={m.userName} width='50px' className={styles.photo} />}
                     </Link>
                 </div>
                 <div className={styles.messageWrapper}>
@@ -24,6 +22,9 @@ export const Messages: FC = () => {
                 </div>
             </div>
         })
-        : <p>Нет сообщений</p> }
+        : <p className={styles.plug}>Нет сообщений</p> }
     </div>
-}
+} 
+
+
+type TProps = { messages: TMessages[] }

@@ -2,23 +2,24 @@ import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
 import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
 import News from './News';
-import {Preloader} from "../common/Preloader/Preloader";
+import { Preloader } from "../common/Preloader/Preloader";
 import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
 import { TArticle } from "../../api/apiNews";
 
 const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent, getContent }) => {
     useEffect(() => {
         getNewsThunk()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <>
-            {isFetching && <Preloader />}
-            <News
-                news={news}
-                hasContent={hasContent}
-                getContent={getContent} />
+            {isFetching
+                ? <Preloader />
+                : <News
+                    news={news}
+                    hasContent={hasContent}
+                    getContent={getContent} />}
         </>
     )
 }
