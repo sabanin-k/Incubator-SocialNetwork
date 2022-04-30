@@ -1,50 +1,69 @@
-const WRITE_MESSAGE = 'dialogs/WRITE-MESSAGE'
-const PRESS_DELETE = 'dialogs/PRESS-DELETE'
+import { dialogsAPI, TOpponent, TOpponentMessages } from '../../api/dialogsAPI'
+import { TThunkAction } from '../../types/types'
+import { TReturnActionType } from '../reduxStore'
+
+const GET_OPPONENTS = 'dialogs/GET-OPPONENTS'
+const GET_DIALOG_WITH_OPPONENT = 'dialogs/GET-DIALOG-WITH-OPPONENT'
+const SET_CURRENT_OPPONENT_ID = 'dialogs/SET-CURRENT-OPPONENT-ID'
+const SEND_MESSAGE = 'dialogs/SEND-MESSAGE'
 
 const initialState = {
-    friends: [
-        { name: 'Friend1', id: 1, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-        { name: 'Friend2', id: 2, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-        { name: 'Friend3', id: 3, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-        { name: 'Friend4', id: 4, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-        { name: 'Friend5', id: 5, avaLink: 'https://image.shutterstock.com/image-vector/vector-male-face-avatar-logo-260nw-426321556.jpg' },
-    ] as TDialogsFriend[],
-    messages: [
-        { message: 'Lorem ipsum dolor sit amet.', id: 1 },
-        { message: 'Lorem ipsum dolor amet.', id: 2 },
-        { message: 'Lorem ipsum dolor.', id: 3 }
-    ] as TDialogsMessage[],
-    updateInput: '' as string
+    opponents: [] as TOpponent[],
+    messages: [] as TOpponentMessages[],
+    currentOpponent: {} as TOpponent
 }
 
-const dialogsReducer = (state = initialState, action: TAction): TDialogsState => { 
+const dialogsReducer = (state = initialState, action: TAction): TState => { 
     switch (action.type) {
-        case WRITE_MESSAGE:
-            const newMessage = { message: action.message, id: Math.random() }
+        case GET_OPPONENTS:
             return {
                 ...state,
-                messages: [...state.messages, newMessage]
-            };
-        case PRESS_DELETE:
-            const index = state.messages.findIndex(elem => elem.id === action.id)
+                opponents: [...action.data]
+            }
+        case GET_DIALOG_WITH_OPPONENT:
             return {
                 ...state,
-                messages: [...state.messages.slice(0, index), ...state.messages.slice(index + 1)]
+                messages: [...action.items]
+            }
+        case SET_CURRENT_OPPONENT_ID:
+            return {
+                ...state,
+                currentOpponent: action.opponent
             }
         default:
             return state;
     }
 }
 
-export const writeMessage = (message: string): TWriteMessageAction => ({ type: WRITE_MESSAGE, message })
-export const deleteMessage = (id: number): TDeleteMessageAction => ({ type: PRESS_DELETE, id })
+export const actionCreators = {
+    getOpponents: (data: TOpponent[]) => ({ type: GET_OPPONENTS, data } as const),
+    getDialogWithOpponent: (items: TOpponentMessages[]) => ({ type: GET_DIALOG_WITH_OPPONENT, items } as const),
+    setCurrentOpponent: (opponent: TOpponent) => ({ type: SET_CURRENT_OPPONENT_ID, opponent } as const)
+}
+
+export const getDialogsOpponents = (): TThunk => async (dispatch) => {
+    const data: TOpponent[] = await dialogsAPI.getDialogsOpponents()
+    dispatch(actionCreators.getOpponents(data))
+}
+
+export const getDialogWithOpponent = (userId: number): TThunk => async (dispatch) => {    
+    const data = await dialogsAPI.getDialogWithOpponent(userId)
+    dispatch(actionCreators.getDialogWithOpponent(data.items))
+}
+
+export const sendMessage = (userId: number, message: string): TThunk => async (dispatch) => {
+    const data = await dialogsAPI.sendUserMessage(userId, message)
+    data.resultCode === 0 && dispatch(getDialogWithOpponent(userId))
+}
+
+export const startDialog = (userId: number): TThunk => async (dispatch) => {
+    const data = await dialogsAPI.startDialog(userId)
+    data.resultCode === 0 && dispatch(getDialogsOpponents())
+}
 
 export default dialogsReducer;
 
 
-export type TDialogsState = typeof initialState
-type TAction = TWriteMessageAction | TDeleteMessageAction
-type TWriteMessageAction = {type: typeof WRITE_MESSAGE, message: string}
-type TDeleteMessageAction = {type: typeof PRESS_DELETE, id: number}
-export type TDialogsFriend = { name: string, id: number, avaLink: string }
-export type TDialogsMessage = { message: string, id: number }
+type TState = typeof initialState
+type TAction = TReturnActionType<typeof actionCreators>
+type TThunk = TThunkAction<TAction>

@@ -1,14 +1,17 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import userImage from "../../../assets/images/user.png";
+import { Preloader } from "../../../components/common/Preloader/Preloader";
+import { startDialog } from "../../../store/reducers/dialogsReducer";
 import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import { getAuthUserId } from "../../../store/selectors/authSelector";
 import { TSetProfileData, TUserProfile } from "../../../types/types";
 import { EditProfile } from "./EditProfile/EditProfile";
-import { Preloader } from "../../../components/common/Preloader/Preloader";
+import { SendMessage } from "./SendMessage/SendMessage";
 import { SocialLinks } from "./SocialsLinks/SocialLinks";
-import { UserPhoto } from "./UserPhoto/UserPhoto";
 import { StatusInput } from "./StatusInput/StatusInput";
-import userImage from "../../../assets/images/user.png";
+import { UserPhoto } from "./UserPhoto/UserPhoto";
 import styles from "./UserProfile.module.css";
 
 export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, lookingForAJobDescription, fullName, userId, photos }) => {
@@ -94,6 +97,9 @@ export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, loo
                     && <div className={editActive ? styles.formWrapper : styles.hideEditProfile }>
                         <EditProfile handleEditProfileSubmit={handleEditProfileSubmit} />
                     </div>}
+                <div className={styles.startDialog}>
+                    <SendMessage userId={userId} isOwner={isOwner} />
+                </div>
             </div>
 
             <UserPhoto photo={photos.large} modalActive={modalActive} setModalActive={setModalActive} />

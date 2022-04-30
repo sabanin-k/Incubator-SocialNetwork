@@ -1,20 +1,39 @@
-import React, { ComponentType, FC } from "react";
+import React, { ComponentType, FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { compose } from "redux";
-import {InputField} from "./InputField/InputField";
-import {DialogItem} from "./DialogItem/DialogItem";
-import {DialogMessage} from "./DialogMessage/DialogMessage";
 import withNavigateToLogin from "../../hoc/withNavigateToLogin";
-import s from './Dialogs.module.css';
+import { getDialogsOpponents } from "../../store/reducers/dialogsReducer";
+import { getUserProfileThunk } from "../../store/reducers/userProfileReducer";
+import { getAuthUserId } from "../../store/selectors/authSelector";
+import { getCurrentOpponentSelector, getOpponentMessagesSelector, getOpponentsSelector } from "../../store/selectors/dialogsSelector";
+import { getUserProfile } from "../../store/selectors/userProfileSelector";
+import { InputField } from "./InputField/InputField";
+import { Messages } from "./Messages/Messages";
+import { Opponents } from "./Opponents/Opponents";
+import styles from './Dialogs.module.css';
 
 const Dialogs: FC = () => {
+    const dispatch = useDispatch()
+    const authProfile = useSelector(getUserProfile)
+    const currentOpponent = useSelector(getCurrentOpponentSelector)
+    const messages = useSelector(getOpponentMessagesSelector)
+    const opponents = useSelector(getOpponentsSelector)
+    const authId = useSelector(getAuthUserId)
+    useEffect(() => {
+        dispatch(getDialogsOpponents())
+        dispatch(getUserProfileThunk(authId))
+    }, [])
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogList}>
-                <DialogItem />
+        <div className={styles.dialogs}>
+            <div className={styles.dialogList}>
+                <Opponents  opponents={opponents} />
             </div>
-            <div className={s.messages}>
-                <DialogMessage />
-                <InputField />
+            <div className={styles.messages}>
+                <Messages messages={messages}
+                    currentOpponent={currentOpponent}
+                    authProfile={authProfile} 
+                    />
+                <InputField currentOpponent={currentOpponent} />
             </div>
         </div>
     )

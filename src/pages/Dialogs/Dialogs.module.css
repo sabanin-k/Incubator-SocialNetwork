@@ -1,12 +1,10 @@
 .dialogs {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-gap: 10px;
-
+    display: flex;
     color: var(--font-grey);
 }
 
 .dialogList {
+    width: 200px;
     margin-left: 20px;
     margin-top: 20px;
 }

@@ -1,0 +1,45 @@
+.wrapper {
+    height: 60vh;
+    flex-grow: 1;
+    padding: 20px;
+    background-color: var(--bg-header);
+    border-radius: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.messageWrapper {
+    padding: 5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 25vw;
+}
+
+.message {
+    margin: 0;
+    padding: 0;
+}
+
+
+.photo {
+    margin-top: 5px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.senderName {
+    margin: 0;
+    padding: 0;
+    color: var(--font-grey-disactive);
+    font-size: 12px;
+}
+
+.chooseOpponent {
+    width: 500px;
+    color: var(--font-grey-disactive);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30vh;
+}
