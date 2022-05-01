@@ -1,18 +1,11 @@
 import React, { FC } from "react";
 import { TOpponent, TOpponentMessages } from "../../../api/dialogsAPI";
 import { TUserProfile } from "../../../types/types";
+import { lineBreaker } from "../../../helpers/lineBreaker";
 import userImage from '../../../assets/images/user.png';
 import styles from './Messages.module.css';
 
-export const Messages: FC<TProps> = ({ messages, currentOpponent, authProfile }) => {
-
-    const messageBr = (message: string) => {
-        if(message.length < 30) {
-            return message
-        } else {
-            return `${message.slice(0, 30)} \n ${messageBr(message.slice(30))}`
-        }
-    }
+export const Messages: FC<TProps> = ({ messages, currentOpponent, authProfile }) => {   
 
     return <div className={styles.wrapper}>
         {currentOpponent.id
@@ -30,7 +23,7 @@ export const Messages: FC<TProps> = ({ messages, currentOpponent, authProfile })
                     </div>
                     <div>
                         <p className={styles.senderName}>{m.senderName}</p>
-                        <p className={styles.message}>{messageBr(m.body)}</p>
+                        <p className={styles.message}>{lineBreaker(m.body, 30)}</p>
                     </div>
                 </div>
             })

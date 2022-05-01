@@ -2,6 +2,7 @@ import React, { FC, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TMessages } from '../../../api/wsAPI'
 import userImage from '../../../assets/images/user.png'
+import { lineBreaker } from '../../../helpers/lineBreaker'
 import styles from './Messages.module.css'
 
 export const Messages: FC<TProps> = ({ messages }) => {

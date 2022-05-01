@@ -32,9 +32,11 @@
 }
 
 .message {
+    max-width: 450px;
     margin: 0;
     padding: 0;
-    color: var(--font-grey)
+    color: var(--font-grey);
+    overflow-wrap: break-word;
 }
 
 .plug {

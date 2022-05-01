@@ -11,6 +11,7 @@ export const SendMessage: FC<TProps> = ({ userId, isOwner }) => {
     }
     const handleClick = () => {
         dispatch(sendMessage(userId, value))
+        setValue('')
     }
 
     return (
