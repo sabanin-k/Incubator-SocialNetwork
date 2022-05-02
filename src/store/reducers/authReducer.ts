@@ -5,6 +5,7 @@ import { TReturnActionType } from "../reduxStore"
 const SET_AUTH_USER_DATA = 'auth/SET-AUTH-USER-DATA'
 const SET_AUTH_ERROR = 'auth/SET-AUTH-ERROR'
 const SET_CAPTCHA = 'auth/SET-CAPTCHA'
+const TOGGLE_NAV_MENU = 'auth/TOGGLE-NAV-MENU'
 
 const initialState = {
     id: null as number | null,
@@ -12,7 +13,8 @@ const initialState = {
     login: null as string | null,
     isLogged: false,
     errorMessage: null as string[] | null,
-    captchaURL: null as string | null
+    captchaURL: null as string | null,
+    isNavMenu: false
 }
 
 const authReducer = (state = initialState, action:TAuthAction):TState => {
@@ -32,6 +34,11 @@ const authReducer = (state = initialState, action:TAuthAction):TState => {
                 ...state,
                 captchaURL: action.captchaURL
             }
+        case TOGGLE_NAV_MENU:
+            return {
+                ...state,
+                isNavMenu: action.bool
+            }
         default:
             return state
     }
@@ -42,7 +49,8 @@ export const actionCreators = {
         { type: SET_AUTH_USER_DATA, payload: {id, email, login, isLogged}
     } as const),
     setAuthError: (errorMessage:string[]) => ({ type: SET_AUTH_ERROR, errorMessage } as const),   
-    setCaptcha: (captchaURL:string) => ({ type: SET_CAPTCHA, captchaURL } as const)
+    setCaptcha: (captchaURL:string) => ({ type: SET_CAPTCHA, captchaURL } as const),
+    toggleNavMenu: (bool: boolean) => ({ type: TOGGLE_NAV_MENU, bool } as const)
 }
 
 export const getAuthThunk = (): TThunkAction<TAuthAction> => async (dispatch) => {

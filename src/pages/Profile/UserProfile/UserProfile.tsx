@@ -1,9 +1,7 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import userImage from "../../../assets/images/user.png";
 import { Preloader } from "../../../components/common/Preloader/Preloader";
-import { startDialog } from "../../../store/reducers/dialogsReducer";
 import { setPhoto, setProfileDataThunk } from "../../../store/reducers/userProfileReducer";
 import { getAuthUserId } from "../../../store/selectors/authSelector";
 import { TSetProfileData, TUserProfile } from "../../../types/types";

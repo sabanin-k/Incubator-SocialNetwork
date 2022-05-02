@@ -15,7 +15,7 @@ export const UpButton: FC = () => {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [])  
+    }, [])
 
     const handleClick = () => {
         window.scrollTo({
@@ -24,9 +24,9 @@ export const UpButton: FC = () => {
             behavior: 'smooth',
         });
     }
-    return (
-        <div className={styles.wrapper}>
+    return <>
+        {window.innerWidth > 600 && <div className={styles.wrapper}>
             {buttonState && <span className={`${styles.button} ${styles.show}`} onClick={handleClick}>Наверх</span>}
-        </div>
-    )
+        </div>}
+    </>
 }

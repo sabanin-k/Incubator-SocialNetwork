@@ -9,8 +9,8 @@ export const FriendsField: FC = () => {
     const friends = useSelector(getFriends)
     const totalFriends = useSelector(getTotalFriends)
 
-    const sixFriends = friends.slice(0, 6)
-    const friendRender = sixFriends.map((item) => {
+    const slicedFriends = window.innerWidth > 600 ? friends.slice(0, 6) : friends.slice(0, 4)
+    const friendRender = slicedFriends.map((item) => {
         return (
             <Link to={'/users/' + item.id} key={item.id} className={styles.link}>
                 <img className={styles.img} alt='ava' src={item.photos.small || userImage} width='50px' />
@@ -23,7 +23,7 @@ export const FriendsField: FC = () => {
         <section className={styles.friends}>
             <div  className={ styles.friendsHeaderWrap}>
                     <NavLink to='/friends' className={navData => navData.isActive ? styles.active : styles.friendsHeader}>
-                        <span>то шо друзья</span>
+                        <span>Друзья</span>
                         <span>{totalFriends}</span>
                     </NavLink>
             </div>

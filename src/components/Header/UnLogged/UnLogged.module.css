@@ -27,3 +27,22 @@
     text-decoration: none;
     color: var(--font-grey);
 }
+
+
+@media (max-width: 600px) {
+    .header {
+      width: 100vw;
+      margin-top: 0px;
+      border-radius: 0px;
+      height: 50px;
+      position: fixed;
+      z-index: 102;
+    }
+
+    .logo {
+        width: 25px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 25px;
+    }
+}

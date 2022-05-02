@@ -13,12 +13,14 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    width: 25vw;
 }
 
 .message {
+    width: 370px;
     margin: 0;
+    margin-right: 20px;
     padding: 0;
+    overflow-wrap: break-word;
 }
 
 
@@ -36,10 +38,21 @@
 }
 
 .chooseOpponent {
-    width: 500px;
+    width: 450px;
     color: var(--font-grey-disactive);
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 30vh;
+}
+
+
+@media (max-width: 600px) {
+    .wrapper {
+        height: 60vmax;
+    }
+
+    .message {
+        width: 75vw;
+    }
 }

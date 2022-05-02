@@ -26,18 +26,17 @@ const Dialogs: FC = () => {
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogList}>
-                <Opponents  opponents={opponents} />
+                <Opponents opponents={opponents} />
             </div>
             <div className={styles.messages}>
                 <Messages messages={messages}
                     currentOpponent={currentOpponent}
-                    authProfile={authProfile} 
-                    />
+                    authProfile={authProfile}
+                />
                 <InputField currentOpponent={currentOpponent} />
             </div>
         </div>
     )
-
 }
 
 export default compose<ComponentType>(

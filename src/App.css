@@ -17,12 +17,22 @@
 
 .App__main {
   grid-area: c;
-
-  /* background-color: var(--bg-content); */
-
   border-radius: 3px;
 }
 
 .active {
   color: var(--font-grey);
+}
+
+@media (max-width: 600px) {
+  .App {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .App__main {
+    margin-top: 60px;
+  }
 }

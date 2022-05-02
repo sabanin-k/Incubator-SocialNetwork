@@ -13,14 +13,14 @@ export const Opponents: FC<TProps> = ({ opponents }) => {
         dispatch(actionCreators.setCurrentOpponent(opponent))
     }
 
-    return <>
+    return <div className={styles.wrapper}>
         {opponents.map(o => {
-            return <div key={o.id} onClick={() => handleClick(o)} className={styles.wrapper}>
+            return <div key={o.id} onClick={() => handleClick(o)} className={styles.opponent}>
                 <img src={o.photos.small || userImage} alt={o.userName} className={styles.photo} width='30px' />
-                {o.userName}
+                <p className={styles.name}>{o.userName}</p>
             </div>
         })}
-    </>
+    </div>
 }
 
 

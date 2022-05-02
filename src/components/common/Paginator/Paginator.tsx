@@ -28,7 +28,7 @@ export const Paginator: FC<TProps> = ({ totalCount, pageSize, currentPage, setCu
     let rightSidePortionNumber = portionNumber * portionSize;
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <div className={styles.pagesWithButtons}>
                 <PageButton disableDepend={portionNumber === 1}
                     funcParametr={portionNumber - 1}

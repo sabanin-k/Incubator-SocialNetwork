@@ -20,3 +20,13 @@
 .hide {
     display: none;
 }
+
+
+@media (max-width: 600px) {
+    .photo {
+        width: 50vh;
+        height: 50vh;
+        margin-top: 20%;
+        border-radius: 10px;
+    }
+}

@@ -6,13 +6,13 @@
 
 .userProfile {
     margin-bottom: 10px;
-    background-color: var(--bg-content);
+    background-color: var(--bg-header);
     border-radius: 3px;
 }
 
 .posts {
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: var(--bg-content);
+    background-color: var(--bg-header);
     border-radius: 3px;
 }

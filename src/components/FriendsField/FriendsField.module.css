@@ -71,3 +71,41 @@
     justify-content: space-between;
     opacity: 1;
 }
+
+
+@media (max-width: 600px) {
+    .friends {
+        position: fixed;
+        top: 25vh;
+        left: 50vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* border: 1px solid red; */
+    }
+
+    .friendsWrapper {
+        width: 50vw;
+        margin: 0;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 5px;
+        
+    }
+
+    .friendsHeader {
+        background-color: var(--bg-content);
+        border-radius: 0;
+    }
+    
+    .link {
+        width: 25vw;
+        margin: 0;
+    }
+
+    .p {
+        width: 23vw;
+        overflow-wrap: break-word;
+    }
+}

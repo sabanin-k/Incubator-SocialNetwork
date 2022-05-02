@@ -8,7 +8,8 @@ let initialState = {
     login: null as string | null,
     isLogged: false,
     errorMessage: null as string[] | null,
-    captchaURL: null as string | null
+    captchaURL: null as string | null,
+    isNavMenu: false
 };
 
 beforeEach(() => {
@@ -18,7 +19,8 @@ beforeEach(() => {
         login: null,
         isLogged: false,
         errorMessage: null,
-        captchaURL: null
+        captchaURL: null,
+        isNavMenu: false
     }
 })
 
@@ -36,7 +38,8 @@ test('Reduce works right', () => {
         login: 'asasa',
         isLogged: true,
         errorMessage: null,
-        captchaURL: null
+        captchaURL: null,
+        isNavMenu: false
     })
 })
 

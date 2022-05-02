@@ -1,4 +1,4 @@
-.wrapper {
+.opponent {
     margin-bottom: 5px;
     display: flex;
     align-items: center;
@@ -11,4 +11,30 @@
 
 .photo {
     border-radius: 50%;
+}
+
+
+@media (max-width: 600px) {
+    .wrapper {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .opponent {
+        padding: 0;
+        gap: 5px;
+        width: 100px;
+        margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+        text-align: center;
+    }
+
+    .name {
+        width: 50px;
+        margin: 0;
+        font-size: 10px;
+        overflow-x: hidden;
+    }
 }

@@ -31,7 +31,7 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
       <div className="App">
         <Header />
         <Navigation />
-        <div className='App__main'>
+        <main className='App__main'>
           <Routes>
             <Route path='/' element={<Profile/>} />
             <Route path='profile' element={<Profile key='me' />} />
@@ -44,7 +44,7 @@ const App: FC<TProps> = ({ initialized, initialApp }) => {
             <Route path='friends' element={<FriendsContainer />}/>
             <Route path='*' element={<Page404 />} />
           </Routes>
-        </div>
+        </main>
       </div>
     </HashRouter>
   );
