@@ -26,8 +26,10 @@
 
 @media (max-width: 600px) {
     .wrapper {
+        height: auto;
         display: flex;
         align-items: baseline;
+        overflow-x: auto;
     }
 
     .opponent {

@@ -18,6 +18,7 @@ export const InputMessage: FC<TProps> = ({ handleSendMessage, connectStatus }) =
         const textarea = document.getElementById('textarea')
         textarea.addEventListener('keydown', keyListener)
         return () => textarea.removeEventListener('keydown', keyListener)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
     
     return <div className={styles.wrapper}>

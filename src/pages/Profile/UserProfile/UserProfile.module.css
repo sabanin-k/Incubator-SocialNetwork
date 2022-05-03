@@ -151,6 +151,14 @@ h2 {
     }
 
     .about {
+        text-align: left;
+    }
+
+    .name {
+        text-align: center;
+    }
+
+    .status {
         text-align: center;
     }
 }

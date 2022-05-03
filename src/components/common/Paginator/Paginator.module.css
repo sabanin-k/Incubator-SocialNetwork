@@ -10,7 +10,7 @@
     height: 20px;
     margin: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
@@ -83,10 +83,11 @@
     }
 
     .pageNumbersWrapper {
-        width: 70vw;
-    }
-
-    .pageNumbersWrapper {
-        gap: 2px
+        width: 77vw;
+        height: 30px;
+        margin: 0;
+        gap: 5px;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }

@@ -8,8 +8,8 @@ import ytLogo from "../../../../assets/images/contactLogos/youtube.png";
 import gitLogo from "../../../../assets/images/contactLogos/github.png";
 import styles from "./SocialLinks.module.css";
 
-export const SocialLinks: FC<TProps> = ({fb, web, vk, tw, inst, yt, git}) => {
-  return (<>
+export const SocialLinks: FC<TProps> = ({ fb, web, vk, tw, inst, yt, git }) => {
+  return <>
     {fb && <a href={fb} target='_blank' rel='noreferrer' className={styles.link}><img src={fbLogo} alt={fb} width='32px' /></a>}
     {web && <a href={web} target='_blank' rel='noreferrer' className={styles.link}><img src={webLogo} alt={web} width='32px' /></a>}
     {vk && <a href={vk} target='_blank' rel='noreferrer' className={styles.link}><img src={vkLogo} alt={vk} width='32px' /></a>}
@@ -19,7 +19,6 @@ export const SocialLinks: FC<TProps> = ({fb, web, vk, tw, inst, yt, git}) => {
     {git && <a href={git} target='_blank' rel='noreferrer' className={styles.link}><img src={gitLogo} alt={git} width='32px' /></a>}
     {!fb && !web && !vk && !tw && !inst && !yt && !git && <span className={styles.span}>Контактов не оставляет</span>}
   </>
-  )
 }
 
 

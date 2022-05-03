@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { TOpponent, TOpponentMessages } from "../../../api/dialogsAPI";
-import userImage from '../../../assets/images/user.png';
 import { TUserProfile } from "../../../types/types";
+import userImage from '../../../assets/images/user.png';
 import styles from './Messages.module.css';
 
 export const Messages: FC<TProps> = ({ messages, currentOpponent, authProfile }) => {

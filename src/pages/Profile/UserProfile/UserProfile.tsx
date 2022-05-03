@@ -44,7 +44,7 @@ export const UserProfile: FC<TProps> = ({ aboutMe, contacts, lookingForAJob, loo
 
             </div>
             <div className={styles.about}>
-                <h2>{fullName}</h2>
+                <h2 className={styles.name}>{fullName}</h2>
                 <div className={styles.status}>
                     <StatusInput />
                 </div>

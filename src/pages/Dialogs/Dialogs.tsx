@@ -22,6 +22,7 @@ const Dialogs: FC = () => {
     useEffect(() => {
         dispatch(getDialogsOpponents())
         dispatch(getUserProfileThunk(authId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <div className={styles.dialogs}>
