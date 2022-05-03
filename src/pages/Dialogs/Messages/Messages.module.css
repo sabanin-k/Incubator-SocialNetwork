@@ -1,5 +1,5 @@
 .wrapper {
-    height: 60vh;
+    height: 600px;
     flex-grow: 1;
     padding: 20px;
     background-color: var(--bg-header);

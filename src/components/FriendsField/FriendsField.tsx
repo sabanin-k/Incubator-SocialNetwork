@@ -9,7 +9,7 @@ export const FriendsField: FC = () => {
     const friends = useSelector(getFriends)
     const totalFriends = useSelector(getTotalFriends)
 
-    const slicedFriends = window.innerWidth > 600 ? friends.slice(0, 6) : friends.slice(0, 4)
+    const slicedFriends = friends.slice(0, 6)
     const friendRender = slicedFriends.map((item) => {
         return (
             <Link to={'/users/' + item.id} key={item.id} className={styles.link}>

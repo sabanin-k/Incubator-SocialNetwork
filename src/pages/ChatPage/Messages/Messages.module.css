@@ -7,6 +7,14 @@
     overflow-x: hidden;
     padding-bottom: 5px;
 }
+.messages::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgb(46, 46, 46);
+}
+.messages::-webkit-scrollbar-thumb {
+    background-color: #535353;
+    border-radius: 3px;
+}
 
 .wrapper {
     margin-top: 10px;

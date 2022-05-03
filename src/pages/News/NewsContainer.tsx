@@ -1,16 +1,19 @@
 import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
-import { getNewsThunk, getContent } from '../../store/reducers/newsReducer';
-import News from './News';
+import { TNews } from "../../api/newsAPI";
 import { Preloader } from "../../components/common/Preloader/Preloader";
-import { getHasContent, getIsFetching, getNews } from "../../store/selectors/newsSelector";
-import { TArticle } from "../../api/apiNews";
+import { getContent, getNewsThunk } from '../../store/reducers/newsReducer';
+import { TGlobalState } from "../../store/reduxStore";
+import { getHasContent, getIsFetching, getNews, getNextPageSelector, getScrollFetchingSelector } from "../../store/selectors/newsSelector";
+import News from './News';
 
-const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent, getContent }) => {
+const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent, getContent, nextPage, scrollFetching }) => {
     useEffect(() => {
-        getNewsThunk()
+        if (scrollFetching) {
+            getNewsThunk(nextPage)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [scrollFetching])
 
     return (
         <>
@@ -24,10 +27,12 @@ const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent,
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: TGlobalState) => ({
     news: getNews(state),
     isFetching: getIsFetching(state),
-    hasContent: getHasContent(state)
+    hasContent: getHasContent(state),
+    nextPage: getNextPageSelector(state),
+    scrollFetching: getScrollFetchingSelector(state)
 })
 
 export default connect(mapStateToProps, { getNewsThunk, getContent })(NewsContainer);
@@ -35,8 +40,10 @@ export default connect(mapStateToProps, { getNewsThunk, getContent })(NewsContai
 
 type TProps = {
     isFetching: boolean
-    news: TArticle[]
+    news: TNews[]
     hasContent: string[]
+    nextPage: number
+    scrollFetching: boolean
     getContent: () => void
-    getNewsThunk: () => void
+    getNewsThunk: (page: number) => Promise<void>
 }

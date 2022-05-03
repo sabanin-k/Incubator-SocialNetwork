@@ -83,7 +83,7 @@
     display: block;
     position: absolute;
     width: 40vw;
-    bottom: -90vmax;
+    top: 90vmax;
     right: 0;
     z-index: 101;
     margin-right: 20px;

@@ -1,10 +1,24 @@
-import React, { FC } from "react";
-import { TArticle } from "../../api/apiNews";
+import React, { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { TNews } from "../../api/newsAPI";
 import newspaper from "../../assets/images/newspaper.png";
-import {UpButton} from "../../components/common/UpButton/UpButton";
+import { UpButton } from "../../components/common/UpButton/UpButton";
+import { actionCreators } from "../../store/reducers/newsReducer";
 import styles from "./News.module.css";
 
 const News: FC<TProps> = ({ news, hasContent, getContent }) => {
+    const dispatch = useDispatch()
+    const scrollHandler = (e: any ) => {
+        if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+            dispatch(actionCreators.setScrollFetching(true))
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('scroll', scrollHandler)
+        return () => document.removeEventListener('scroll', scrollHandler)
+    }, [])
+
     const showContent = (content: string) => {
         return (
             <p>{content}</p>
@@ -28,17 +42,17 @@ const News: FC<TProps> = ({ news, hasContent, getContent }) => {
             <section className={styles.newsSection}>
                 {news.map(item => {
                     return (
-                        <a key={Math.random()} href={item.url} className={styles.link} target='_blank' rel='noreferrer'>
+                        <a key={item.link} href={item.link} className={styles.link} target='_blank' rel='noreferrer'>
                             {/* <div className={styles.imgDiv}> */}
-                            <img src={item.urlToImage || newspaper} alt="news" width='200px' className={styles.img} />
+                            <img src={item.image_url || newspaper} alt="news" className={styles.img} />
                             {/* </div> */}
                             <div className={styles.textDiv}>
                                 <p className={styles.phrase}>{item.title}</p>
-                                <span className={styles.calendarData}>{item.publishedAt}</span>
+                                <span className={styles.calendarData}>{item.pubDate}</span>
                                 <div className={styles.content}>
-                                    {item.description !== null && (!hasContent.includes(item.url)
-                                        ? toggleContent(item.url, '', 'Показать')
-                                        : toggleContent(item.url, item.description, 'Убрать'))}
+                                    {item.description !== null && (!hasContent.includes(item.link)
+                                        ? toggleContent(item.link, '', 'Показать')
+                                        : toggleContent(item.link, item.description, 'Убрать'))}
                                         
                                 </div>
                             </div>
@@ -54,7 +68,7 @@ export default News;
 
 
 type TProps = {
-    news: TArticle[]
+    news: TNews[]
     hasContent: string[]
     getContent: (id: string) => void
 }
