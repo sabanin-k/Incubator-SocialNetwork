@@ -64,4 +64,8 @@
     .message {
         width: 70vw;
     }
+
+    .plug {
+        height: 75vmax;
+    }
 }

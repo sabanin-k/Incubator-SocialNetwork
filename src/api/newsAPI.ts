@@ -7,7 +7,7 @@ const apiKey = '&apikey=pub_7040e5f1e34185e51d84adbe2b36c5de92bb'
 
 export const newsAPI = {
     async getNews(page: number) {
-        const response = await instance.get<TNewsData>(`news?country=ru${apiKey}&page=${page}`);
+        const response = await instance.get<TNewsData>(`news?country=ru${apiKey}&category=technology&page=${page}`);
         return response.data;
     }
 }

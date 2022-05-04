@@ -34,7 +34,7 @@
 
     .opponent {
         padding: 0;
-        gap: 5px;
+        gap: 0px;
         width: 100px;
         margin-bottom: 5px;
         display: flex;
@@ -44,9 +44,12 @@
     }
 
     .name {
-        width: 50px;
+        width: 55px;
         margin: 0;
+        margin-left: 2px;
+        margin-right: 2px;
         font-size: 10px;
+        text-overflow: ellipsis;
         overflow-x: hidden;
     }
 }

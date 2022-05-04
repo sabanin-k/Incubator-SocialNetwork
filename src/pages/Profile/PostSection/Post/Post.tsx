@@ -1,12 +1,15 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../../../../store/reducers/profileReducer";
+import { actionCreators, getPost } from "../../../../store/reducers/profileReducer";
 import { TGlobalState } from "../../../../store/reduxStore";
 import styles from './Post.module.css'
 
 export const Post: FC = () => {
     const posts = useSelector((state: TGlobalState) => state.profilePage.posts)
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getPost())
+    }, [])
     return <>
         {posts.map(item => {
             let likesClasses = styles.likesCount;

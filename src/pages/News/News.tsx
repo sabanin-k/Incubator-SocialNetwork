@@ -17,6 +17,7 @@ const News: FC<TProps> = ({ news, hasContent, getContent }) => {
     useEffect(() => {
         document.addEventListener('scroll', scrollHandler)
         return () => document.removeEventListener('scroll', scrollHandler)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const showContent = (content: string) => {
