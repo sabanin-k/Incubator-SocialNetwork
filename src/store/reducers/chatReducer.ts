@@ -9,7 +9,8 @@ const CONNECT_STATUS_CHANGED = 'chat/CONNECT-STATUS-CHANGED'
 
 const initialState = {
     messages: [] as TMessages[],
-    connectStatus: 'connecting' || 'OK' as TStatus
+    connectStatus: 'connecting' || 'OK' as TStatus,
+    isFetching: true
 }
 
 const chatReducer = (state = initialState, action: TAction): TState => {
@@ -17,12 +18,14 @@ const chatReducer = (state = initialState, action: TAction): TState => {
         case MESSAGES_RECEIVED:
             return {
                 ...state,
-                messages: [...state.messages, ...action.messages]
+                messages: [...state.messages, ...action.messages],
+                isFetching: false
             } 
         case MESSAGES_REMOVED:
             return {
                 ...state,
-                messages: []
+                messages: [],
+                isFetching: true
             }
         case CONNECT_STATUS_CHANGED:
             return {
