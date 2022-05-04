@@ -28,6 +28,7 @@
 }
 
 .photo {
+    margin-top: 3px;
     border-radius: 50%;
 }
 
@@ -66,6 +67,6 @@
     }
 
     .plug {
-        height: 75vmax;
+        width: 70vw;
     }
 }

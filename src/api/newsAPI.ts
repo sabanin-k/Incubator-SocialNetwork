@@ -6,8 +6,8 @@ const instance = axios.create({
 const apiKey = '&apikey=pub_7040e5f1e34185e51d84adbe2b36c5de92bb'
 
 export const newsAPI = {
-    async getNews(page: number) {
-        const response = await instance.get<TNewsData>(`news?country=ru${apiKey}&category=technology&page=${page}`);
+    async getNews(page: number, categories?: TCategory[]) {
+        const response = await instance.get<TNewsData>(`news?country=ru${apiKey}&category=${categories.join()}&page=${page}`);
         return response.data;
     }
 }
@@ -35,3 +35,5 @@ export type TNews = {
     category: null | string[]
     language: null | string
 }
+
+export type TCategory = 'sports' | 'technology' | 'top'

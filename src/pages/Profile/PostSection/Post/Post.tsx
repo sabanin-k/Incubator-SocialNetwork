@@ -9,7 +9,7 @@ export const Post: FC = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getPost())
-    }, [])
+    }, [dispatch])
     return <>
         {posts.map(item => {
             let likesClasses = styles.likesCount;

@@ -1,15 +1,17 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TNews } from "../../api/newsAPI";
-import newspaper from "../../assets/images/newspaper.png";
 import { UpButton } from "../../components/common/UpButton/UpButton";
 import { actionCreators } from "../../store/reducers/newsReducer";
+import { NewsCategories } from "./NewsCategories/NewsCategories";
+import newsImage from "../../assets/images/news.png";
 import styles from "./News.module.css";
 
 const News: FC<TProps> = ({ news, hasContent, getContent }) => {
     const dispatch = useDispatch()
+
     const scrollHandler = (e: any ) => {
-        if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+        if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 200) {
             dispatch(actionCreators.setScrollFetching(true))
         }
     }
@@ -41,15 +43,16 @@ const News: FC<TProps> = ({ news, hasContent, getContent }) => {
     return (
         <>
             <section className={styles.newsSection}>
+                <NewsCategories />
                 {news.map(item => {
                     return (
                         <a key={item.link} href={item.link} className={styles.link} target='_blank' rel='noreferrer'>
-                            {/* <div className={styles.imgDiv}> */}
-                            <img src={item.image_url || newspaper} alt="news" className={styles.img} />
-                            {/* </div> */}
+                            {item.image_url !== null
+                            ? <img src={item.image_url} alt="news" className={styles.img} />
+                            : <img src={newsImage} alt="news" className={styles.imgPlug} />}
                             <div className={styles.textDiv}>
                                 <p className={styles.phrase}>{item.title}</p>
-                                <span className={styles.calendarData}>{item.pubDate}</span>
+                                <span className={styles.calendarData}>{item.pubDate.slice(0, item.pubDate.length - 3)}</span>
                                 <div className={styles.content}>
                                     {item.description !== null && (!hasContent.includes(item.link)
                                         ? toggleContent(item.link, '', 'Показать')

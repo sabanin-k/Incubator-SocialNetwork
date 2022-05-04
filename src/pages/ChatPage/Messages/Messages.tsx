@@ -41,7 +41,7 @@ export const Messages: FC<TProps> = ({ messages }) => {
                             </Link>
                         </div>
                         <div className={styles.messageWrapper}>
-                            <b className={styles.name}>{m.userName}</b>
+                            <p className={styles.name}>{m.userName}</p>
                             <p className={styles.message}>{m.message}</p>
                         </div>
                     </div>

@@ -1,19 +1,23 @@
 import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
-import { TNews } from "../../api/newsAPI";
+import { TCategory, TNews } from "../../api/newsAPI";
 import { Preloader } from "../../components/common/Preloader/Preloader";
-import { getContent, getNewsThunk } from '../../store/reducers/newsReducer';
+import { getContent, getNewsByCategory, getNewsThunk } from '../../store/reducers/newsReducer';
 import { TGlobalState } from "../../store/reduxStore";
-import { getHasContent, getIsFetching, getNews, getNextPageSelector, getScrollFetchingSelector } from "../../store/selectors/newsSelector";
+import { getCategoriesSelector, getHasContent, getIsFetching, getNews, getNextPageSelector, getScrollFetchingSelector } from "../../store/selectors/newsSelector";
 import News from './News';
 
-const NewsContainer: FC<TProps> = ({ getNewsThunk, isFetching, news, hasContent, getContent, nextPage, scrollFetching }) => {
+const NewsContainer: FC<TProps> = ({ getNewsThunk, getNewsByCategory, isFetching, news, hasContent, getContent, nextPage, scrollFetching, categories }) => {
     useEffect(() => {
         if (scrollFetching) {
-            getNewsThunk(nextPage)
+            getNewsThunk(nextPage, categories)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scrollFetching])
+
+    useEffect(() => {
+        getNewsByCategory(categories)
+    }, [categories, getNewsByCategory])
 
     return (
         <>
@@ -32,10 +36,11 @@ const mapStateToProps = (state: TGlobalState) => ({
     isFetching: getIsFetching(state),
     hasContent: getHasContent(state),
     nextPage: getNextPageSelector(state),
-    scrollFetching: getScrollFetchingSelector(state)
+    scrollFetching: getScrollFetchingSelector(state),
+    categories: getCategoriesSelector(state)
 })
 
-export default connect(mapStateToProps, { getNewsThunk, getContent })(NewsContainer);
+export default connect(mapStateToProps, { getNewsThunk, getContent, getNewsByCategory })(NewsContainer);
 
 
 type TProps = {
@@ -44,6 +49,8 @@ type TProps = {
     hasContent: string[]
     nextPage: number
     scrollFetching: boolean
+    categories: TCategory[]
     getContent: () => void
-    getNewsThunk: (page: number) => Promise<void>
+    getNewsThunk: (page: number, categories: TCategory[]) => Promise<void>
+    getNewsByCategory: (categories: TCategory[]) => Promise<void>
 }

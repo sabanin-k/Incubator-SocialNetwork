@@ -30,7 +30,16 @@
     width: 200px;
     margin-left: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 3px;
+}
+
+.imgPlug {
+    width: 100px;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 10px;
 }
 
 .textDiv {
@@ -69,6 +78,11 @@
 
     .img {
         width: 200px;
+    }
+
+    .imgPlug {
+        margin-top: 10px;
+        margin-left: 8px;
     }
 
     .textDiv {
