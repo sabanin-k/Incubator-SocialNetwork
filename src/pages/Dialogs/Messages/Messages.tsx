@@ -9,7 +9,7 @@ export const Messages: FC<TProps> = ({ messages, currentOpponent, authProfile })
     const divRef = useRef(null)
 
     const scrollToBottom = () => {
-        divRef.current?.scrollIntoView({ block: 'end' })
+        divRef.current?.scrollIntoView(true)
     }
 
     useEffect(() => {

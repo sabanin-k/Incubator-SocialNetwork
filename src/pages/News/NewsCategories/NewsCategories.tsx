@@ -4,6 +4,8 @@ import { actionCreators } from '../../../store/reducers/newsReducer'
 import { getCategoriesSelector } from '../../../store/selectors/newsSelector'
 import styles from './NewsCategories.module.css'
 
+// HARDCODE ALERT! :)
+
 export const NewsCategories = () => {
     const dispatch = useDispatch()
     const categoriesRedux = useSelector(getCategoriesSelector)

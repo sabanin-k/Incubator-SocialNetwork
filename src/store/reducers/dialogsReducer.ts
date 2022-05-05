@@ -5,7 +5,6 @@ import { TReturnActionType } from '../reduxStore'
 const GET_OPPONENTS = 'dialogs/GET-OPPONENTS'
 const GET_DIALOG_WITH_OPPONENT = 'dialogs/GET-DIALOG-WITH-OPPONENT'
 const SET_CURRENT_OPPONENT_ID = 'dialogs/SET-CURRENT-OPPONENT-ID'
-const SEND_MESSAGE = 'dialogs/SEND-MESSAGE'
 
 const initialState = {
     opponents: [] as TOpponent[],
@@ -47,7 +46,7 @@ export const getDialogsOpponents = (): TThunk => async (dispatch) => {
 }
 
 export const getDialogWithOpponent = (userId: number): TThunk => async (dispatch) => {    
-    const data = await dialogsAPI.getDialogWithOpponent(userId)
+    const data = await dialogsAPI.getDialogWithOpponent(userId, 1, 20)
     dispatch(actionCreators.getDialogWithOpponent(data.items))
 }
 
