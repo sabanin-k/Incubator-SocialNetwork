@@ -5,31 +5,24 @@ import userImage from '../../../assets/images/user.png'
 import styles from './Messages.module.css'
 
 export const Messages: FC<TProps> = ({ messages }) => {
-    const [scrollActive, setScrollActive] = useState(true)
     const divRef = useRef(null)
     const scrollRef = useRef(null)
 
     // НИ ЭТОТ, НИ ВТОРОЙ СКРОЛЛЫ НЕ СПУСКАЮТСЯ ДО САМОГО НИЗА И ОНИ МЕНЯ ЗАЕБАЛИ УЖЕ. ПОШЕЛ НАХУЙ, СКРОЛЛ!
-    // const scrollToBottom = () => {
-    //     divRef.current?.scrollIntoView({ block: 'end' })
-    // }
     const scrollToBottom = () => {
-        const scrolledDiv = document.getElementById('scrolledDiv')
-        scrolledDiv.scrollTo({ top: scrolledDiv.scrollHeight })
+        divRef.current?.scrollIntoView({ block: 'end' })
     }
-    const handleScroll = () => {
-        scrollRef.current.scrollHeight - scrollRef.current.scrollTop > 680
-            ? setScrollActive(false)
-            : setScrollActive(true)
-    }
+    // const scrollToBottom = () => {
+    //     const scrolledDiv = document.getElementById('scrolledDiv')
+    //     scrolledDiv.scrollTo({ top: scrolledDiv.scrollHeight })
+    // }
 
     useEffect(() => {
-        if (scrollActive) scrollToBottom()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [messages, scrollActive])
+        scrollToBottom()
+    }, [messages])
 
     return <>
-        <div className={styles.messages} onScroll={handleScroll} ref={scrollRef} id='scrolledDiv'>
+        <div className={styles.messages} ref={scrollRef} id='scrolledDiv'>
             {messages !== null && messages.length !== 0
                 ? messages.map((m, i) => {
                     return <div key={i} className={styles.wrapper}>
