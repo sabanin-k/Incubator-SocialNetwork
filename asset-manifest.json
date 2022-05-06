@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Incubator-SocialNetwork/static/css/main.49785cbf.css",
-    "main.js": "/Incubator-SocialNetwork/static/js/main.6b64ff59.js",
+    "main.js": "/Incubator-SocialNetwork/static/js/main.035a4a0f.js",
     "static/css/577.2b49dd11.chunk.css": "/Incubator-SocialNetwork/static/css/577.2b49dd11.chunk.css",
     "static/js/577.4a48be01.chunk.js": "/Incubator-SocialNetwork/static/js/577.4a48be01.chunk.js",
     "static/css/253.00f35527.chunk.css": "/Incubator-SocialNetwork/static/css/253.00f35527.chunk.css",
     "static/js/253.f58250d0.chunk.js": "/Incubator-SocialNetwork/static/js/253.f58250d0.chunk.js",
-    "static/css/423.f3290fd9.chunk.css": "/Incubator-SocialNetwork/static/css/423.f3290fd9.chunk.css",
-    "static/js/423.73714aed.chunk.js": "/Incubator-SocialNetwork/static/js/423.73714aed.chunk.js",
+    "static/css/423.a1802b3c.chunk.css": "/Incubator-SocialNetwork/static/css/423.a1802b3c.chunk.css",
+    "static/js/423.b8c88749.chunk.js": "/Incubator-SocialNetwork/static/js/423.b8c88749.chunk.js",
     "static/media/user.png": "/Incubator-SocialNetwork/static/media/user.33c53d9af9e71b2a663e.png",
     "static/media/sad.png": "/Incubator-SocialNetwork/static/media/sad.6ee8ed8b5b8cce256b27.png",
     "static/media/network.png": "/Incubator-SocialNetwork/static/media/network.423f5bde5b915a1482ee.png",
@@ -17,16 +17,16 @@
     "index.html": "/Incubator-SocialNetwork/index.html",
     "static/media/cross.svg": "/Incubator-SocialNetwork/static/media/cross.a2dd4c77c1f5d8154643.svg",
     "main.49785cbf.css.map": "/Incubator-SocialNetwork/static/css/main.49785cbf.css.map",
-    "main.6b64ff59.js.map": "/Incubator-SocialNetwork/static/js/main.6b64ff59.js.map",
+    "main.035a4a0f.js.map": "/Incubator-SocialNetwork/static/js/main.035a4a0f.js.map",
     "577.2b49dd11.chunk.css.map": "/Incubator-SocialNetwork/static/css/577.2b49dd11.chunk.css.map",
     "577.4a48be01.chunk.js.map": "/Incubator-SocialNetwork/static/js/577.4a48be01.chunk.js.map",
     "253.00f35527.chunk.css.map": "/Incubator-SocialNetwork/static/css/253.00f35527.chunk.css.map",
     "253.f58250d0.chunk.js.map": "/Incubator-SocialNetwork/static/js/253.f58250d0.chunk.js.map",
-    "423.f3290fd9.chunk.css.map": "/Incubator-SocialNetwork/static/css/423.f3290fd9.chunk.css.map",
-    "423.73714aed.chunk.js.map": "/Incubator-SocialNetwork/static/js/423.73714aed.chunk.js.map"
+    "423.a1802b3c.chunk.css.map": "/Incubator-SocialNetwork/static/css/423.a1802b3c.chunk.css.map",
+    "423.b8c88749.chunk.js.map": "/Incubator-SocialNetwork/static/js/423.b8c88749.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.49785cbf.css",
-    "static/js/main.6b64ff59.js"
+    "static/js/main.035a4a0f.js"
   ]
 }
