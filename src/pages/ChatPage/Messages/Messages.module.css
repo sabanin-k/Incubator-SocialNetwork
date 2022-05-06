@@ -28,6 +28,7 @@
 }
 
 .photo {
+    width: 30px;
     margin-top: 3px;
     border-radius: 50%;
 }

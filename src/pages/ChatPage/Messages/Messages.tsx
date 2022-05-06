@@ -8,6 +8,8 @@ export const Messages: FC<TProps> = ({ messages }) => {
     const divRef = useRef(null)
 
     // НИ ЭТОТ, НИ ВТОРОЙ СКРОЛЛЫ НЕ СПУСКАЮТСЯ ДО САМОГО НИЗА И ОНИ МЕНЯ ЗАЕБАЛИ УЖЕ. ПОШЕЛ НАХУЙ, СКРОЛЛ!
+    // UPD: Скролл ломался из-за размера аватарок, снизил с 50px до 30 - заработало
+    
     // const scrollToBottom = () => {
     //     divRef.current?.scrollIntoView({ block: 'end' })
     // }
@@ -28,8 +30,8 @@ export const Messages: FC<TProps> = ({ messages }) => {
                         <div className={styles.photoWrapper}>
                             <Link to={'/users/' + m.userId}>
                                 {m.photo
-                                    ? <img src={m.photo} alt={m.userName} width='50px' className={styles.photo} />
-                                    : <img src={userImage} alt={m.userName} width='50px' className={styles.photo} />}
+                                    ? <img src={m.photo} alt={m.userName} className={styles.photo} />
+                                    : <img src={userImage} alt={m.userName} className={styles.photo} />}
                             </Link>
                         </div>
                         <div className={styles.messageWrapper}>
