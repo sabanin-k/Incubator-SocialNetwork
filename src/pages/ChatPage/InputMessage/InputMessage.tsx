@@ -23,13 +23,14 @@ export const InputMessage: FC<TProps> = ({ handleSendMessage, connectStatus }) =
     
     return <div className={styles.wrapper}>
         <textarea value={value} onChange={handleChange} className={styles.textarea} placeholder='Начни писать...' id='textarea' />
-        <button disabled={connectStatus === 'connecting' || value.length === 0 } onClick={handleSend} className={styles.button}>
+        <button disabled={connectStatus === 'connecting' || value.length === 0 || value.length > 100 } onClick={handleSend} className={styles.button}>
             { connectStatus === 'connecting'
                 ? 'Загрузка...'
                 : value.length === 0
                     ? 'Пусто'
                     : 'Отправить' }
             </button>
+            {value.length > 100 && <div className={styles.warning}>Не больше 100 символов!</div> }
     </div>
 }
 

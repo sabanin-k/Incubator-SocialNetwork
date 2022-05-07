@@ -60,15 +60,19 @@ export const getAuthThunk = (): TThunkAction<TAuthAction> => async (dispatch) =>
 }
 
 export const loginThunk = (loginData: TLoginValues): TThunkAction<TAuthAction, void> => async (dispatch) => {
-    const data = await authAPI.login(loginData)
-    switch (data.resultCode) {
-        case 0:
-            return dispatch(getAuthThunk())
-        case 10:
-            const data = await authAPI.getCaptcha()
-            return dispatch(actionCreators.setCaptcha(data.url))
-        default:
-            return dispatch(actionCreators.setAuthError(data.messages))
+    try {
+        const data = await authAPI.login(loginData)
+        switch (data.resultCode) {
+            case 0:
+                return dispatch(getAuthThunk())
+            case 10:
+                const data = await authAPI.getCaptcha()
+                return dispatch(actionCreators.setCaptcha(data.url))
+            default:
+                return dispatch(actionCreators.setAuthError(data.messages))
+        }        
+    } catch (error) {
+        alert(error)
     }
 }
 
