@@ -36,3 +36,7 @@
 .cancelBtn {
     margin-left: 5px;
 }
+
+.error {
+    color: rgb(177, 49, 49);
+}

@@ -4,6 +4,7 @@ import { Preloader } from '../../components/common/Preloader/Preloader'
 import { sendMessage, startChatListener, stopChatListener } from '../../store/reducers/chatReducer'
 import { getIsLogged } from '../../store/selectors/authSelector'
 import { getChatConnectStatusSelector, getChatMessagesSelector, isFetchingSelector } from '../../store/selectors/chatSelector'
+import { Login } from '../Login/Login'
 import { InputMessage } from './InputMessage/InputMessage'
 import { Messages } from './Messages/Messages'
 
@@ -23,6 +24,7 @@ const ChatPage: FC = () => {
         }
     }, [dispatch])
 
+    if (!isLogged) return <Login />
     return (
         <>
             {isFetching
