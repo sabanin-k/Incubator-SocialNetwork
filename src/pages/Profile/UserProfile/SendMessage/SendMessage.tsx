@@ -31,7 +31,7 @@ export const SendMessage: FC<TProps> = ({ userId, isOwner }) => {
                         <button className={styles.cancelBtn} onClick={() => setTyping(false)}>✗</button>
                         {sendMessageError && <div>Что-то пошло не так</div> }
                     </div>
-                : sendMessageError 
+                : !sendMessageError 
                     ? <div>
                         <span className={styles.sended}>Отправлено!</span>
                         <Link to={'/dialogs'} className={styles.link}>Перейти в диалоги</Link>
